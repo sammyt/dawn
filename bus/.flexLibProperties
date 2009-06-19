@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="uk.co.ziazoo.IHandler"/>
+    <classEntry path="uk.co.ziazoo.INotificationBus"/>
+    <classEntry path="uk.co.ziazoo.NotificationBus"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

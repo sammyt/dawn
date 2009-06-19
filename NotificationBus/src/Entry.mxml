@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/halo" 
+	minWidth="1024" minHeight="768"
+	creationComplete="init()">
+	<fx:Script>
+		<![CDATA[
+			import com.example.app.NotificationLogger;
+			import com.example.app.ContactModel;
+			import com.example.app.ContactView;
+			import com.example.app.notifications.ContactRecievedWorker;
+			import com.example.app.notifications.ContactRequestWorker;
+			import com.example.app.notifications.IHandleContactRequest;
+			import com.example.app.notifications.IHandleContactRevieved;
+			
+			import uk.co.ziazoo.NotificationBus;
+			import uk.co.ziazoo.INotificationBus;
+			import uk.co.ziazoo.IHandler;
+			
+			private function init():void
+			{
+				var bus:INotificationBus = new NotificationBus();
+				bus.map( ContactRequestWorker, IHandleContactRequest );
+				bus.map( ContactRecievedWorker, IHandleContactRevieved );
+				
+				bus.addHandler( new NotificationLogger() );
+				
+				var view:ContactView = new ContactView();
+				var model:ContactModel = new ContactModel( bus );
+				
+				bus.addHandler( view );
+				
+				bus.trigger( new ContactRequestWorker( 12 ) );
+			}
+			
+		]]>
+	</fx:Script>
+</s:Application>
