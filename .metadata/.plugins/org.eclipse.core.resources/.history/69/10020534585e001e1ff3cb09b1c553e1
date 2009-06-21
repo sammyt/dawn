@@ -1,0 +1,16 @@
+package com.example
+{
+	public class Podium
+	{
+		[Inject]
+		public function Podium( speaker:ISpeaker )
+		{
+			speaker.speak( "omg, did that just work" );
+		}
+		
+		public function addThings( speaker:ISpeaker ):void
+		{
+			
+		}
+	}
+}

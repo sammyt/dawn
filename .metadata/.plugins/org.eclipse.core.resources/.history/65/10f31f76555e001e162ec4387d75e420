@@ -1,0 +1,9 @@
+package uk.co.ziazoo.injector
+{
+	import flash.utils.Dictionary;
+
+	public interface IMapper
+	{
+		function createMap(  ):void;
+	}
+}

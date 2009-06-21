@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ImportExportAction">
+		<item key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID" value="com.adobe.flexbuilder.exportimport.importWizards.ImportWizard"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="com.adobe.flexbuilder.importartwork.ui.importWizards.flex"/>
+		</list>
+	</section>
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="319"/>
+		<item key="DIALOG_Y_ORIGIN" value="29"/>
+	</section>
+	<section name="NewWizardAction">
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="com.adobe.flexbuilder.as.editor.interfaceWizard.flex"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="com.adobe.flexbuilder.project.ui.wizards.newWizards"/>
+		</list>
+	</section>
+</section>

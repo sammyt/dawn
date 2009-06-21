@@ -1,0 +1,10 @@
+package com.example
+{
+	public class Podium
+	{
+		[Inject]
+		public function Podium( speaker:ISpeaker )
+		{
+		}
+	}
+}

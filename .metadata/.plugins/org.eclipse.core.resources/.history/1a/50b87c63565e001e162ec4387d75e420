@@ -1,0 +1,10 @@
+package
+{
+	public class ProviderMappings implements IMapp
+	{
+		public function ProviderMappings()
+		{
+			
+		}
+	}
+}

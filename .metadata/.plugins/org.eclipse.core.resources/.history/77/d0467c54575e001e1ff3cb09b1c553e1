@@ -1,0 +1,9 @@
+package com.example
+{
+	public class Podium
+	{
+		public function Podium()
+		{
+		}
+	}
+}

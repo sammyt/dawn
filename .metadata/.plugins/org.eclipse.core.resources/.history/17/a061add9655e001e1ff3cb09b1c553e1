@@ -1,0 +1,57 @@
+package uk.co.ziazoo.injector
+{
+	import de.polygonal.ds.TreeNode;
+	
+	import flash.utils.describeType;
+	import flash.utils.getDefinitionByName;
+
+	public class ReflectionParser implements IParser, IMapper
+	{
+		private var _config:IMappingConfiguration;
+		private var _maps:Array;
+		
+		public function ReflectionParser( config:IMappingConfiguration )
+		{
+			_config = config;
+			_config.create( this );
+		}
+		
+		public function map( clazz:Class, provider:Class ):IMap
+		{
+			
+			return null;
+		}
+		
+		public function buildDependencyTree( entryPoint:Class ):void
+		{
+			var node:TreeNode = createNode( entryPoint );
+			trace( node );
+		}
+		
+		internal function createNode( clazz:Class, parent:TreeNode = null ):TreeNode
+		{
+			var node:TreeNode = new TreeNode( clazz, parent );
+			
+			for each( var accessor:XML in describeType( clazz ).factory.accessor )
+			{
+				if( accessor.hasOwnProperty( "metadata" ) )
+				{
+					for each( var metadata:XML in accessor.metadata )
+					{
+						if( metadata.@name )
+						{
+							createNode( getClass( accessor.@type ), node );
+						}
+					}
+				}
+			}
+			return node;
+		}
+		
+		internal function getClass( reflectedName:String ):Class
+		{
+			var name:String = reflectedName.replace( "::", "." );
+			return getDefinitionByName( name ) as Class;
+		}
+	}
+}

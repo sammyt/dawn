@@ -1,0 +1,9 @@
+package com.example.workers
+{
+	public class BaseFailureWorker
+	{
+		public function BaseFailureWorker()
+		{
+		}
+	}
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="absolute" minWidth="1024" minHeight="768"
+	creationComplete="creationCompleteHandler(event)">
+	
+	<mx:Script>
+		<![CDATA[
+			import uk.co.ziazoo.injector.IMappingConfiguration;
+			import mx.events.FlexEvent;
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				var config:IMappingConfiguration = new ProviderMappings();
+			}
+
+		]]>
+	</mx:Script>
+	
+</mx:Application>

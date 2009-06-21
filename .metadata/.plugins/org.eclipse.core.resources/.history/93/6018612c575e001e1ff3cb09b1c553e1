@@ -1,0 +1,10 @@
+package com.example
+{
+	public class Speaker implements ISpeaker;
+	{
+		public function speak( message:String ):void
+		{
+			trace( message );
+		}
+	}
+}

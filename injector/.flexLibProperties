@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="uk.co.ziazoo.injector.IMap"/>
+    <classEntry path="uk.co.ziazoo.injector.IMapper"/>
+    <classEntry path="uk.co.ziazoo.injector.IMappingConfiguration"/>
+    <classEntry path="uk.co.ziazoo.injector.ReflectionParser"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

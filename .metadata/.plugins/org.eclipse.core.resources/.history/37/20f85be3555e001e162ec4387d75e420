@@ -1,0 +1,9 @@
+package uk.co.ziazoo.injector
+{
+	public interface IMap
+	{
+		function getProvider( clazz:Class ):Class;
+		
+		function map( clazz:Class, provider:Class ):void
+	}
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="com.adobe.flexbuilder.feature.standalone.nl1:4.0.0.235740"/>
+		<item value="com.adobe.flexbuilder.feature.standalone:4.0.0.235740"/>
+		<item value="org.eclipse.cvs:1.1.0.v20080603-7C79E8M9EI99m9c9S"/>
+		<item value="org.eclipse.help:1.0.0.v20080603-7r7xEHJEJkZu5nE6Q4Qrtvu6JZ9L"/>
+		<item value="org.eclipse.platform:3.4.0.v20080610-9I96EhtEm-T_5LxIsybz-3MdGZmOA3uwv7Ka_M"/>
+		<item value="org.eclipse.rcp:3.4.0.v20080324a-989JERhEk-jWnd5IY8K5tjxB"/>
+	</list>
+	<section name="SaveAsDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="367"/>
+		<item key="DIALOG_HEIGHT" value="577"/>
+		<item key="DIALOG_FONT_NAME" value="1|Lucida Grande|11.0|0|CARBON|1|Lucida Grande"/>
+		<item key="DIALOG_Y_ORIGIN" value="5"/>
+		<item key="DIALOG_WIDTH" value="525"/>
+	</section>
+	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
+		<item key="History" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History&gt;&#x0A;&lt;historyRootNode&gt;&#x0A;&lt;infoNode path=&quot;/PeopleManager/src/com/example/model/Person.as&quot; type=&quot;1&quot;/&gt;&#x0A;&lt;/historyRootNode&gt;&#x0A;&lt;/History&gt;"/>
+		<item key="WorkingSet" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;workingSet isWindowWorkingSet=&quot;false&quot; workingSetName=&quot;&quot;/&gt;"/>
+		<item key="ShowDerived" value="false"/>
+		<item key="ShowStatusLine" value="true"/>
+		<section name="DialogBoundsSettings">
+			<item key="DIALOG_X_ORIGIN" value="329"/>
+			<item key="DIALOG_FONT_NAME" value="1|Lucida Grande|11.0|0|CARBON|1|Lucida Grande"/>
+			<item key="DIALOG_HEIGHT" value="500"/>
+			<item key="DIALOG_Y_ORIGIN" value="56"/>
+			<item key="DIALOG_WIDTH" value="600"/>
+		</section>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
+	<section name="CleanDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="434"/>
+		<item key="DIALOG_HEIGHT" value="360"/>
+		<item key="DIALOG_Y_ORIGIN" value="204"/>
+		<item key="TOGGLE_SELECTED" value="false"/>
+		<item key="DIALOG_WIDTH" value="484"/>
+	</section>
+	<section name="ResourceNavigator">
+		<item key="ResourceWorkingSetFilter.STORE_WORKING_SET" value=""/>
+		<item key="LINK_NAVIGATOR_TO_EDITOR" value="true"/>
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="336"/>
+		<item key="DIALOG_Y_ORIGIN" value="227"/>
+	</section>
+</section>

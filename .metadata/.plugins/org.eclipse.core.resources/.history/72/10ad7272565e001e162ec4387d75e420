@@ -1,0 +1,12 @@
+package
+{
+	import uk.co.ziazoo.injector.IMappingConfiguration;
+
+	public class ProviderMappings implements IMappingConfiguration
+	{
+		public function ProviderMappings()
+		{
+			
+		}
+	}
+}
