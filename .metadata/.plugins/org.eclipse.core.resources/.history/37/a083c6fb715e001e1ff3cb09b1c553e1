@@ -1,0 +1,204 @@
+package uk.co.ziazoo.injector
+{
+	import de.polygonal.ds.Iterator;
+	import de.polygonal.ds.TreeIterator;
+	import de.polygonal.ds.TreeNode;
+	
+	import flash.utils.describeType;
+
+	public class ReflectionParser implements IMapper, IBuilder
+	{
+		private var _config:IMappingConfiguration;
+		private var _maps:Array;
+		
+		public function ReflectionParser( config:IMappingConfiguration )
+		{
+			_config = config;
+			_maps = new Array();
+			_config.create( this );
+		}
+		
+		public function map( clazz:Class, provider:Class ):IMap
+		{
+			var map:IMap = new Map( clazz, provider );
+			_maps.push( map );
+			return map;
+		}
+	
+		public function getObject( entryPoint:Class ):Object
+		{
+			var node:TreeNode = createNode( entryPoint );
+			
+			TreeIterator.postorder( node, construct );
+			
+			return null;
+		}
+		
+		internal function construct( node:TreeNode ):void
+		{
+			var provider:Class = node.data as Class;
+			
+			var obj:Object = getInstance( provider );
+			
+			var itr:Iterator = node.children.getIterator();
+			
+			while( itr.hasNext() )
+			{
+				
+			}
+		}
+		
+		
+		internal function createNode( clazz:Class, parent:TreeNode = null ):TreeNode
+		{
+			var node:TreeNode = new TreeNode( clazz, parent );
+			
+			for each( var accessor:XML in describeType( clazz ).factory.accessor )
+			{
+				if( accessor.hasOwnProperty( "metadata" ) )
+				{
+					for each( var metadata:XML in accessor.metadata )
+					{
+						if( metadata.@name )
+						{
+							createNode( getClass( accessor.@type ), node );
+						}
+					}
+				}
+			}
+			return node;
+		}
+		
+		internal function getClass( reflectedName:String ):Class
+		{
+			return getProvider( reflectedName );
+		}
+		
+		internal function getProvider( clazzName:String ):Class
+		{
+			for each( var map:IMap in _maps )
+			{
+				if( map.clazzName == clazzName )
+				{
+					return map.provider;
+				}
+			}
+			return null;
+		}
+		
+		internal function getInstance( provider:Class ):Object
+		{
+			for each( var map:IMap in _maps )
+			{
+				if( map.providerName == describeType( provider ).@name )
+				{
+					return map.provideInstance();
+				}
+			}
+			return null;
+		}
+		
+		internal function getMap( providerName:String ):IMap
+		{
+			for each( var map:IMap in _maps )
+			{
+				if( map.providerName == providerName )
+				{
+					return map;
+				}
+			}
+			return null;
+		}
+	}
+}
+
+import uk.co.ziazoo.injector.IMap;
+import flash.utils.describeType;
+import flash.utils.Dictionary;
+
+class Map implements IMap
+{
+	private var _clazz:Class;
+	private var _provider:Class;
+	private var _singleton:Boolean;
+	private var _instance:Object;
+	
+	public function Map( clazz:Class, provider:Class, singleton:Boolean = false )
+	{
+		_clazz = clazz;
+		_provider = provider;
+		_singleton = singleton;
+	}
+	
+	public function get provider():Class
+	{
+		return _provider;
+	}
+	
+	public function get providerName():String
+	{
+		return describeType( _provider ).@name;
+	}
+	
+	public function get clazz():Class
+	{
+		return _clazz;
+	}
+	
+	public function get clazzName():String
+	{
+		return describeType( _clazz ).@name;
+	}
+	
+	public function get singleton():Boolean
+	{
+		return _singleton;
+	}
+		
+	public function provideInstance():Object
+	{
+		if( singleton && _instance )
+		{
+			return _instance;
+		}
+		else if( singleton )
+		{
+			_instance = new provider();
+			return _instance;
+		}
+		
+		return new provider();
+	}	
+}
+
+
+class Wrapper
+{
+	public var clazz:Class;
+	public var map:IMap;
+	public var accessors:Dictionary;
+	
+	public function Wrapper( clazz:Class, map:IMap )
+	{
+		this.map = map;
+		this.clazz = clazz;
+		accessors = new Dictionary();
+	}
+	
+	public function addAccessor( name:String, clazzName:String ):void
+	{
+		accessors[ clazzName ] = name;
+	}
+	
+	public function getAccessor( clazzName:String ):String
+	{
+		return accessors[ clazzName ] as String;
+	}
+}
+
+
+
+
+
+
+

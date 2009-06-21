@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="absolute" minWidth="1024" minHeight="768"
+	creationComplete="creationCompleteHandler(event)">
+	
+	<mx:Script>
+		<![CDATA[
+			import uk.co.ziazoo.injector.IBuilder;
+			import uk.co.ziazoo.injector.ReflectionParser;
+			import uk.co.ziazoo.injector.IMappingConfiguration;
+
+			import mx.events.FlexEvent;
+
+			import com.example.Podium;
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				var parser:IBuilder = new ReflectionParser( new MyConfig() );
+				var podium:Podium parser.getObject( Podium ) as Podium;
+				
+				trace( podium );
+				
+			}	
+
+		]]>
+	</mx:Script>
+	
+</mx:Application>

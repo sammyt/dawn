@@ -2,6 +2,7 @@ package
 {
 	import com.example.ISpeaker;
 	import com.example.Megaphone;
+	import com.example.Podium;
 	import com.example.Speaker;
 	
 	import uk.co.ziazoo.injector.IMapper;
@@ -18,6 +19,7 @@ package
 		{
 			mapper.map( ISpeaker, Speaker );
 			mapper.map( Megaphone, Megaphone );
+			mapper.map( Podium, Podium );
 		}
 	}
 }

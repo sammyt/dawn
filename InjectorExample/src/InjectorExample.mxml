@@ -17,8 +17,9 @@
 			protected function creationCompleteHandler(event:FlexEvent):void
 			{
 				var parser:IBuilder = new ReflectionParser( new MyConfig() );
-				parser.getObject( Podium );
+				var podium:Podium = parser.getObject( Podium ) as Podium;
 				
+				trace( podium );
 			}	
 
 		]]>

@@ -1,10 +1,10 @@
 package uk.co.ziazoo.injector
 {
-	import de.polygonal.ds.Iterator;
-	import de.polygonal.ds.TreeIterator;
+	import de.polygonal.ds.DListIterator;
 	import de.polygonal.ds.TreeNode;
 	
 	import flash.utils.describeType;
+	import flash.utils.getQualifiedClassName;
 
 	public class ReflectionParser implements IMapper, IBuilder
 	{
@@ -27,31 +27,35 @@ package uk.co.ziazoo.injector
 	
 		public function getObject( entryPoint:Class ):Object
 		{
-			var node:TreeNode = createNode( entryPoint );
-			
-			TreeIterator.postorder( node, construct );
-						
-			return null;
+			var node:TreeNode = createNode( getMapByClass( entryPoint ) );
+			return construct( node );;
 		}
 		
-		internal function construct( node:TreeNode ):void
+		internal function construct( node:TreeNode ):Object
 		{
-			var clazz:Class = node.data as Class;
-			var obj:* = new clazz();
+			var itr:DListIterator = node.children.getIterator() as DListIterator;
 			
-			var itr:Iterator = node.children.getIterator();
-			while( itr.hasNext() )
+			var map:IMap = node.data as IMap;
+			
+			var obj:Object = map.provideInstance(); 
+			
+			var children:Array = [];
+			
+			for ( ; itr.valid(); itr.forth() )
 			{
-				trace( "child", itr.next(), clazz );
+				var child:Object = construct( TreeNode( itr.data ) );
+				
+				obj[ map.getAccessor( getQualifiedClassName( child ) ) ] = child;
 			}
+			
+			return obj;
 		}
 		
-		
-		internal function createNode( clazz:Class, parent:TreeNode = null ):TreeNode
+		internal function createNode( map:IMap, parent:TreeNode = null ):TreeNode
 		{
-			var node:TreeNode = new TreeNode( clazz, parent );
+			var node:TreeNode = new TreeNode( map, parent );
 			
-			for each( var accessor:XML in describeType( clazz ).factory.accessor )
+			for each( var accessor:XML in describeType( map.provider ).factory.accessor )
 			{
 				if( accessor.hasOwnProperty( "metadata" ) )
 				{
@@ -59,7 +63,9 @@ package uk.co.ziazoo.injector
 					{
 						if( metadata.@name )
 						{
-							createNode( getClass( accessor.@type ), node );
+							var childMap:IMap = getMap( accessor.@type );
+							map.addAccessor( accessor.@name, childMap.providerName );
+							createNode( childMap, node );
 						}
 					}
 				}
@@ -67,42 +73,53 @@ package uk.co.ziazoo.injector
 			return node;
 		}
 		
-		internal function getClass( reflectedName:String ):Class
-		{
-			return getProvider( reflectedName );
-		}
-		
-		internal function getProvider( clazzName:String ):Class
+		internal function getMap( clazzName:String ):IMap
 		{
 			for each( var map:IMap in _maps )
 			{
 				if( map.clazzName == clazzName )
 				{
-					return map.provider;
+					return map;
 				}
 			}
 			return null;
+		}
+		
+		internal function getMapByClass( clazz:Class ):IMap
+		{
+			return getMap( getQualifiedClassName( clazz ) );
 		}
 	}
 }
 
 import uk.co.ziazoo.injector.IMap;
 import flash.utils.describeType;
+import flash.utils.Dictionary;
 
 class Map implements IMap
 {
 	private var _clazz:Class;
 	private var _provider:Class;
+	private var _singleton:Boolean;
+	private var _instance:Object;
+	private var _accessors:Dictionary;
 	
-	public function Map( clazz:Class, provider:Class )
+	public function Map( clazz:Class, provider:Class, singleton:Boolean = false )
 	{
 		_clazz = clazz;
 		_provider = provider;
+		_singleton = singleton;
+		_accessors = new Dictionary();
 	}
 	
 	public function get provider():Class
 	{
 		return _provider;
+	}
+	
+	public function get providerName():String
+	{
+		return describeType( _provider ).@name;
 	}
 	
 	public function get clazz():Class
@@ -113,8 +130,48 @@ class Map implements IMap
 	public function get clazzName():String
 	{
 		return describeType( _clazz ).@name;
+	}
+	
+	public function get singleton():Boolean
+	{
+		return _singleton;
+	}
+		
+	public function provideInstance():Object
+	{
+		trace( "provideInstance", provider );
+		if( singleton && _instance )
+		{
+			return _instance;
+		}
+		else if( singleton )
+		{
+			_instance = new provider();
+			return _instance;
+		}
+		
+		return new provider();
+	}
+	
+	public function addAccessor( name:String, clazzName:String ):void
+	{
+		_accessors[ clazzName ] = name;
+	}
+	
+	public function getAccessor( clazzName:String ):String
+	{
+		return _accessors[ clazzName ] as String;
+	}
+	
+	public function toString():String
+	{
+		return "[Map provider=" + provider + "]";
 	}	
 }
+
+
+
+
 
 
 

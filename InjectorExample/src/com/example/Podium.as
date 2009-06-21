@@ -2,6 +2,8 @@ package com.example
 {
 	public class Podium
 	{
+		private var _speaker:ISpeaker;
+		private var _megaphone:Megaphone;
 		
 		public function Podium()
 		{
@@ -11,7 +13,23 @@ package com.example
 		[Inject]
 		public function set speaker( speaker:ISpeaker ):void
 		{
-			speaker.speak( "omg, did that just work" );
+			_speaker = speaker;
+		}
+		
+		public function get speaker():ISpeaker
+		{
+			return _speaker;
+		}
+		
+		[Inject]
+		public function set megaphone( value:Megaphone ):void
+		{
+			_megaphone = value;
+		}
+		
+		public function get megaphone():Megaphone
+		{
+			return _megaphone;
 		}
 	}
 }

@@ -1,0 +1,35 @@
+package com.example
+{
+	public class Podium
+	{
+		private var _speaker:ISpeaker;
+		private var _megaphone:Megaphone;
+		
+		public function Podium()
+		{
+			
+		}
+		
+		[Inject]
+		public function set speaker( speaker:ISpeaker ):void
+		{
+			_speaker = speaker;
+		}
+		
+		public function get speaker():ISpeaker
+		{
+			return _speaker;
+		}
+		
+		[Inject]
+		public function set megaphone( speaker:Megaphone ):void
+		{
+			_megaphone = megaphone;
+		}
+		
+		public function get megaphone():Megaphone
+		{
+			return _megaphone;
+		}
+	}
+}
