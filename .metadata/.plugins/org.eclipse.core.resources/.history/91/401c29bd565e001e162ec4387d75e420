@@ -1,7 +1,0 @@
-package com.example
-{
-	public class Speaker implements ISpeaker;
-	{
-		
-	}
-}

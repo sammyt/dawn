@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<section name="Workbench">
-	<section name="com.adobe.flexbuilder.mxml.editor.design.MXMLDesignEditor">
-		<item key="PlayerLoadLimit" value="4"/>
-	</section>
-</section>

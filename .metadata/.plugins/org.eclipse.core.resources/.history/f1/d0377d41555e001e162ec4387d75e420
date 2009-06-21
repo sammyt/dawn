@@ -1,9 +1,0 @@
-package
-{
-	public class ProviderMappings
-	{
-		public function ProviderMappings()
-		{
-		}
-	}
-}
