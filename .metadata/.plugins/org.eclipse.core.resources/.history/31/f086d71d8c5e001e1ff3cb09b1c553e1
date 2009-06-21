@@ -1,0 +1,25 @@
+package
+{
+	import com.example.view.PersonDetailsPresenter;
+	import com.example.view.PersonListPresenter;
+
+	public class SetupView
+	{
+		private var _personDetailsPresenter:PersonDetailsPresenter;
+		private var _personListPresenter:PersonListPresenter;
+		
+		public function SetupView()
+		{
+		}
+		
+		public function set personDetailsPresenter( value:PersonDetailsPresenter ):void
+		{
+			_personDetailsPresenter;
+		}
+		
+		public function set personListPresenter( value:PersonListPresenter ):void
+		{
+			_personListPresenter = value;
+		}
+	}
+}

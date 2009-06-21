@@ -1,0 +1,37 @@
+package com.example.commands
+{
+	import com.example.model.PersonModel;
+	
+	import uk.co.ziazoo.INotificationBus;
+
+
+	public class SetupModelCommand implements ICommand
+	{
+		private var _bus:INotificationBus;
+		private var _personModel:PersonModel;
+		
+		public function SetupModelCommand()
+		{
+		}
+		
+		[Inject]
+		public function set personModel( value:PersonModel ):void
+		{
+			_personModel = value;
+		}
+		
+		public function set notificationBus( value:INotificationBus ):void
+		{
+			_bus = value;
+		}
+		
+		public function execute():void
+		{
+			// map workers to handlers
+			_bus.map( PeopleRequest, IPeopleRequestHandler );
+			_bus.map( PeopleRecieved, IPeopleRecievedHandler );
+			_bus.map( PersonRequest, IPersonRequestHandler );
+			_bus.map( PersonRecieved, IPersonRecievedHandler );
+		}
+	}
+}

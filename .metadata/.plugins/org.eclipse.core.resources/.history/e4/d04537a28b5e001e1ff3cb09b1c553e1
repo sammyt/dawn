@@ -1,0 +1,30 @@
+package
+{
+	import com.example.model.PersonModel;
+	
+	import uk.co.ziazoo.INotificationBus;
+
+	public class SetupModel
+	{
+		private var _bus:INotificationBus;
+		private var _personModel:PersonModel;
+		
+		public function SetupModel()
+		{
+		}
+		
+		[Inject]
+		public function set notificationBus( value:INotificationBus ):void
+		{
+			_bus = value;
+		}
+		
+		[Inject]
+		public function set personModel( value:PersonModel ):void
+		{
+			_personModel = value;
+		}
+		
+		public function set 
+	}
+}

@@ -1,0 +1,18 @@
+package
+{
+	import com.example.view.PersonDetailsPresenter;
+
+	public class SetupView
+	{
+		private var _personDetailsPresenter:PersonDetailsPresenter;
+		
+		public function SetupView()
+		{
+		}
+		
+		public function set personDetailsPresenter( value:PersonDetailsPresenter ):void
+		{
+			_personDetailsPresenter;
+		}
+	}
+}

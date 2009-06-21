@@ -1,0 +1,16 @@
+package
+{
+	import uk.co.ziazoo.injector.IMapper;
+	import uk.co.ziazoo.injector.IMappingConfiguration;
+	
+	public class Config implements IMappingConfiguration
+	{
+		public function Config()
+		{
+		}
+		
+		public function create(mapper:IMapper):void
+		{
+		}
+	}
+}

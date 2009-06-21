@@ -1,0 +1,9 @@
+package
+{
+	public class SetupView
+	{
+		public function SetupView()
+		{
+		}
+	}
+}

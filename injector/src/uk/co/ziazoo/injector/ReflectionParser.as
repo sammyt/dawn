@@ -61,7 +61,7 @@ package uk.co.ziazoo.injector
 				{
 					for each( var metadata:XML in accessor.metadata )
 					{
-						if( metadata.@name )
+						if( metadata.@name == "Inject" )
 						{
 							var childMap:IMap = getMap( accessor.@type );
 							map.addAccessor( accessor.@name, childMap.providerName );

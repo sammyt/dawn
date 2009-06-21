@@ -1,0 +1,24 @@
+package
+{
+	public class Main
+	{
+		private var _commands:Array;
+		
+		public function Main()
+		{
+			_commands = new Array();
+		}
+		
+		[Inject]
+		public function set setupModel( value:SetupModel ):void
+		{
+			_setupModel = value;
+		}
+		
+		[Inject]
+		public function set setupView( value:SetupView ):void
+		{
+			_setupView = value;
+		}
+	}
+}

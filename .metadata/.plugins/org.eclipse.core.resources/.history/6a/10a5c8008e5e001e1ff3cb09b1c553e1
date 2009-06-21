@@ -1,0 +1,23 @@
+package
+{
+	import com.example.model.PersonModel;
+	import com.example.view.PersonDetails;
+	import com.example.view.PersonDetailsPresenter;
+	
+	import uk.co.ziazoo.injector.IMapper;
+	import uk.co.ziazoo.injector.IMappingConfiguration;
+
+	public class Config implements IMappingConfiguration
+	{
+		public function Config()
+		{
+		}
+		
+		public function create(mapper:IMapper):void
+		{
+			mapper.map( PersonModel, PersonModel ).singleton = true;
+			mapper.map( PersonDetailsPresenter, PersonDetailsPresenter ).singleton = true;
+			mapper.map( PersonDetails, PersonDetails ).singleton = true;
+		}
+	}
+}

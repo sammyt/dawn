@@ -7,9 +7,14 @@ package com.example.view
 	{
 		private var _details:PersonDetails;
 		
-		public function PersonDetailsPresenter( details:PersonDetails )
+		public function PersonDetailsPresenter()
 		{
-			_details = details;
+		}
+		
+		[Inject]
+		public function set personDetails( value:PersonDetails ):void
+		{
+			_details = value;
 		}
 		
 		public function onPersonRevieved( person:Person ):void

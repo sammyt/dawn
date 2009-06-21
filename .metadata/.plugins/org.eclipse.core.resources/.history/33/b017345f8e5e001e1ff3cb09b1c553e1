@@ -1,0 +1,32 @@
+package com.example.commands
+{
+	public class SetupAppCommand implements ICommand
+	{
+		private var _commands:Array;
+		
+		public function SetupAppCommand()
+		{
+			_commands = new Array();
+		}
+		
+		[Inject]
+		public function set setupModelCommand( value:SetupModelCommand ):void
+		{
+			_commands.push( value );
+		}
+		
+		[Inject]
+		public function set setupViewCommand( value:SetupViewCommand ):void
+		{
+			_commands.push( value );
+		}
+		
+		public function execute():void
+		{
+			for each( var command:ICommand in _commands )
+			{
+				command.execute();
+			}
+		}
+	}
+}

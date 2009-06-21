@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="vertical" minWidth="1024" minHeight="768"
+	creationComplete="init();" 
+	xmlns:ziazoo="uk.co.ziazoo.*" 
+	xmlns:view="com.example.view.*" 
+	xmlns:model="com.example.model.*"
+	backgroundColor="0xffffff">
+	
+	<mx:Script>
+		<![CDATA[
+			import uk.co.ziazoo.injector.IBuilder;
+			import uk.co.ziazoo.injector.ReflectionParser;
+
+			private function init():void
+			{
+				var builder:IBuilder = new ReflectionParser( new Config() );
+				
+				builder
+				
+				// request data
+				//bus.trigger( new PeopleRequest() );
+				//bus.trigger( new PersonRequest( "sam" ) );
+			}
+			
+		]]>
+	</mx:Script>
+	
+</mx:Application>

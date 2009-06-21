@@ -1,0 +1,32 @@
+package
+{
+	import com.example.view.PersonDetailsPresenter;
+	import com.example.view.PersonListPresenter;
+
+	public class SetupView implements ICommand
+	{
+		private var _personDetailsPresenter:PersonDetailsPresenter;
+		private var _personListPresenter:PersonListPresenter;
+		
+		public function SetupView()
+		{
+		}
+		
+		[Inject]
+		public function set personDetailsPresenter( value:PersonDetailsPresenter ):void
+		{
+			_personDetailsPresenter;
+		}
+		
+		[Inject]
+		public function set personListPresenter( value:PersonListPresenter ):void
+		{
+			_personListPresenter = value;
+		}
+		
+		public function execute():void
+		{
+			
+		}
+	}
+}
