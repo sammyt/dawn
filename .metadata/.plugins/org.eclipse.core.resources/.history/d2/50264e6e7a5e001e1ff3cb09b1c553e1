@@ -19,7 +19,7 @@
 				var parser:IBuilder = new ReflectionParser( new MyConfig() );
 				var podium:Podium = parser.getObject( Podium ) as Podium;
 				
-				podium.talk( "yo" );
+				trace( podium );
 			}	
 
 		]]>

@@ -137,7 +137,7 @@ class Map implements IMap
 		return _singleton;
 	}
 	
-	public function set singleton( value:Boolean ):void
+	public function set singleton( value:Boolea ):void
 	{
 		_singleton = value;
 	}

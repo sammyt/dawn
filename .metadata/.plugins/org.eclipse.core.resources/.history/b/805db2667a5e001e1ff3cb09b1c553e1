@@ -10,11 +10,6 @@ package com.example
 			
 		}
 		
-		public function talk( message:String ):void
-		{
-			speaker.speak( message );
-		}
-		
 		[Inject]
 		public function set speaker( speaker:ISpeaker ):void
 		{

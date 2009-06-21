@@ -136,11 +136,6 @@ class Map implements IMap
 	{
 		return _singleton;
 	}
-	
-	public function set singleton( value:Boolean ):void
-	{
-		_singleton = value;
-	}
 		
 	public function provideInstance():Object
 	{

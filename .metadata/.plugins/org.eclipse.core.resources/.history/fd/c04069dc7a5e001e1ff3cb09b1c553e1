@@ -18,7 +18,7 @@ package
 		public function create( mapper:IMapper ):void
 		{
 			mapper.map( ISpeaker, Speaker );
-			mapper.map( Megaphone, Megaphone ).singleton = true;
+			mapper.map( Megaphone, Megaphone );
 			mapper.map( Podium, Podium );
 		}
 	}
