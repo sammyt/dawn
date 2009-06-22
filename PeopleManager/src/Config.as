@@ -10,6 +10,8 @@ package
 	import com.example.view.PersonListPresenter;
 	import com.example.view.ViewContainer;
 	
+	import mx.core.Application;
+	
 	import uk.co.ziazoo.INotificationBus;
 	import uk.co.ziazoo.NotificationBus;
 	import uk.co.ziazoo.injector.IMapper;

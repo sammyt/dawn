@@ -18,10 +18,15 @@ package uk.co.ziazoo.injector
 			_config.create( this );
 		}
 		
-		public function map( clazz:Class, provider:Class = null ):IMap
+		public function map( clazz:Class, provider:Class = null, name:String = null ):IMap
 		{
+			// if there is no provider the class is assumed
+			// to provided for itself
 			provider = provider ? provider : clazz;
-			var map:IMap = new Map( clazz, provider );
+			
+			var map:IMap = getMapByClass( clazz ) ? 
+				getMapByClass( clazz ) : new Map( clazz, provider, name );
+			
 			_maps.push( map );
 			return map;
 		}
@@ -102,11 +107,11 @@ class Map implements IMap
 {
 	private var _clazz:Class;
 	private var _provider:Class;
-	private var _singleton:Boolean;
+	private var _singleton:Boolean = false;
 	private var _instance:Object;
 	private var _accessors:Dictionary;
 	
-	public function Map( clazz:Class, provider:Class, singleton:Boolean = false )
+	public function Map( clazz:Class, provider:Class, name:String = null )
 	{
 		_clazz = clazz;
 		_provider = provider;
@@ -146,7 +151,6 @@ class Map implements IMap
 		
 	public function provideInstance():Object
 	{
-		trace( "provideInstance", provider );
 		if( singleton && _instance )
 		{
 			return _instance;
