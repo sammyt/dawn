@@ -584,6 +584,8 @@ BrowserHistory = (function() {
                addHistoryEntry(baseUrl, newUrl, flexAppUrl);
                currentHistoryLength = history.length;
            }
+
+           return false;
         }, 
 
         browserURLChange: function(flexAppUrl) {
@@ -607,12 +609,6 @@ BrowserHistory = (function() {
             }
 
             currentObjectId = null;
-        },
-        getUserAgent: function() {
-            return navigator.userAgent;
-        },
-        getPlatform: function() {
-            return navigator.platform;
         }
 
     }

@@ -23,21 +23,21 @@ package
 		
 		public function create(mapper:IMapper):void
 		{
-			mapper.map( PersonModel, PersonModel ).singleton = true;
+			mapper.map( PersonModel ).singleton = true;
 			
-			mapper.map( PersonDetailsPresenter, PersonDetailsPresenter ).singleton = true;
-			mapper.map( PersonDetails, PersonDetails ).singleton = true;
+			mapper.map( PersonDetailsPresenter ).singleton = true;
+			mapper.map( PersonDetails ).singleton = true;
 			
-			mapper.map( PersonListPresenter, PersonListPresenter ).singleton = true;
-			mapper.map( PersonList, PersonList ).singleton = true;
+			mapper.map( PersonListPresenter ).singleton = true;
+			mapper.map( PersonList ).singleton = true;
 			
 			mapper.map( INotificationBus, NotificationBus ).singleton = true;
 			
-			mapper.map( SetupAppCommand, SetupAppCommand );
-			mapper.map( SetupModelCommand, SetupModelCommand );
-			mapper.map( SetupViewCommand, SetupViewCommand );
+			mapper.map( SetupAppCommand );
+			mapper.map( SetupModelCommand );
+			mapper.map( SetupViewCommand );
 			
-			mapper.map( ViewContainer, ViewContainer );
+			mapper.map( ViewContainer );
 		}
 	}
 }

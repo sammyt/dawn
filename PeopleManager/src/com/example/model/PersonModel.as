@@ -45,7 +45,6 @@ package com.example.model
 					return;
 				}
 			}
-			// what do I do on fail?
 		}
 	}
 }

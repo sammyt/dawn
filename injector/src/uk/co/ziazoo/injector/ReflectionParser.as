@@ -18,8 +18,9 @@ package uk.co.ziazoo.injector
 			_config.create( this );
 		}
 		
-		public function map( clazz:Class, provider:Class ):IMap
+		public function map( clazz:Class, provider:Class = null ):IMap
 		{
+			provider = provider ? provider : clazz;
 			var map:IMap = new Map( clazz, provider );
 			_maps.push( map );
 			return map;
@@ -28,7 +29,8 @@ package uk.co.ziazoo.injector
 		public function getObject( entryPoint:Class ):Object
 		{
 			var node:TreeNode = createNode( getMapByClass( entryPoint ) );
-			return construct( node );;
+			trace( node.dump() );
+			return construct( node );
 		}
 		
 		internal function construct( node:TreeNode ):Object
