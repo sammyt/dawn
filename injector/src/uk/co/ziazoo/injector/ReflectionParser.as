@@ -27,8 +27,7 @@ package uk.co.ziazoo.injector
 			// to provided for itself
 			provider = provider ? provider : clazz;
 			
-			var map:IMap = getMapByClass( clazz ) ? 
-				getMapByClass( clazz ) : new Map( clazz, provider, name );
+			var map:IMap = new Map( clazz, provider, name );
 			
 			_maps.push( map );
 			return map;
@@ -40,6 +39,7 @@ package uk.co.ziazoo.injector
 		public function mapToFactory( clazz:Class, provider:Function, name:String = null ):IMap
 		{
 			
+			return null;
 		}
 		
 		public function getObject( entryPoint:Class ):Object
@@ -81,7 +81,12 @@ package uk.co.ziazoo.injector
 					{
 						if( metadata.@name == "Inject" )
 						{
-							var childMap:IMap = getMap( accessor.@type );
+							var name:String = null
+							if( metadata.hasOwnProperty( "arg" ) )
+							{
+								name = metadata.arg.( @key=="name" ).@value;
+							}
+							var childMap:IMap = getMap( accessor.@type, name );
 							map.addAccessor( accessor.@name, childMap.providerName );
 							createNode( childMap, node );
 						}
@@ -93,14 +98,23 @@ package uk.co.ziazoo.injector
 		
 		internal function getMap( clazzName:String, name:String = null ):IMap
 		{
+			var noneNamed:IMap = null;
+			
 			for each( var map:IMap in _maps )
 			{
 				if( map.clazzName == clazzName )
 				{
-					return map;
+					if( name == map.name )
+					{
+						return map;
+					}
+					else if( !map.name )
+					{
+						noneNamed = map;
+					}
 				}
 			}
-			return null;
+			return noneNamed;
 		}
 		
 		internal function getMapByClass( clazz:Class ):IMap

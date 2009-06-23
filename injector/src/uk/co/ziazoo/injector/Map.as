@@ -1,10 +1,12 @@
 package uk.co.ziazoo.injector
 {
 	import flash.utils.Dictionary;
-	import flash.utils.describeType;
+	import flash.utils.getQualifiedClassName;
+	import flash.utils.getQualifiedSuperclassName;
 	
 	public class Map implements IMap
 	{
+		private var _name:String;
 		private var _clazz:Class;
 		private var _provider:Class;
 		private var _singleton:Boolean = false;
@@ -15,18 +17,13 @@ package uk.co.ziazoo.injector
 		{
 			_clazz = clazz;
 			_provider = provider;
-			_singleton = singleton;
+			_name = name;
 			_accessors = new Dictionary();
 		}
 		
-		public function get provider():Class
+		public function get name():String
 		{
-			return _provider;
-		}
-		
-		public function get providerName():String
-		{
-			return describeType( _provider ).@name;
+			return _name;
 		}
 		
 		public function get clazz():Class
@@ -34,9 +31,19 @@ package uk.co.ziazoo.injector
 			return _clazz;
 		}
 		
+		public function get provider():Class
+		{
+			return _provider;
+		}
+		
 		public function get clazzName():String
 		{
-			return describeType( _clazz ).@name;
+			return getQualifiedClassName( _clazz );
+		}
+		
+		public function get providerName():String
+		{
+			return getQualifiedClassName( _provider );
 		}
 		
 		public function get singleton():Boolean
@@ -57,26 +64,26 @@ package uk.co.ziazoo.injector
 			}
 			else if( singleton )
 			{
-				_instance = new provider();
+				_instance = new _provider();
 				return _instance;
 			}
 			
-			return new provider();
+			return new _provider();
 		}
 		
 		public function addAccessor( name:String, clazzName:String ):void
-		{
+	    {
 			_accessors[ clazzName ] = name;
-		}
-		
-		public function getAccessor( clazzName:String ):String
-		{
+	    }
+	    
+	    public function getAccessor( clazzName:String ):String
+	    {
 			return _accessors[ clazzName ] as String;
-		}
+	    }
 		
 		public function toString():String
 		{
-			return "[Map provider=" + provider + "]";
+			return "[Map provider=" + _provider + "]";
 		}	
 	}
 }

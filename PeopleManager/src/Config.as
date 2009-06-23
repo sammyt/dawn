@@ -1,5 +1,6 @@
 package
 {
+	import com.example.MyNotificationBus;
 	import com.example.commands.SetupAppCommand;
 	import com.example.commands.SetupModelCommand;
 	import com.example.commands.SetupViewCommand;
@@ -9,8 +10,6 @@ package
 	import com.example.view.PersonList;
 	import com.example.view.PersonListPresenter;
 	import com.example.view.ViewContainer;
-	
-	import mx.core.Application;
 	
 	import uk.co.ziazoo.INotificationBus;
 	import uk.co.ziazoo.NotificationBus;
@@ -34,6 +33,7 @@ package
 			mapper.map( PersonList ).singleton = true;
 			
 			mapper.map( INotificationBus, NotificationBus ).singleton = true;
+			mapper.map( INotificationBus, MyNotificationBus, "MyBus" ).singleton = true;
 			
 			mapper.map( SetupAppCommand );
 			mapper.map( SetupModelCommand );
