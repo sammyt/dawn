@@ -24,7 +24,7 @@ package com.example.model
 			_people = new ArrayCollection( [ p1, p2, p3 ] );
 		}
 		
-		[Inject(name="MyBus")]
+		[Inject]
 		public function set notificationBus( value:INotificationBus ):void
 		{
 			_bus = value;
