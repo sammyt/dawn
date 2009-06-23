@@ -18,6 +18,9 @@ package uk.co.ziazoo.injector
 			_config.create( this );
 		}
 		
+		/**
+		*	@inheritDoc
+		*/	
 		public function map( clazz:Class, provider:Class = null, name:String = null ):IMap
 		{
 			// if there is no provider the class is assumed
@@ -30,7 +33,15 @@ package uk.co.ziazoo.injector
 			_maps.push( map );
 			return map;
 		}
-	
+		
+		/**
+		*	@inheritDoc
+		*/	
+		public function mapToFactory( clazz:Class, provider:Function, name:String = null ):IMap
+		{
+			
+		}
+		
 		public function getObject( entryPoint:Class ):Object
 		{
 			var node:TreeNode = createNode( getMapByClass( entryPoint ) );
@@ -80,7 +91,7 @@ package uk.co.ziazoo.injector
 			return node;
 		}
 		
-		internal function getMap( clazzName:String ):IMap
+		internal function getMap( clazzName:String, name:String = null ):IMap
 		{
 			for each( var map:IMap in _maps )
 			{
