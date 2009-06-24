@@ -10,14 +10,19 @@ package uk.co.ziazoo.injector
 	public interface IMapper
 	{
 		/**
-		*	maps a class or interface to an implementation
-		*/	
+		 *	maps a class or interface to an implementation
+		 */	
 		function map( clazz:Class, provider:Class = null, name:String = null ):IMap;
 		
 		/**
-		*	maps a class or interface to a function the user provides 
-		*	which will instantiate the implementation
-		*/	
-		function mapToFactory( clazz:Class, provider:Function, name:String = null ):IMap;
+		 *	maps a class or interface to a function the user provides 
+		 *	which will instantiate the implementation
+		 */	
+		function mapToFactoryFunction( clazz:Class, factory:Function, name:String = null ):IMap;
+		
+		/**
+		 * maps a class to a class that generates instances of the provider
+		 */ 
+		function mapToFactoryClass( clazz:Class, factory:Class, name:String = null ):IMap;
 	}
 }

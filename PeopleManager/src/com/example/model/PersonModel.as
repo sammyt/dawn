@@ -15,6 +15,7 @@ package com.example.model
 	{
 		private var _bus:INotificationBus;
 		private var _people:IList;
+		private var _pensil:IPencil;
 		
 		public function PersonModel()
 		{
@@ -28,6 +29,13 @@ package com.example.model
 		public function set notificationBus( value:INotificationBus ):void
 		{
 			_bus = value;
+		}
+		
+		[Inject]
+		public function set pensil( value:IPencil ):void
+		{
+			_pensil = value;
+			trace( "PersonModel", _pensil.scribble );
 		}
 		
 		public function retrieveAllPeople():void

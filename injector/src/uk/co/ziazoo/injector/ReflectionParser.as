@@ -34,12 +34,21 @@ package uk.co.ziazoo.injector
 		}
 		
 		/**
-		*	@inheritDoc
-		*/	
-		public function mapToFactory( clazz:Class, provider:Function, name:String = null ):IMap
+		 *	@inheritDoc
+		 */	
+		public function mapToFactoryFunction( clazz:Class, factory:Function, name:String = null ):IMap
 		{
-			
 			return null;
+		}
+		
+		/**
+		 *	@inheritDoc
+		 */	
+		public function mapToFactoryClass( clazz:Class, factory:Class, name:String = null ):IMap
+		{
+			var map:IMap = new ProviderClassMap( clazz, factory, name );
+			_maps.push( map );
+			return map;
 		}
 		
 		public function getObject( entryPoint:Class ):Object
@@ -55,18 +64,53 @@ package uk.co.ziazoo.injector
 			
 			var map:IMap = node.data as IMap;
 			
-			var obj:Object = map.provideInstance(); 
-			
 			var children:Array = [];
 			
+			// create the dependencies
 			for ( ; itr.valid(); itr.forth() )
 			{
 				var child:Object = construct( TreeNode( itr.data ) );
-				
-				obj[ map.getAccessor( getQualifiedClassName( child ) ) ] = child;
+				children.push( child );
+			}
+			
+			var obj:Object = map.provideInstance();
+			
+			// set the dependencies on the object
+			for each( var c:Object in children )
+			{
+				obj[ map.getAccessor( getQualifiedClassName( c ) ) ] = c;
+			}
+			
+			if( map.isProviderFactory )
+			{
+				// return the generated object
+				// by invoking the [provider] method
+				return invokeProviderMethod( obj );
 			}
 			
 			return obj;
+		}
+		
+		internal function invokeProviderMethod( factory:Object ):Object
+		{
+			var reflection:XML = describeType( factory );
+			for each( var method:XML in reflection.method )
+			{
+				if( method.hasOwnProperty( "metadata" ) )
+				{
+					for each( var metadata:XML in method.metadata )
+					{
+						if( metadata.@name == "Provider" )
+						{
+							trace( method.@name );
+							var fnt:Function = factory[ method.@name ] as Function;
+							return fnt.apply( factory );
+						}
+					}
+				}
+			}
+			
+			return null;
 		}
 		
 		internal function createNode( map:IMap, parent:TreeNode = null ):TreeNode

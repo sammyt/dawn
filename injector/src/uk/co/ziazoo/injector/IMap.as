@@ -3,6 +3,8 @@ package uk.co.ziazoo.injector
 	public interface IMap
 	{
 		
+		function get isProviderFactory():Boolean;
+		
 		/**
 		 * Where the map represents a named
 		 * provider, this is that name

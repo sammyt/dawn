@@ -4,6 +4,8 @@ package
 	import com.example.commands.SetupAppCommand;
 	import com.example.commands.SetupModelCommand;
 	import com.example.commands.SetupViewCommand;
+	import com.example.model.IPencil;
+	import com.example.model.PencilGenerator;
 	import com.example.model.PersonModel;
 	import com.example.view.PersonDetails;
 	import com.example.view.PersonDetailsPresenter;
@@ -25,6 +27,7 @@ package
 		public function create(mapper:IMapper):void
 		{
 			mapper.map( PersonModel ).singleton = true;
+			mapper.mapToFactoryClass( IPencil, PencilGenerator );
 			
 			mapper.map( PersonDetailsPresenter ).singleton = true;
 			mapper.map( PersonDetails ).singleton = true;
