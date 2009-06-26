@@ -1,16 +1,49 @@
 package uk.co.ziazoo.injector
 {
-	import flash.utils.Dictionary;
-	import flash.utils.getQualifiedClassName;
-	
-	public class Map extends AbstractMap implements IMap
+	import uk.co.ziazoo.injector.providers.BasicProvider;
+	import uk.co.ziazoo.injector.providers.FactoryProvider;
+	import uk.co.ziazoo.injector.providers.IProvider;
+
+	public class Map implements IMap
 	{
-		public function Map( clazz:Class, provider:Class, name:String = null )
+		private var _clazz:Class;
+		private var _provider:IProvider;
+		
+		public function Map( clazz:Class )
 		{
 			_clazz = clazz;
-			_provider = provider;
-			_name = name;
-			_accessors = new Dictionary();
+		}
+		
+		public function get clazz():Class
+		{
+			return _clazz;
+		}
+		
+		public function toClass( clazz:Class ):IProvider
+		{
+			_provider = new BasicProvider( clazz ); 
+			return _provider;
+		}
+		
+		public function toFactory( factory:Class ):IProvider
+		{
+			_provider = new FactoryProvider( factory );
+			return _provider;
+		}
+		
+		public function toSelf():IProvider
+		{
+			return toClass( _clazz );
+		}
+		
+		public function get provider():IProvider
+		{
+			return _provider;
+		}
+		
+		public function toString():String
+		{
+			return "[Map " + clazz + "]";
 		}
 	}
 }

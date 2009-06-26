@@ -1,7 +1,9 @@
 package uk.co.ziazoo.injector
 {
+	import de.polygonal.ds.DListIterator;
 	import de.polygonal.ds.TreeNode;
 	
+	import flash.utils.Dictionary;
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
 
@@ -9,11 +11,13 @@ package uk.co.ziazoo.injector
 	{
 		private var _config:IConfig;
 		private var _maps:Array;
+		private var _singletons:Dictionary;
 		
 		public function Builder( config:IConfig )
 		{
 			_config = config;
 			_maps = new Array();
+			_singletons = new Dictionary();
 			_config.create( this );
 		}
 		
@@ -54,9 +58,47 @@ package uk.co.ziazoo.injector
 		{
 			var node:TreeNode = createNode( getMap( entryPoint ) );
 			trace( node.dump() );
-			return null;
+			return construct( node );
 		}
 		
+		
+		internal function construct( root:TreeNode ):Object
+		{
+			var itr:DListIterator = root.children.getIterator() as DListIterator;
+			
+			// get the map for this node
+			var map:IMap = root.data as IMap;
+			
+			// create the dependencies			
+			var children:Array = [];
+			for ( ; itr.valid(); itr.forth() )
+			{
+				var node:TreeNode = TreeNode( itr.data );
+				var child:Object = construct( node );
+				children.push( new MapWithInstance( node.data as IMap, child ) );
+			}
+			
+			// have we already created this object?
+			if( map.provider.singleton
+				&& _singletons[ map.provider.clazz ] )
+			{
+				return _singletons[ map.provider.clazz ]; 
+			}
+			
+			var obj:Object = map.provider.createInstance();
+			
+			for each( var pair:MapWithInstance in children )
+			{
+				obj[ map.provider.getAccessor( pair.map.provider ) ] = pair.instance;
+			}
+			
+			if( map.provider.singleton )
+			{
+				_singletons[ map.provider.clazz ] = obj
+			}
+
+			return obj;
+		}
 		
 		internal function createNode( map:IMap, parent:TreeNode = null ):TreeNode
 		{
@@ -78,12 +120,27 @@ package uk.co.ziazoo.injector
 							}
 							// the provider has a dependency on a 
 							// class/interface of type accessor.@type
-							createNode( getMapByName( accessor.@type, name ), node );
+							var childMap:IMap = getMapByName( accessor.@type, name );
+							map.provider.addAccessor( accessor.@name, childMap.provider );
+							createNode( childMap, node );
 						}
 					}
 				}
 			}
 			return node;
 		}
+	}
+}
+import uk.co.ziazoo.injector.IMap;
+
+class MapWithInstance
+{
+	public var map:IMap;
+	public var instance:Object;
+	
+	public function MapWithInstance( map:IMap, instance:Object )
+	{
+		this.map = map;
+		this.instance = instance;
 	}
 }

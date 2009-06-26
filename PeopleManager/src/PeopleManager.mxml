@@ -16,11 +16,11 @@
 			import com.example.commands.ICommand;
 			import com.example.commands.SetupAppCommand;
 			import uk.co.ziazoo.injector.IBuilder;
-			import uk.co.ziazoo.injector.ReflectionParser;
+			import uk.co.ziazoo.injector.Builder;
 
 			private function init():void
 			{
-				var builder:IBuilder = new ReflectionParser( new Config() );
+				var builder:IBuilder = new Builder( new Config() );
 				
 				var command:ICommand = builder.getObject( SetupAppCommand ) as ICommand;
 				command.execute();

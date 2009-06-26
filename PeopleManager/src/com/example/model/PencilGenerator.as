@@ -1,5 +1,7 @@
 package com.example.model
 {
+	import uk.co.ziazoo.INotificationBus;
+
 	public class PencilGenerator
 	{
 		public function PencilGenerator()
@@ -11,5 +13,11 @@ package com.example.model
 		{
 			return new Pencil( "yo yo yo" );
 		}
+		
+		[Inject]
+		public function set bus( value:INotificationBus ):void
+		{
+			trace("PensilGenerator.bus", value);
+		}
 	}
-}
+} 

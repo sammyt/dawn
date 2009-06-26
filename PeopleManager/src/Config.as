@@ -15,34 +15,37 @@ package
 	
 	import uk.co.ziazoo.INotificationBus;
 	import uk.co.ziazoo.NotificationBus;
+	import uk.co.ziazoo.injector.IConfig;
 	import uk.co.ziazoo.injector.IMapper;
-	import uk.co.ziazoo.injector.IMappingConfiguration;
 
-	public class Config implements IMappingConfiguration
+	public class Config implements IConfig
 	{
 		public function Config()
 		{
 		}
 		
-		public function create(mapper:IMapper):void
+		public function create( mapper:IMapper ):void
 		{
-			mapper.map( PersonModel ).singleton = true;
-			mapper.mapToFactoryClass( IPencil, PencilGenerator );
+			mapper.map( PersonModel ).toSelf().asSingleton();
 			
-			mapper.map( PersonDetailsPresenter ).singleton = true;
-			mapper.map( PersonDetails ).singleton = true;
+			mapper.map( IPencil ).toFactory( PencilGenerator );
 			
-			mapper.map( PersonListPresenter ).singleton = true;
-			mapper.map( PersonList ).singleton = true;
+			mapper.map( PersonDetailsPresenter ).toSelf().asSingleton();
 			
-			mapper.map( INotificationBus, NotificationBus ).singleton = true;
-			mapper.map( INotificationBus, MyNotificationBus, "MyBus" ).singleton = true;
+			mapper.map( PersonDetails ).toSelf().asSingleton();
 			
-			mapper.map( SetupAppCommand );
-			mapper.map( SetupModelCommand );
-			mapper.map( SetupViewCommand );
+			mapper.map( PersonListPresenter ).toSelf().asSingleton();
+			mapper.map( PersonList ).toSelf().asSingleton();
 			
-			mapper.map( ViewContainer );
+			mapper.map( INotificationBus ).toClass( NotificationBus ).asSingleton();
+			
+			mapper.map( INotificationBus ).toClass( MyNotificationBus ).withName( "MyBus" ).asSingleton();
+			
+			mapper.map( SetupAppCommand ).toSelf();
+			mapper.map( SetupModelCommand ).toSelf();
+			mapper.map( SetupViewCommand ).toSelf();
+			
+			mapper.map( ViewContainer ).toSelf().asSingleton();
 		}
 	}
 }

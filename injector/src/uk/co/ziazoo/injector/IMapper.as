@@ -1,28 +1,11 @@
 package uk.co.ziazoo.injector
 {
-	/**
-	*	The <code>IMapper</code> interface provides methods
-	*	to map classes or intrefaces to their providers.  Providers
-	*	are the implementations which you want instantiated when
-	*	a given class is described as a dependency via the [Inject]
-	*	metadata.
-	*/	
 	public interface IMapper
 	{
-		/**
-		 *	maps a class or interface to an implementation
-		 */	
-		function map( clazz:Class, provider:Class = null, name:String = null ):IMap;
+		function map( clazz:Class ):IMap;
 		
-		/**
-		 *	maps a class or interface to a function the user provides 
-		 *	which will instantiate the implementation
-		 */	
-		function mapToFactoryFunction( clazz:Class, factory:Function, name:String = null ):IMap;
+		function getMap( clazz:Class, name:String = null ):IMap;
 		
-		/**
-		 * maps a class to a class that generates instances of the provider
-		 */ 
-		function mapToFactoryClass( clazz:Class, factory:Class, name:String = null ):IMap;
+		function getMapByName( className:String, name:String = null ):IMap;
 	}
 }

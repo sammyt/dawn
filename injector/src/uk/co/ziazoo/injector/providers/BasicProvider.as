@@ -6,5 +6,10 @@ package uk.co.ziazoo.injector.providers
 		{
 			super( clazz );
 		}
+		
+		override public function createInstance():Object
+		{
+			return new clazz();
+		}
 	}
 }

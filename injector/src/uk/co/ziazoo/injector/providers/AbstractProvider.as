@@ -1,16 +1,23 @@
 package uk.co.ziazoo.injector.providers
 {
-	import uk.co.ziazoo.injector.IProvider;
-	
+	import flash.utils.Dictionary;
+
 	public class AbstractProvider implements IProvider
 	{
-		private var _class:Class;
-		private var _name:String;
-		private var _singleton:Boolean = false;
+		protected var _class:Class;
+		protected var _name:String;
+		protected var _singleton:Boolean = false;
+		protected var _accessors:Dictionary;
 		
 		public function AbstractProvider( clazz:Class )
 		{
 			_class = clazz;
+			_accessors = new Dictionary();
+		}
+		
+		public function get singleton():Boolean
+		{
+			return _singleton;
 		}
 		
 		public function get clazz():Class
@@ -33,6 +40,21 @@ package uk.co.ziazoo.injector.providers
 		{
 			_name = name;
 			return this;
+		}
+		
+		public function addAccessor( name:String, provider:IProvider ):void
+		{
+			_accessors[ provider ] = name;
+		}
+		
+		public function getAccessor( provider:IProvider ):String
+		{
+			return _accessors[ provider ] as String;
+		}
+		
+		public function createInstance():Object
+		{
+			return null;
 		}
 	}
 }
