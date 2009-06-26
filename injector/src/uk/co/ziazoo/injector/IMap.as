@@ -12,6 +12,8 @@ package uk.co.ziazoo.injector
 		
 		function toSelf():IProvider;
 		
+		function toInstance( object:Object ):IProvider;
+		
 		function get provider():IProvider;
 	}
 }

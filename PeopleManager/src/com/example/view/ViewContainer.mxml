@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
-	<mx:Script>
-		<![CDATA[
-			
-			[Inject]
-			public function set details( value:PersonDetails ):void
-			{
-				addChild( value );
-			}
-			
-			[Inject]
-			public function set list( value:PersonList ):void
-			{
-				addChildAt( value, 0 );
-			}
-			
-		]]>
-	</mx:Script>	
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:view="com.example.view.*">
+	<view:PersonList id="list" />
+	<view:PersonDetails id="details" />
 </mx:VBox>

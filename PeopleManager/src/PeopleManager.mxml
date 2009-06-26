@@ -21,13 +21,11 @@
 			private function init():void
 			{
 				var builder:IBuilder = new Builder( new Config() );
-				
 				var command:ICommand = builder.getObject( SetupAppCommand ) as ICommand;
 				command.execute();
-
-				addChild( builder.getObject( ViewContainer ) as DisplayObject );
 			}
 			
 		]]>
 	</mx:Script>
+	<view:ViewContainer id="view" />
 </mx:Application>

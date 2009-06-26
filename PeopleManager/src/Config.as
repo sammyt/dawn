@@ -13,6 +13,8 @@ package
 	import com.example.view.PersonListPresenter;
 	import com.example.view.ViewContainer;
 	
+	import mx.core.Application;
+	
 	import uk.co.ziazoo.INotificationBus;
 	import uk.co.ziazoo.NotificationBus;
 	import uk.co.ziazoo.injector.IConfig;
@@ -26,26 +28,26 @@ package
 		
 		public function create( mapper:IMapper ):void
 		{
+			var app:PeopleManager = Application.application as PeopleManager;
+			
 			mapper.map( PersonModel ).toSelf().asSingleton();
 			
 			mapper.map( IPencil ).toFactory( PencilGenerator );
 			
 			mapper.map( PersonDetailsPresenter ).toSelf().asSingleton();
-			
-			mapper.map( PersonDetails ).toSelf().asSingleton();
+			mapper.map( PersonDetails ).toInstance( app.view.details );
 			
 			mapper.map( PersonListPresenter ).toSelf().asSingleton();
-			mapper.map( PersonList ).toSelf().asSingleton();
+			mapper.map( PersonList ).toInstance( app.view.list );
 			
 			mapper.map( INotificationBus ).toClass( NotificationBus ).asSingleton();
-			
 			mapper.map( INotificationBus ).toClass( MyNotificationBus ).withName( "MyBus" ).asSingleton();
 			
 			mapper.map( SetupAppCommand ).toSelf();
 			mapper.map( SetupModelCommand ).toSelf();
 			mapper.map( SetupViewCommand ).toSelf();
 			
-			mapper.map( ViewContainer ).toSelf().asSingleton();
+			mapper.map( ViewContainer ).toInstance( app.view );
 		}
 	}
 }

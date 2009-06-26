@@ -3,6 +3,7 @@ package uk.co.ziazoo.injector
 	import uk.co.ziazoo.injector.providers.BasicProvider;
 	import uk.co.ziazoo.injector.providers.FactoryProvider;
 	import uk.co.ziazoo.injector.providers.IProvider;
+	import uk.co.ziazoo.injector.providers.InstanceProvider;
 
 	public class Map implements IMap
 	{
@@ -28,6 +29,12 @@ package uk.co.ziazoo.injector
 		public function toFactory( factory:Class ):IProvider
 		{
 			_provider = new FactoryProvider( factory );
+			return _provider;
+		}
+		
+		public function toInstance( object:Object ):IProvider
+		{
+			_provider = new InstanceProvider( object );
 			return _provider;
 		}
 		
