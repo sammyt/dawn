@@ -13,7 +13,9 @@ package com.example.model
 	public class PersonModel 
 		implements IPeopleRequestHandler, IPersonRequestHandler
 	{
-		private var _bus:INotificationBus;
+		[Inject]
+		public var bus:INotificationBus;
+		
 		private var _people:IList;
 		private var _pensil:IPencil;
 		
@@ -26,12 +28,6 @@ package com.example.model
 		}
 		
 		[Inject]
-		public function set notificationBus( value:INotificationBus ):void
-		{
-			_bus = value;
-		}
-		
-		[Inject]
 		public function set pensil( value:IPencil ):void
 		{
 			_pensil = value;
@@ -40,7 +36,7 @@ package com.example.model
 		
 		public function retrieveAllPeople():void
 		{
-			_bus.trigger( new PeopleRecieved( _people ) );
+			bus.trigger( new PeopleRecieved( _people ) );
 		}
 		
 		public function retrievePerson( name:String ):void
@@ -49,7 +45,7 @@ package com.example.model
 			{
 				if( person.name == name )
 				{
-					_bus.trigger( new PersonRecieved( person ) );
+					bus.trigger( new PersonRecieved( person ) );
 					return;
 				}
 			}

@@ -105,27 +105,22 @@ package uk.co.ziazoo.injector
 			var node:TreeNode = new TreeNode( map, parent );
 			
 			var clazz:Class = map.provider.clazz;
-			for each( var accessor:XML in describeType( clazz ).factory.accessor )
+			var reflection:XML = describeType( clazz );
+			var injects:XMLList = reflection.factory..metadata.(@name == "Inject");
+			
+			for each( var metadata:XML in injects )
 			{
-				if( accessor.hasOwnProperty( "metadata" ) )
+				var accessor:XML = metadata.parent();
+				var name:String = null
+				if( metadata.hasOwnProperty( "arg" ) )
 				{
-					for each( var metadata:XML in accessor.metadata )
-					{
-						if( metadata.@name == "Inject" )
-						{
-							var name:String = null
-							if( metadata.hasOwnProperty( "arg" ) )
-							{
-								name = metadata.arg.( @key=="name" ).@value;
-							}
-							// the provider has a dependency on a 
-							// class/interface of type accessor.@type
-							var childMap:IMap = getMapByName( accessor.@type, name );
-							map.provider.addAccessor( accessor.@name, childMap.provider );
-							createNode( childMap, node );
-						}
-					}
+					name = metadata.arg.( @key=="name" ).@value;
 				}
+				// the provider has a dependency on a 
+				// class/interface of type accessor.@type
+				var childMap:IMap = getMapByName( accessor.@type, name );
+				map.provider.addAccessor( accessor.@name, childMap.provider );
+				createNode( childMap, node );
 			}
 			return node;
 		}

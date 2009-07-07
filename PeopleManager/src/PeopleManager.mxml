@@ -10,6 +10,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.example.view.PersonDetailsPresenter;
 			import com.example.view.ViewContainer;
 			import com.example.view.PersonDetails;
 			import com.example.view.PersonList;
@@ -20,6 +21,15 @@
 
 			private function init():void
 			{
+				try
+				{
+					//new PersonDetailsPresenter( null );
+				}
+				catch( e:Error )
+				{
+					
+				}
+				
 				var builder:IBuilder = new Builder( new Config() );
 				var command:ICommand = builder.getObject( SetupAppCommand ) as ICommand;
 				command.execute();

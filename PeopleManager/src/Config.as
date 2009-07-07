@@ -37,6 +37,9 @@ package
 			mapper.map( PersonDetailsPresenter ).toSelf().asSingleton();
 			mapper.map( PersonDetails ).toInstance( app.view.details );
 			
+			mapper.map( String ).toInstance( "OMG, String injection" ).withName( "someMessage" );
+			mapper.map( String ).toInstance( "WOW, a trace statement" ).withName( "someCopy" );
+			
 			mapper.map( PersonListPresenter ).toSelf().asSingleton();
 			mapper.map( PersonList ).toInstance( app.view.list );
 			

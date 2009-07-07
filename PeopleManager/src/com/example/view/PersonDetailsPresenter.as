@@ -2,24 +2,28 @@ package com.example.view
 {
 	import com.example.handlers.IPersonRecievedHandler;
 	import com.example.model.Person;
+	
+	import uk.co.ziazoo.INotificationBus;
 
 	public class PersonDetailsPresenter implements IPersonRecievedHandler
 	{
-		private var _details:PersonDetails;
+		[Inject]
+		public var details:PersonDetails;
 		
 		public function PersonDetailsPresenter()
 		{
+			
 		}
 		
-		[Inject]
-		public function set personDetails( value:PersonDetails ):void
+		[Inject(name="someCopy")]
+		public function set someCopy( value:String ):void
 		{
-			_details = value;
+			trace( value );
 		}
 		
 		public function onPersonRevieved( person:Person ):void
 		{
-			_details.person = person;
+			details.person = person;
 		}
 	}
 }

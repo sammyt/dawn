@@ -7,10 +7,16 @@
 			
 			[Bindable]
 			public var person:Person;
+			
+			[Inject(name="someMessage")]
+			public function set message( value:String ):void
+			{
+				msg.text = value;
+			}
 		]]>
 	</mx:Script>
 	
 	<mx:Text text="{person.name}" />
 	<mx:Text text="{person.age}" />
-	
+	<mx:Text id="msg" />
 </mx:VBox>

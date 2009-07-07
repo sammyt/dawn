@@ -9,7 +9,7 @@ package com.example
 			super();
 		}
 		
-		override public function trigger(worker:Object):void
+		override public function trigger( worker:Object ):void
 		{
 			trace( "MyBus.trigger", worker );
 			super.trigger( worker );
