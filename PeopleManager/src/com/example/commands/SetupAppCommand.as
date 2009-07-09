@@ -3,7 +3,7 @@ package com.example.commands
 	import com.example.workers.PeopleRequest;
 	import com.example.workers.PersonRequest;
 	
-	import uk.co.ziazoo.INotificationBus;
+	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class SetupAppCommand implements ICommand
 	{

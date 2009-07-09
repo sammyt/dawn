@@ -10,7 +10,7 @@ package com.example.commands
 	import com.example.workers.PersonRecieved;
 	import com.example.workers.PersonRequest;
 	
-	import uk.co.ziazoo.INotificationBus;
+	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class SetupModelCommand implements ICommand
 	{
@@ -36,11 +36,11 @@ package com.example.commands
 		public function execute():void
 		{
 			// map workers to handlers
-			_bus.map( PeopleRequest, IPeopleRequestHandler );
+			/*_bus.map( PeopleRequest, IPeopleRequestHandler );
 			_bus.map( PeopleRecieved, IPeopleRecievedHandler );
 			_bus.map( PersonRequest, IPersonRequestHandler );
 			_bus.map( PersonRecieved, IPersonRecievedHandler );
-			
+			*/
 			_bus.addHandler( _personModel );
 		}
 	}

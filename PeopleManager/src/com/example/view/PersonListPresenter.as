@@ -8,7 +8,7 @@ package com.example.view
 	
 	import mx.collections.IList;
 	
-	import uk.co.ziazoo.INotificationBus;
+	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class PersonListPresenter 
 		implements IPeopleRecievedHandler

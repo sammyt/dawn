@@ -1,6 +1,6 @@
 package com.example.model
 {
-	import uk.co.ziazoo.INotificationBus;
+	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class PencilGenerator
 	{

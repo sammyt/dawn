@@ -1,6 +1,6 @@
 package com.example
 {
-	import uk.co.ziazoo.NotificationBus;
+	import uk.co.ziazoo.notifier.NotificationBus;
 
 	public class MyNotificationBus extends NotificationBus
 	{
