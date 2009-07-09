@@ -15,10 +15,10 @@ package
 	
 	import mx.core.Application;
 	
-	import uk.co.ziazoo.INotificationBus;
-	import uk.co.ziazoo.NotificationBus;
 	import uk.co.ziazoo.injector.IConfig;
 	import uk.co.ziazoo.injector.IMapper;
+	import uk.co.ziazoo.notifier.INotificationBus;
+	import uk.co.ziazoo.notifier.NotificationBus;
 
 	public class Config implements IConfig
 	{

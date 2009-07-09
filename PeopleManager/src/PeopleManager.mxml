@@ -21,14 +21,6 @@
 
 			private function init():void
 			{
-				try
-				{
-					//new PersonDetailsPresenter( null );
-				}
-				catch( e:Error )
-				{
-					
-				}
 				
 				var builder:IBuilder = new Builder( new Config() );
 				var command:ICommand = builder.getObject( SetupAppCommand ) as ICommand;

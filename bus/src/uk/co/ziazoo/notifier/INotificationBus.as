@@ -1,11 +1,11 @@
-package uk.co.ziazoo
+package uk.co.ziazoo.notifier
 {
 	public interface INotificationBus
 	{
-		function map( worker:Class, handler:Class ):void;
-		
 		function trigger( worker:Object ):void;
 		
 		function addHandler( handler:Object ):void;
+		
+		function removeHandler( handler:Object ):void;
 	}
 }

@@ -8,7 +8,7 @@ package com.example.model
 	import mx.collections.ArrayCollection;
 	import mx.collections.IList;
 	
-	import uk.co.ziazoo.INotificationBus;
+	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class PersonModel 
 		implements IPeopleRequestHandler, IPersonRequestHandler

@@ -3,7 +3,7 @@ package com.example.commands
 	import com.example.view.PersonDetailsPresenter;
 	import com.example.view.PersonListPresenter;
 	
-	import uk.co.ziazoo.INotificationBus;
+	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class SetupViewCommand implements ICommand
 	{
