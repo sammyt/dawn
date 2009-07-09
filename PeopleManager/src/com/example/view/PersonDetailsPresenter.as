@@ -3,7 +3,7 @@ package com.example.view
 	import com.example.handlers.IPersonRecievedHandler;
 	import com.example.model.Person;
 	
-	import uk.co.ziazoo.INotificationBus;
+	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class PersonDetailsPresenter implements IPersonRecievedHandler
 	{
