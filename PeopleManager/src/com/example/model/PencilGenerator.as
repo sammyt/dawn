@@ -9,9 +9,9 @@ package com.example.model
 		}
 		
 		[Provider]
-		public function getPensil():Pencil
+		public function getPensil():IPencil
 		{
-			return new Pencil( "yo yo yo" );
+			return new Pencil( "I'm a pencil scribble" );
 		}
 		
 		[Inject(name="MyBus")]

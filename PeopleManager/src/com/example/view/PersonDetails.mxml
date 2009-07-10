@@ -8,15 +8,14 @@
 			[Bindable]
 			public var person:Person;
 			
+			[Bindable]
 			[Inject(name="someMessage")]
-			public function set message( value:String ):void
-			{
-				msg.text = value;
-			}
+			public var message:String;
+			
 		]]>
 	</mx:Script>
 	
 	<mx:Text text="{person.name}" />
 	<mx:Text text="{person.age}" />
-	<mx:Text id="msg" />
+	<mx:Text id="msg" text="{message}" />
 </mx:VBox>

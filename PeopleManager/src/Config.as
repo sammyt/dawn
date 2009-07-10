@@ -1,9 +1,6 @@
 package
 {
 	import com.example.MyNotificationBus;
-	import com.example.commands.SetupAppCommand;
-	import com.example.commands.SetupModelCommand;
-	import com.example.commands.SetupViewCommand;
 	import com.example.model.IPencil;
 	import com.example.model.PencilGenerator;
 	import com.example.model.PersonModel;
@@ -46,11 +43,8 @@ package
 			mapper.map( INotificationBus ).toClass( NotificationBus ).asSingleton();
 			mapper.map( INotificationBus ).toClass( MyNotificationBus ).withName( "MyBus" ).asSingleton();
 			
-			mapper.map( SetupAppCommand ).toSelf();
-			mapper.map( SetupModelCommand ).toSelf();
-			mapper.map( SetupViewCommand ).toSelf();
-			
 			mapper.map( ViewContainer ).toInstance( app.view );
+			mapper.map( PeopleManager ).toInstance( app );
 		}
 	}
 }

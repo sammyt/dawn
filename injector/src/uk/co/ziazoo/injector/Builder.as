@@ -92,6 +92,8 @@ package uk.co.ziazoo.injector
 				obj[ map.provider.getAccessor( pair.map.provider ) ] = pair.instance;
 			}
 			
+			// object is now created and dependencies have been injected
+			
 			if( map.provider.singleton )
 			{
 				_singletons[ map.provider.clazz ] = obj

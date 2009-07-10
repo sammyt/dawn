@@ -10,21 +10,33 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.example.workers.PersonRequest;
+			import com.example.workers.PeopleRequest;
+			import com.example.view.PersonListPresenter;
 			import com.example.view.PersonDetailsPresenter;
-			import com.example.view.ViewContainer;
-			import com.example.view.PersonDetails;
-			import com.example.view.PersonList;
-			import com.example.commands.ICommand;
-			import com.example.commands.SetupAppCommand;
+			import com.example.model.PersonModel;
+			
+			import uk.co.ziazoo.notifier.INotificationBus;
 			import uk.co.ziazoo.injector.IBuilder;
 			import uk.co.ziazoo.injector.Builder;
-
+			
+			[Inject] public var personModel:PersonModel;
+			[Inject] public var detailsPresenter:PersonDetailsPresenter;
+			[Inject] public var listPresenter:PersonListPresenter;
+			[Inject] public var bus:INotificationBus;
+			
 			private function init():void
 			{
-				
 				var builder:IBuilder = new Builder( new Config() );
-				var command:ICommand = builder.getObject( SetupAppCommand ) as ICommand;
-				command.execute();
+				builder.getObject( PeopleManager );
+				
+				bus.addHandler( personModel );
+				bus.addHandler( detailsPresenter );
+				bus.addHandler( listPresenter );
+				
+				// request data
+				bus.trigger( new PeopleRequest() );
+				bus.trigger( new PersonRequest( "sam" ) );
 			}
 			
 		]]>

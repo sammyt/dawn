@@ -84,11 +84,3 @@ class WorkerDetails
 		handlerType = getDefinitionByName( node.parent().parameter.@type ) as Class;
 	}
 }
-
-
-
-
-
-
-
-
