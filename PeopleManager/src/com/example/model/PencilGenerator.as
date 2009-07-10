@@ -13,11 +13,12 @@ package com.example.model
 		{
 			return new Pencil( "I'm a pencil scribble" );
 		}
-		
+		/*
 		[Inject(name="MyBus")]
 		public function set bus( value:INotificationBus ):void
 		{
 			trace("PensilGenerator.bus", value);
 		}
+		*/
 	}
 } 
