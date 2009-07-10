@@ -3,6 +3,7 @@ package com.example.notifications
 	import com.example.handlers.IPeopleRecievedHandler;
 	
 	import mx.collections.IList;
+	import mx.collections.ArrayCollection;
 
 	public class PeopleRecieved
 	{
@@ -10,7 +11,7 @@ package com.example.notifications
 		
 		public function PeopleRecieved( people:IList )
 		{
-			_people = people;
+			_people = new ArrayCollection( people.toArray() );
 		}
 		
 		[InjectHandler]

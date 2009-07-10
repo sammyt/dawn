@@ -55,6 +55,7 @@ package com.example.model
 		public function addPerson( person:Person ):void
 		{
 			_people.addItem( person );
+			retrieveAllPeople();
 		}
 	}
 }
