@@ -1,9 +1,10 @@
 package com.example.model
 {
+	import com.example.handlers.IAddPersonHandler;
 	import com.example.handlers.IPeopleRequestHandler;
 	import com.example.handlers.IPersonRequestHandler;
-	import com.example.workers.PeopleRecieved;
-	import com.example.workers.PersonRecieved;
+	import com.example.notifications.PeopleRecieved;
+	import com.example.notifications.PersonRecieved;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.IList;
@@ -11,7 +12,7 @@ package com.example.model
 	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class PersonModel 
-		implements IPeopleRequestHandler, IPersonRequestHandler
+		implements IPeopleRequestHandler, IPersonRequestHandler, IAddPersonHandler
 	{
 		[Inject]
 		public var bus:INotificationBus;
@@ -49,6 +50,11 @@ package com.example.model
 					return;
 				}
 			}
+		}
+		
+		public function addPerson( person:Person ):void
+		{
+			_people.addItem( person );
 		}
 	}
 }

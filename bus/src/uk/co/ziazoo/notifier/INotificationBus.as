@@ -62,7 +62,7 @@ package uk.co.ziazoo.notifier
 	 */ 
 	public interface INotificationBus
 	{
-		function trigger( worker:Object ):void;
+		function trigger( notification:Object ):void;
 		
 		function addHandler( handler:Object ):void;
 		

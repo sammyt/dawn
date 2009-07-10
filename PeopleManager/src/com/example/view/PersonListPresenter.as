@@ -2,7 +2,7 @@ package com.example.view
 {
 	import com.example.handlers.IPeopleRecievedHandler;
 	import com.example.model.Person;
-	import com.example.workers.PersonRequest;
+	import com.example.notifications.PersonRequest;
 	
 	import flash.events.Event;
 	

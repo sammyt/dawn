@@ -1,4 +1,4 @@
-package com.example.workers
+package com.example.notifications
 {
 	import com.example.handlers.IPersonRecievedHandler;
 	import com.example.model.Person;

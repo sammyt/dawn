@@ -10,8 +10,9 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.example.workers.PersonRequest;
-			import com.example.workers.PeopleRequest;
+			import com.example.notifications.PersonRequest;
+			import com.example.notifications.PeopleRequest;
+			import com.example.view.AddPersonFormPresenter;
 			import com.example.view.PersonListPresenter;
 			import com.example.view.PersonDetailsPresenter;
 			import com.example.model.PersonModel;
@@ -23,6 +24,7 @@
 			[Inject] public var personModel:PersonModel;
 			[Inject] public var detailsPresenter:PersonDetailsPresenter;
 			[Inject] public var listPresenter:PersonListPresenter;
+			[Inject] public var addFormPresenter:AddPersonFormPresenter;
 			[Inject] public var bus:INotificationBus;
 			
 			private function init():void
@@ -36,10 +38,9 @@
 				
 				// request data
 				bus.trigger( new PeopleRequest() );
-				bus.trigger( new PersonRequest( "sam" ) );
 			}
 			
 		]]>
 	</mx:Script>
-	<view:ViewContainer id="view" />
+	<view:ViewContainer width="100%" height="100%" id="view" />
 </mx:Application>

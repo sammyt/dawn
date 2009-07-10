@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:view="com.example.view.*">
-	<view:PersonList id="list" />
-	<view:PersonDetails id="details" />
+	<mx:HBox width="100%" height="100%">
+		<view:PersonList id="list" width="100%" height="100%"/>
+		<view:AddPersonForm id="addForm" width="100%" height="100%" />
+	</mx:HBox>
+	<view:PersonDetails id="details"  width="100%" height="100%"/>
 </mx:VBox>

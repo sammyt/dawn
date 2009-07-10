@@ -18,6 +18,6 @@
 	</mx:Script>
 	
 	<mx:DataGrid id="dataGrid" 
-		change="listChangeHandler(event)" dataProvider="{people}"/>
+		change="listChangeHandler(event)" dataProvider="{people}" width="100%" height="100%"/>
 
 </mx:VBox>
