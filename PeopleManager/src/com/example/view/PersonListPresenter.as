@@ -14,7 +14,9 @@ package com.example.view
 		implements IPeopleRecievedHandler
 	{
 		private var _personList:PersonList;
-		private var _bus:INotificationBus;
+		
+		[Inject]
+		public var bus:INotificationBus;
 		
 		public function PersonListPresenter()
 		{
@@ -27,16 +29,10 @@ package com.example.view
 			_personList.addEventListener( "selectPerson", onPersonSelect );	
 		}
 		
-		[Inject]
-		public function set notificationBus( value:INotificationBus ):void
-		{
-			_bus = value;
-		}
-		
 		private function onPersonSelect( event:Event ):void
 		{
 			var person:Person = _personList.dataGrid.selectedItem as Person;
-			_bus.trigger( new PersonRequest( person.name ) );
+			bus.trigger( new PersonRequest( person.name ) );
 		}
 		
 		public function onPeopleRevieved( people:IList ):void
