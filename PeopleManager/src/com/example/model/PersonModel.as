@@ -42,12 +42,11 @@ package com.example.model
 		
 		public function retrieveAllPeople():void
 		{
-		    var token:ResponseToken = service.retrieveAllPeople();
-		
-			token.onResult( function( people:ArrayCollection ):void
-			{
-				bus.trigger( new PeopleRecieved( people ) );
-			} );
+			service.retrieveAllPeople().onResult( 
+				function( people:ArrayCollection ):void
+				{
+					bus.trigger( new PeopleRecieved( people ) );
+				} );
 		}
 		
 		public function retrievePerson( name:String ):void
