@@ -8,6 +8,7 @@ package com.example.model
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.IList;
+	import mx.rpc.Responder;
 	
 	import uk.co.ziazoo.notifier.INotificationBus;
 
@@ -41,8 +42,12 @@ package com.example.model
 		
 		public function retrieveAllPeople():void
 		{
-		    var token:AsyncToken = service.retrieveAllPeople();
-			bus.trigger( new PeopleRecieved( data as ArrayCollection ) );
+		    var token:ResponseToken = service.retrieveAllPeople();
+		
+			token.onResult( function( people:ArrayCollection ):void
+			{
+				bus.trigger( new PeopleRecieved( people ) );
+			} );
 		}
 		
 		public function retrievePerson( name:String ):void
