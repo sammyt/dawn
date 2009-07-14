@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<actionScriptProperties mainApplicationPath="PeopleManager.mxml" projectUUID="aef63889-f3f9-40f2-858e-4fdaf64e08b8" version="6">
+<actionScriptProperties mainApplicationPath="PeopleManager.mxml" projectUUID="b329e58f-3173-4fd4-a8a1-2a7d103958f5" version="6">
   <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="false" copyDependentFiles="true" flexSDK="Flex 3.4" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="true" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
@@ -9,8 +9,8 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
-      <libraryPathEntry kind="3" linkType="1" path="/injector/bin/injector.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/bus/bin/bus.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/injector/bin/injector.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>

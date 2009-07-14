@@ -45,6 +45,8 @@ package
 			mapper.map( String ).toInstance( "OMG, String injection" ).withName( "someMessage" );
 			mapper.map( String ).toInstance( "WOW, a trace statement" ).withName( "someCopy" );
 			
+			mapper.map( Array ).toInstance( [ "boo",  "woo" ] ).withName( "user names" );
+			
 			mapper.map( INotificationBus ).toClass( NotificationBus ).asSingleton();
 			mapper.map( INotificationBus ).toClass( MyNotificationBus ).withName( "MyBus" ).asSingleton();
 			

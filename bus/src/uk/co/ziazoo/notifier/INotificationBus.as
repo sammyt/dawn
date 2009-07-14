@@ -67,5 +67,9 @@ package uk.co.ziazoo.notifier
 		function addHandler( handler:Object ):void;
 		
 		function removeHandler( handler:Object ):void;
+		
+		function addCallback( notificationType:Class, callback:Function ):void;
+		
+		function removeCallback( notificationType:Class, callback:Function ):void;
 	}
 }

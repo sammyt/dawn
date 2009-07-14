@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<actionScriptProperties mainApplicationPath="bus.as" projectUUID="3275448f-38b4-432c-b062-7517e80747e4" version="6">
+<actionScriptProperties mainApplicationPath="bus.as" projectUUID="3be1ee6a-4ee4-44ad-b2e8-71c82b63fe80" version="6">
   <compiler additionalCompilerArguments="-keep-as3-metadata+=InjectHandler" autoRSLOrdering="true" copyDependentFiles="false" flexSDK="Flex 3.4" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="true" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">

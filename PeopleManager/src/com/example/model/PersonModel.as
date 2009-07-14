@@ -18,9 +18,6 @@ package com.example.model
 		[Inject]
 		public var bus:INotificationBus;
 		
-		[Inject]
-		public var service:IPersonService;
-		
 		private var _people:IList;
 		private var _pensil:IPencil;
 		
@@ -42,11 +39,12 @@ package com.example.model
 		
 		public function retrieveAllPeople():void
 		{
-			service.retrieveAllPeople().onResult( 
+			/*service.retrieveAllPeople().onResult( 
 				function( people:ArrayCollection ):void
 				{
 					bus.trigger( new PeopleRecieved( people ) );
-				} );
+				} );*/
+			bus.trigger( new PeopleRecieved( _people ) );
 		}
 		
 		public function retrievePerson( name:String ):void
