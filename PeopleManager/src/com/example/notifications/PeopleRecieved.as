@@ -2,10 +2,10 @@ package com.example.notifications
 {
 	import com.example.handlers.IPeopleRecievedHandler;
 	
-	import mx.collections.IList;
 	import mx.collections.ArrayCollection;
+	import mx.collections.IList;
 
-	public class PeopleRecieved
+	public class PeopleRecieved implements IRecieve
 	{
 		private var _people:IList;
 		

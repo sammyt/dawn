@@ -6,7 +6,8 @@ package uk.co.ziazoo.notifier
 	public class NotificationBus implements INotificationBus
 	{	
 		protected var _handlers:Array;
-		protected var _workerHandlerMap:Dictionary;
+		protected var _callbackPairs:Array;
+		protected var _notificationDetailsMap:Dictionary;
 		
 		public function NotificationBus()
 		{
@@ -35,33 +36,65 @@ package uk.co.ziazoo.notifier
 			}
 		}
 		
-		public function trigger( worker:Object ):void
+		public function addCallback( notificationType:Class, callback:Function ):void
 		{
-			var workerClass:String = getQualifiedClassName( worker );
-			var workerDetails:WorkerDetails;
-			
-			if( !_workerHandlerMap )
+			if( !_callbackPairs )
 			{
-				_workerHandlerMap = new Dictionary();
+				_callbackPairs = new Array();
+			}
+			_callbackPairs.push( new CallbackTypePair( callback, notificationType ) );
+		}
+		
+		public function removeCallback( notificationType:Class, callback:Function ):void
+		{
+			var index:int = 0;
+			for each( var current:CallbackTypePair in _callbackPairs )
+			{
+				if( current.type == notificationType
+				 	&& current.callback == callback )
+				{
+					_callbackPairs = _callbackPairs.splice( index, 1 );
+					return;
+				}
+				index++;
+			}
+		}
+		
+		public function trigger( notification:Object ):void
+		{
+			var notificationClass:String = getQualifiedClassName( notification );
+			var notificationDetails:NotificationDetails;
+			
+			if( !_notificationDetailsMap )
+			{
+				_notificationDetailsMap = new Dictionary();
 			}
 			
-			if( _workerHandlerMap[ workerClass ] )
+			if( _notificationDetailsMap[ notificationClass ] )
 			{
-				workerDetails = _workerHandlerMap[ workerClass ] as WorkerDetails;
+				notificationDetails = _notificationDetailsMap[ notificationClass ] as NotificationDetails;
 			}
 			else
 			{
-				workerDetails = new WorkerDetails( worker );
-				_workerHandlerMap[ workerClass ] = workerDetails;
+				notificationDetails = new NotificationDetails( notification );
+				_notificationDetailsMap[ notificationClass ] = notificationDetails;
 			}
 			
-			var injector:Function = worker[ workerDetails.methodName ] as Function;
+			var injector:Function = notification[ notificationDetails.methodName ] as Function;
 			
 			for each( var handler:Object in _handlers )
 			{
-				if( handler is workerDetails.handlerType )
+				if( handler is notificationDetails.handlerType )
 				{
-					injector.apply( worker, [ handler ] );
+					injector.apply( notification, [ handler ] );
+				}
+			}
+			
+			for each ( var callbackPair:CallbackTypePair in _callbackPairs )
+			{
+				if( notification is callbackPair.type )
+				{
+					callbackPair.callback.apply( null, [ notification ] );
 				}
 			}
 		}
@@ -71,16 +104,30 @@ package uk.co.ziazoo.notifier
 import flash.utils.describeType;
 import flash.utils.getDefinitionByName;
 
-class WorkerDetails
+class NotificationDetails
 {
 	public var methodName:String;
 	public var handlerType:Class;
 	
-	public function WorkerDetails( worker:Object )
+	public function NotificationDetails( notification:Object )
 	{
-		var reflection:XML = describeType( worker );
+		var reflection:XML = describeType( notification );
 		var node:XMLList = reflection..metadata.(@name == "InjectHandler");
 		methodName = node.parent().@name;
 		handlerType = getDefinitionByName( node.parent().parameter.@type ) as Class;
 	}
 }
+
+class CallbackTypePair
+{
+	public var callback:Function;
+	public var type:Class;
+	
+	public function CallbackTypePair( callback:Function, type:Class )
+	{
+		this.callback = callback;
+		this.type = type;
+	}
+}
+
+

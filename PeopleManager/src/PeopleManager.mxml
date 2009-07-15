@@ -10,6 +10,9 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.example.notifications.IRecieve;
+			import com.example.notifications.PersonRecieved;
+			import com.example.notifications.PeopleRecieved;
 			import com.example.notifications.PersonRequest;
 			import com.example.notifications.PeopleRequest;
 			import com.example.view.AddPersonFormPresenter;
@@ -38,6 +41,24 @@
 				
 				// request data
 				bus.trigger( new PeopleRequest() );
+				
+				bus.addCallback( PersonRecieved, 
+					function( note:PersonRecieved ):void
+					{
+						trace( "PersonRecieved", note );
+					});
+				
+				bus.addCallback( PersonRequest, 
+					function( note:PersonRequest ):void
+					{
+						trace( "PersonRequest", note );
+					});
+				
+				bus.addCallback( IRecieve, 
+					function( note:IRecieve ):void
+					{
+						trace( "IRecieve", note );
+					});
 			}
 			
 		]]>

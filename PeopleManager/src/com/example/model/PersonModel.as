@@ -8,6 +8,7 @@ package com.example.model
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.IList;
+	import mx.rpc.Responder;
 	
 	import uk.co.ziazoo.notifier.INotificationBus;
 
@@ -19,6 +20,7 @@ package com.example.model
 		
 		private var _people:IList;
 		private var _pensil:IPencil;
+		
 		
 		public function PersonModel()
 		{
@@ -37,6 +39,11 @@ package com.example.model
 		
 		public function retrieveAllPeople():void
 		{
+			/*service.retrieveAllPeople().onResult( 
+				function( people:ArrayCollection ):void
+				{
+					bus.trigger( new PeopleRecieved( people ) );
+				} );*/
 			bus.trigger( new PeopleRecieved( _people ) );
 		}
 		

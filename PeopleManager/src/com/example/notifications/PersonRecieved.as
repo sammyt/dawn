@@ -3,7 +3,7 @@ package com.example.notifications
 	import com.example.handlers.IPersonRecievedHandler;
 	import com.example.model.Person;
 
-	public class PersonRecieved
+	public class PersonRecieved implements IRecieve
 	{
 		private var _person:Person;
 		
