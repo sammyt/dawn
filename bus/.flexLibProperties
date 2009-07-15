@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<flexLibProperties version="2">
-  <includeClasses>
-    <classEntry path="uk.co.ziazoo.notifier.INotificationBus"/>
-    <classEntry path="uk.co.ziazoo.notifier.NotificationBus"/>
-  </includeClasses>
-  <includeResources/>
-  <namespaceManifests/>
-</flexLibProperties>

@@ -29,7 +29,7 @@ package uk.co.ziazoo.notifier
 			{
 				if( current == handler )
 				{
-					_handlers = _handlers.splice( index, 1 );
+					_handlers.splice( index, 1 );
 					return;
 				}
 				index++;
@@ -53,7 +53,7 @@ package uk.co.ziazoo.notifier
 				if( current.type == notificationType
 				 	&& current.callback == callback )
 				{
-					_callbackPairs = _callbackPairs.splice( index, 1 );
+					_callbackPairs.splice( index, 1 );
 					return;
 				}
 				index++;
@@ -97,6 +97,11 @@ package uk.co.ziazoo.notifier
 					callbackPair.callback.apply( null, [ notification ] );
 				}
 			}
+		}
+		
+		internal function get handlers():Array
+		{
+			return _handlers;
 		}
 	}
 }
