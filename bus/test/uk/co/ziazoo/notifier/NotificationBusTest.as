@@ -28,7 +28,7 @@ package uk.co.ziazoo.notifier
 			var handler:Object = {};
 			assertNull( bus.handlers );
 			bus.addHandler( handler );
-			assertTrue( "this is one handler", bus.handlers.length == 1 );
+			assertTrue( "there is one handler", bus.handlers.length == 1 );
 		}
 		
 		public function testRemoveHandler():void
@@ -36,10 +36,10 @@ package uk.co.ziazoo.notifier
 			var handler:Object = {};
 			assertNull( bus.handlers );
 			bus.addHandler( handler );
-			assertTrue( "this is one handler", bus.handlers.length == 1 );
+			assertTrue( "there is one handler", bus.handlers.length == 1 );
 			
 			bus.removeHandler( handler );
-			assertTrue( "this are no handlers", bus.handlers.length == 0 );
+			assertTrue( "there are no handlers", bus.handlers.length == 0 );
 		}
 	}
 }
