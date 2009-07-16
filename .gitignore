@@ -6,3 +6,6 @@
 *bin
 *.flexLibProperties
 *.actionScriptProperties
+*build.xml
+*errorlog
+*FlexUnitApplication.mxml

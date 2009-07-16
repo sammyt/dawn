@@ -103,6 +103,11 @@ package uk.co.ziazoo.notifier
 		{
 			return _handlers;
 		}
+		
+		internal function get callbackPairs():Array
+		{
+			return _callbackPairs;
+		}
 	}
 }
 
