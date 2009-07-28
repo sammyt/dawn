@@ -62,14 +62,37 @@ package uk.co.ziazoo.notifier
 	 */ 
 	public interface INotificationBus
 	{
+		/**
+		 * trigger is used to send notifications out into the system.
+		 * A notification can be any object with a [InjectHander] method
+		 */ 
 		function trigger( notification:Object ):void;
 		
+		/**
+		 * Adds a hander to the bus.  handlers can be of any type
+		 * and need not implment any interfaces.  Though the notifications
+		 * that they will want to be triggered by will likely require they implement
+		 * something.
+		 */ 
 		function addHandler( handler:Object ):void;
 		
+		/**
+		 * Remove an handler, after removal no notifications will trigger
+		 * handler methods on the supplied object
+		 */ 
 		function removeHandler( handler:Object ):void;
 		
+		/**
+		 * Sometimes it would not be appropriate to implement the interface
+		 * a notification requires of a handler, but you may still want an object to be aware of
+		 * its occurance. In this scenario you can add callbacks which will be called
+		 * when a notification is triggered
+		 */ 
 		function addCallback( notificationType:Class, callback:Function ):void;
 		
+		/**
+		 * removes a callback from the bus
+		 */ 
 		function removeCallback( notificationType:Class, callback:Function ):void;
 	}
 }

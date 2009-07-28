@@ -4,7 +4,7 @@ package uk.co.ziazoo.notifier
 	
 	public class NotificationBusTest extends TestCase
 	{
-		private var bus:NotificationBus;
+		private var _bus:NotificationBus;
 		
 		public function NotificationBusTest(methodName:String=null)
 		{
@@ -14,66 +14,51 @@ package uk.co.ziazoo.notifier
 		override public function setUp():void
 		{
 			super.setUp();
-			bus = new NotificationBus();
+			_bus = new NotificationBus();
 		}
 		
 		override public function tearDown():void
 		{
 			super.tearDown();
-			bus = null;
+			_bus = null;
 		}
 		
 		public function testAddHandler():void
 		{
 			var handler:Object = {};
-			assertNull( bus.handlers );
-			bus.addHandler( handler );
-			assertTrue( "there is one handler", bus.handlers.length == 1 );
+			assertNull( _bus.handlers );
+			_bus.addHandler( handler );
+			assertTrue( "there is one handler", _bus.handlers.length == 1 );
 		}
 		
 		public function testRemoveHandler():void
 		{
 			var handler:Object = {};
-			assertNull( bus.handlers );
-			bus.addHandler( handler );
-			assertTrue( "there is one handler", bus.handlers.length == 1 );
+			assertNull( _bus.handlers );
+			_bus.addHandler( handler );
+			assertTrue( "there is one handler", _bus.handlers.length == 1 );
 			
-			bus.removeHandler( handler );
-			assertTrue( "there are no handlers", bus.handlers.length == 0 );
+			_bus.removeHandler( handler );
+			assertTrue( "there are no handlers", _bus.handlers.length == 0 );
 		}
 		
-		public function testRemoveHandler2():void
+		public function testRemoveOneCallback():void
 		{
-			var handler1:Object = {};
-			var handler2:Object = {};
+			var fun:Function = function(){};
+				assertNull( _bus.callbackPairs );
+			_bus.addCallback( Array, fun );
+			assertTrue( "there is one callBack", _bus.callbackPairs.length == 1 );
 			
-			assertNull( bus.handlers );
-			bus.addHandler( handler1 );
-			bus.addHandler( handler2 );
-			assertTrue( "there are 2 handlers", bus.handlers.length == 2 );
-			
-			bus.removeHandler( handler1 );
-			assertTrue( "theres now one", bus.handlers.length == 1 );
-			assertTrue( "hander2 is the only one left", bus.handlers[0] == handler2 );
+			_bus.removeCallback( fun );
+			assertTrue( "all gone", _bus.callbackPairs.length == 0 );
 		}
 		
 		public function testAddCallBack():void
 		{
 			var callBack:Function = function(){};
-			assertNull( bus.callbackPairs );
-			bus.addCallback( Array, callBack );
-			assertTrue( "there is one callBack", bus.callbackPairs.length == 1 );
-		}
-		
-		public function testRemoveCallback():void
-		{
-			var callBack:Function = function(){};
-			assertNull( bus.callbackPairs );
-			bus.addCallback( Array, callBack );
-			assertTrue( "there is one callBack", bus.callbackPairs.length == 1 );
-			
-			bus.removeCallback( callBack );
-			assertTrue( "all gone", bus.callbackPairs.length == 0 );
+			assertNull( _bus.callbackPairs );
+			_bus.addCallback( Array, callBack );
+			assertTrue( "there is one callBack", _bus.callbackPairs.length == 1 );
 		}
 	}
 }

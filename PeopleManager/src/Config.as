@@ -45,8 +45,7 @@ package
 			mapper.map( String ).toInstance( "OMG, String injection" ).withName( "someMessage" );
 			mapper.map( String ).toInstance( "WOW, a trace statement" ).withName( "someCopy" );
 			
-			mapper.map( INotificationBus ).toClass( NotificationBus ).asSingleton();
-			mapper.map( INotificationBus ).toClass( MyNotificationBus ).withName( "MyBus" ).asSingleton();
+			mapper.map( INotificationBus ).toClass( MyNotificationBus ).asSingleton();
 			
 			mapper.map( ViewContainer ).toInstance( app.view );
 			mapper.map( PeopleManager ).toInstance( app );
