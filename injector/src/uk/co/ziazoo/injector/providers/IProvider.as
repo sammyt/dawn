@@ -17,5 +17,10 @@ package uk.co.ziazoo.injector.providers
 		function getAccessor( provider:IProvider ):String;
 		
 		function createInstance():Object;
+		
+		function set completionTrigger( name:String ):void;
+		function get completionTrigger():String;
+		
+		function hasCompletionTrigger():Boolean;
 	}
 }

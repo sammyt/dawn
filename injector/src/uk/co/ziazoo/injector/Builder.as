@@ -69,6 +69,13 @@ package uk.co.ziazoo.injector
 			// get the map for this node
 			var map:IMap = root.data as IMap;
 			
+			// have we already created this object?
+			if( map.provider.singleton
+				&& _singletons[ map.provider.clazz ] )
+			{
+				return _singletons[ map.provider.clazz ]; 
+			}
+			
 			// create the dependencies			
 			var children:Array = [];
 			for ( ; itr.valid(); itr.forth() )
@@ -76,13 +83,6 @@ package uk.co.ziazoo.injector
 				var node:TreeNode = TreeNode( itr.data );
 				var child:Object = construct( node );
 				children.push( new MapWithInstance( node.data as IMap, child ) );
-			}
-			
-			// have we already created this object?
-			if( map.provider.singleton
-				&& _singletons[ map.provider.clazz ] )
-			{
-				return _singletons[ map.provider.clazz ]; 
 			}
 			
 			var obj:Object = map.provider.createInstance();
@@ -97,6 +97,12 @@ package uk.co.ziazoo.injector
 			if( map.provider.singleton )
 			{
 				_singletons[ map.provider.clazz ] = obj
+			}
+			
+			if( map.provider.hasCompletionTrigger() )
+			{
+				var trigger:Function = obj[ map.provider.completionTrigger ];
+				trigger.apply( obj );
 			}
 
 			return obj;
@@ -124,6 +130,15 @@ package uk.co.ziazoo.injector
 				map.provider.addAccessor( accessor.@name, childMap.provider );
 				createNode( childMap, node );
 			}
+			
+			var callbacks:XMLList = reflection.factory.method.metadata.(@name == "DependenciesInjected");
+			var callback:XML = callbacks.parent();
+			
+			if( callback )
+			{
+				map.provider.completionTrigger = callback.@name;
+			}
+			
 			return node;
 		}
 	}

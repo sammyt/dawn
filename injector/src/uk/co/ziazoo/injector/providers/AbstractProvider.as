@@ -8,6 +8,7 @@ package uk.co.ziazoo.injector.providers
 		protected var _name:String;
 		protected var _singleton:Boolean = false;
 		protected var _accessors:Dictionary;
+		protected var _completionTrigger:String = "";
 		
 		public function AbstractProvider( clazz:Class )
 		{
@@ -55,6 +56,21 @@ package uk.co.ziazoo.injector.providers
 		public function createInstance():Object
 		{
 			return null;
+		}
+		
+		public function get completionTrigger():String
+		{
+			return _completionTrigger; 
+		}
+		
+		public function set completionTrigger( value:String ):void
+		{
+			_completionTrigger = value; 
+		}
+		
+		public function hasCompletionTrigger():Boolean
+		{
+			return _completionTrigger != "";
 		}
 	}
 }
