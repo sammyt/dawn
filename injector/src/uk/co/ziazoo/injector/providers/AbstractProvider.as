@@ -58,6 +58,11 @@ package uk.co.ziazoo.injector.providers
 			return null;
 		}
 		
+		public function invokeGenerator():Object
+		{
+			return null;
+		}
+		
 		public function get completionTrigger():String
 		{
 			return _completionTrigger; 

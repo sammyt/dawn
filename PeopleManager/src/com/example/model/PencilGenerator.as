@@ -4,6 +4,8 @@ package com.example.model
 
 	public class PencilGenerator
 	{
+		[Inject(name="scribble")] public var message:String;
+		
 		public function PencilGenerator()
 		{
 		}
@@ -11,7 +13,7 @@ package com.example.model
 		[Provider]
 		public function getPensil():IPencil
 		{
-			return new Pencil( "I'm a pencil scribble" );
+			return new Pencil( message );
 		}
 	}
 } 

@@ -18,6 +18,8 @@ package uk.co.ziazoo.injector.providers
 		
 		function createInstance():Object;
 		
+		function invokeGenerator():Object;
+		
 		function set completionTrigger( name:String ):void;
 		function get completionTrigger():String;
 		

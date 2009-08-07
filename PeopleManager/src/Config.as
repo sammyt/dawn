@@ -32,6 +32,7 @@ package
 			mapper.map( PersonModel ).toSelf().asSingleton();
 			
 			mapper.map( IPencil ).toFactory( PencilGenerator );
+			mapper.map( String ).toInstance( "scribble scribble scribble" ).withName( "scribble" );
 			
 			mapper.map( PersonDetailsPresenter ).toSelf().asSingleton();
 			mapper.map( PersonDetails ).toInstance( app.view.details );

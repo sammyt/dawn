@@ -48,6 +48,11 @@ package uk.co.ziazoo.injector
 			return _provider;
 		}
 		
+		public function get isFactory():Boolean
+		{
+			return _provider is FactoryProvider;
+		}
+		
 		public function toString():String
 		{
 			return "[Map=" + clazz + ", provider="+ provider.clazz +"]";

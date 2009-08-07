@@ -89,7 +89,14 @@ package uk.co.ziazoo.injector
 			
 			for each( var pair:MapWithInstance in children )
 			{
-				obj[ map.provider.getAccessor( pair.map.provider ) ] = pair.instance;
+				if( !pair.map.isFactory )
+				{
+					obj[ map.provider.getAccessor( pair.map.provider ) ] = pair.instance;
+				}
+				else
+				{
+					obj[ map.provider.getAccessor( pair.map.provider ) ] = pair.map.provider.invokeGenerator();
+				}
 			}
 			
 			// object is now created and dependencies have been injected
@@ -132,6 +139,12 @@ package uk.co.ziazoo.injector
 					throw new Error( "Could not provide dependencies for " + map.provider.clazz +
 						" as no mapping could be found for " + accessor.@type );
 				}
+				
+				if( childMap.isFactory )
+				{
+					trace( "umm" );
+				}
+				
 				map.provider.addAccessor( accessor.@name, childMap.provider );
 				createNode( childMap, node );
 			}

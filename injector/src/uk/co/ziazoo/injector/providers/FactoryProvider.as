@@ -12,30 +12,8 @@ package uk.co.ziazoo.injector.providers
 			super( clazz );
 		}
 		
-		override public function get clazz():Class
+		override public function invokeGenerator():Object
 		{
-			var reflection:XML = describeType( _factory );
-			
-			for each( var method:XML in reflection.method )
-			{
-				if( method.hasOwnProperty( "metadata" ) )
-				{
-					for each( var metadata:XML in method.metadata )
-					{
-						if( metadata.@name == "Provider" )
-						{
-							//method.@returnType
-							return getDefinitionByName( method.@returnType ) as Class;
-						}
-					}
-				}
-			}
-			return null;
-		}
-		
-		override public function createInstance():Object
-		{
-			_factory = new _class();
 			var reflection:XML = describeType( _factory );
 			
 			for each( var method:XML in reflection.method )
@@ -53,6 +31,12 @@ package uk.co.ziazoo.injector.providers
 				}
 			}
 			return null;
+		}
+		
+		override public function createInstance():Object
+		{
+			_factory = new clazz(); 
+			return _factory;
 		}
 	}
 }
