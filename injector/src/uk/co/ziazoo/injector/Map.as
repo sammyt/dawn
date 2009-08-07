@@ -50,7 +50,7 @@ package uk.co.ziazoo.injector
 		
 		public function toString():String
 		{
-			return "[Map " + clazz + "]";
+			return "[Map=" + clazz + ", provider="+ provider.clazz +"]";
 		}
 	}
 }
