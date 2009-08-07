@@ -139,12 +139,6 @@ package uk.co.ziazoo.injector
 					throw new Error( "Could not provide dependencies for " + map.provider.clazz +
 						" as no mapping could be found for " + accessor.@type );
 				}
-				
-				if( childMap.isFactory )
-				{
-					trace( "umm" );
-				}
-				
 				map.provider.addAccessor( accessor.@name, childMap.provider );
 				createNode( childMap, node );
 			}
