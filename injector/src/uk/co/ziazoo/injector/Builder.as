@@ -9,16 +9,17 @@ package uk.co.ziazoo.injector
 
 	public class Builder implements IBuilder, IMapper
 	{
-		private var _config:IConfig;
 		private var _maps:Array;
 		private var _singletons:Dictionary;
 		
 		public function Builder( config:IConfig )
 		{
-			_config = config;
 			_maps = new Array();
 			_singletons = new Dictionary();
-			_config.create( this );
+			if( config )
+			{
+				config.create( this );
+			}
 		}
 		
 		public function map( clazz:Class ):IMap
@@ -143,11 +144,19 @@ package uk.co.ziazoo.injector
 				createNode( childMap, node );
 			}
 			
+			// does this object have a DependenciesInjected callback
 			var callbacks:XMLList = reflection.factory.method.metadata.(@name == "DependenciesInjected");
 			var callback:XML = callbacks.parent();
 			
 			if( callback )
 			{
+				var parameters:XMLList = callback.parameter;
+				if( parameters.length() > 0 )
+				{
+					throw new Error( "DependenciesInjected callback in " + map.provider.clazz + " " +
+						"requires " + parameters.length() + " argument(s). DependenciesInjected " +
+						"calbacks must have no required arguments" );
+				}
 				map.provider.completionTrigger = callback.@name;
 			}
 			

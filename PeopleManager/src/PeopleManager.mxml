@@ -10,6 +10,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			import com.example.notifications.IRecieve;
 			import com.example.notifications.PersonRecieved;
 			import com.example.notifications.PeopleRecieved;
@@ -38,15 +39,13 @@
 				bus.addHandler( personModel );
 				bus.addHandler( detailsPresenter );
 				bus.addHandler( listPresenter );
-				
+
 				// request data
-				bus.trigger( new PeopleRequest() );
-				
-				bus.addCallback( PersonRecieved, 
-					function( note:PersonRecieved ):void
+				bus.trigger( new PeopleRequest(
+					function( people:ArrayCollection ):void
 					{
-						trace( "PersonRecieved", note );
-					});
+						trace( "PeopleRecieved", people );
+					}));
 				
 				bus.addCallback( PersonRequest, 
 					function( note:PersonRequest ):void

@@ -2,8 +2,6 @@ package com.example.view
 {
 	import com.example.handlers.IPersonRecievedHandler;
 	import com.example.model.Person;
-	
-	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class PersonDetailsPresenter implements IPersonRecievedHandler
 	{
@@ -13,6 +11,12 @@ package com.example.view
 		public function PersonDetailsPresenter()
 		{
 			
+		}
+		
+		[DependenciesInjected]
+		public function init():void
+		{
+			trace( this, "init" );
 		}
 		
 		[Inject(name="someCopy")]

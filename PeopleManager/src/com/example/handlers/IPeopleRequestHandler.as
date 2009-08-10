@@ -1,7 +1,9 @@
 package com.example.handlers
 {
+	import mx.rpc.IResponder;
+
 	public interface IPeopleRequestHandler
 	{
-		function retrieveAllPeople():void;
+		function retrieveAllPeople( responder:IResponder = null ):void;
 	}
 }

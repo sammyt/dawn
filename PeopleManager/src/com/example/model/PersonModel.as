@@ -8,7 +8,8 @@ package com.example.model
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.IList;
-	import mx.rpc.Responder;
+	import mx.rpc.AsyncToken;
+	import mx.rpc.IResponder;
 	
 	import uk.co.ziazoo.notifier.INotificationBus;
 
@@ -20,7 +21,6 @@ package com.example.model
 		
 		private var _people:IList;
 		private var _pensil:IPencil;
-		
 		
 		public function PersonModel()
 		{
@@ -37,13 +37,11 @@ package com.example.model
 			trace( "PersonModel", _pensil.scribble );
 		}
 		
-		public function retrieveAllPeople():void
+		public function retrieveAllPeople( responder:IResponder = null ):void
 		{
-			/*service.retrieveAllPeople().onResult( 
-				function( people:ArrayCollection ):void
-				{
-					bus.trigger( new PeopleRecieved( people ) );
-				} );*/
+			// var token:AsyncToken = service.getAllPeople.send();
+			// token.addResponder( responder );
+			responder.result( _people );
 			bus.trigger( new PeopleRecieved( _people ) );
 		}
 		
