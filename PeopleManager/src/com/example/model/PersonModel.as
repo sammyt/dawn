@@ -41,7 +41,7 @@ package com.example.model
 		{
 			// var token:AsyncToken = service.getAllPeople.send();
 			// token.addResponder( responder );
-			responder.result( _people );
+			//responder.result( _people );
 			bus.trigger( new PeopleRecieved( _people ) );
 		}
 		

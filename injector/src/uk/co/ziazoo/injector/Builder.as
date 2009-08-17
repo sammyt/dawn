@@ -135,13 +135,25 @@ package uk.co.ziazoo.injector
 				// the provider has a dependency on a 
 				// class/interface of type accessor.@type
 				var childMap:IMap = getMapByName( accessor.@type, name );
-				if( !childMap )
+				
+				var optional:Boolean = false;
+				if( accessor.metadata.arg.( @key=="optional" ).@value == "true" )
+				{
+					optional = true;  
+				}
+				
+				if( !childMap
+					&& optional == false )
 				{
 					throw new Error( "Could not provide dependencies for " + map.provider.clazz +
 						" as no mapping could be found for " + accessor.@type );
 				}
-				map.provider.addAccessor( accessor.@name, childMap.provider );
-				createNode( childMap, node );
+				
+				if( !optional )
+				{
+					map.provider.addAccessor( accessor.@name, childMap.provider );
+					createNode( childMap, node );	
+				}
 			}
 			
 			// does this object have a DependenciesInjected callback
