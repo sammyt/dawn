@@ -149,7 +149,7 @@ package uk.co.ziazoo.injector
 						" as no mapping could be found for " + accessor.@type );
 				}
 				
-				if( !optional )
+				if( childMap )
 				{
 					map.provider.addAccessor( accessor.@name, childMap.provider );
 					createNode( childMap, node );	
