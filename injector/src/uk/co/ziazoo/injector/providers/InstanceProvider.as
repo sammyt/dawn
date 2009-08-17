@@ -12,6 +12,7 @@ package uk.co.ziazoo.injector.providers
 			super( getDefinitionByName( 
 					getQualifiedClassName( instance ) ) as Class );
 			_instance = instance;
+			asSingleton();
 		}
 		
 		override public function createInstance():Object
