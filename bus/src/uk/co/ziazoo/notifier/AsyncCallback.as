@@ -8,6 +8,7 @@ package uk.co.ziazoo.notifier
 		public function AsyncCallback( result:Function = null, fault:Function = null )
 		{
 			_result = result;
+			_fault = fault;
 		}
 		
 		public function onResult( ...args ):void
