@@ -72,9 +72,9 @@ package uk.co.ziazoo.injector
 			
 			// have we already created this object?
 			if( map.provider.singleton
-				&& _singletons[ map.provider.clazz ] )
+				&& _singletons[ map.provider ] )
 			{
-				return _singletons[ map.provider.clazz ]; 
+				return _singletons[ map.provider ]; 
 			}
 			
 			// create the dependencies			
@@ -104,7 +104,7 @@ package uk.co.ziazoo.injector
 			
 			if( map.provider.singleton )
 			{
-				_singletons[ map.provider.clazz ] = obj
+				_singletons[ map.provider ] = obj
 			}
 			
 			if( map.provider.hasCompletionTrigger() )
