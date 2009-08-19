@@ -80,16 +80,19 @@ package uk.co.ziazoo.notifier
 				_notificationDetailsMap[ notificationClass ] = notificationDetails;
 			}
 			
-			var injector:Function = notification[ notificationDetails.methodName ] as Function;
-			
-			for each( var handler:Object in _handlers )
+			if( notificationDetails.methodName )
 			{
-				if( handler is notificationDetails.handlerType )
+				var injector:Function = notification[ notificationDetails.methodName ] as Function;
+				
+				for each( var handler:Object in _handlers )
 				{
-					injector.apply( notification, [ handler ] );
-				}
+					if( handler is notificationDetails.handlerType )
+					{
+						injector.apply( notification, [ handler ] );
+					}
+				}	
 			}
-			
+						
 			for each ( var callbackPair:CallbackTypePair in _callbackPairs )
 			{
 				if( notification is callbackPair.type )
@@ -123,8 +126,13 @@ class NotificationDetails
 	{
 		var reflection:XML = describeType( notification );
 		var node:XMLList = reflection..metadata.(@name == "InjectHandler");
-		methodName = node.parent().@name;
-		handlerType = getDefinitionByName( node.parent().parameter.@type ) as Class;
+		
+		if( node
+			&& node.parent() )
+		{
+			methodName = node.parent().@name;
+			handlerType = getDefinitionByName( node.parent().parameter.@type ) as Class;
+		}
 	}
 }
 
