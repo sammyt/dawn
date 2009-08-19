@@ -72,9 +72,9 @@ package uk.co.ziazoo.injector
 			
 			// have we already created this object?
 			if( map.provider.singleton
-				&& _singletons[ map.provider ] )
+				&& map.provider.hasDependencies )
 			{
-				return _singletons[ map.provider ]; 
+				return map.provider.getInstance(); 
 			}
 			
 			// create the dependencies			
@@ -86,7 +86,7 @@ package uk.co.ziazoo.injector
 				children.push( new MapWithInstance( node.data as IMap, child ) );
 			}
 			
-			var obj:Object = map.provider.createInstance();
+			var obj:Object = map.provider.getInstance();
 			
 			for each( var pair:MapWithInstance in children )
 			{
@@ -101,13 +101,9 @@ package uk.co.ziazoo.injector
 			}
 			
 			// object is now created and dependencies have been injected
+			map.provider.onDependenciesInjected();
 			
-			if( map.provider.singleton )
-			{
-				_singletons[ map.provider ] = obj
-			}
-			
-			if( map.provider.hasCompletionTrigger() )
+			if( map.provider.hasCompletionTrigger )
 			{
 				var trigger:Function = obj[ map.provider.completionTrigger ];
 				trigger.apply( obj );

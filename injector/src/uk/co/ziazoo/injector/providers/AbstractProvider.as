@@ -9,6 +9,7 @@ package uk.co.ziazoo.injector.providers
 		protected var _singleton:Boolean = false;
 		protected var _accessors:Dictionary;
 		protected var _completionTrigger:String = "";
+		protected var _hasDependencies:Boolean;
 		
 		public function AbstractProvider( clazz:Class )
 		{
@@ -53,7 +54,7 @@ package uk.co.ziazoo.injector.providers
 			return _accessors[ provider ] as String;
 		}
 		
-		public function createInstance():Object
+		public function getInstance():Object
 		{
 			return null;
 		}
@@ -73,9 +74,19 @@ package uk.co.ziazoo.injector.providers
 			_completionTrigger = value; 
 		}
 		
-		public function hasCompletionTrigger():Boolean
+		public function get hasCompletionTrigger():Boolean
 		{
 			return _completionTrigger != "";
+		}	
+		
+		public function onDependenciesInjected():void
+		{
+			_hasDependencies = true;
+		}
+		
+		public function get hasDependencies():Boolean
+		{
+			return _hasDependencies; 
 		}
 	}
 }

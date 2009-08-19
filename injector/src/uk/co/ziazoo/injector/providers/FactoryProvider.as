@@ -1,7 +1,6 @@
 package uk.co.ziazoo.injector.providers
 {
 	import flash.utils.describeType;
-	import flash.utils.getDefinitionByName;
 
 	public class FactoryProvider extends AbstractProvider
 	{
@@ -10,6 +9,7 @@ package uk.co.ziazoo.injector.providers
 		public function FactoryProvider( clazz:Class )
 		{
 			super( clazz );
+			asSingleton();
 		}
 		
 		override public function invokeGenerator():Object
@@ -33,10 +33,21 @@ package uk.co.ziazoo.injector.providers
 			return null;
 		}
 		
-		override public function createInstance():Object
+		override public function getInstance():Object
 		{
-			_factory = new clazz(); 
-			return _factory;
+			if( singleton )
+			{
+				if( _factory )
+				{
+					return _factory;
+				}
+				_factory = new clazz();
+				return _factory;	
+			}
+			else
+			{
+				throw new Error( "FactoryProvider must be a singleton" );
+			}
 		}
 	}
 }
