@@ -1,9 +1,9 @@
-package uk.co.ziazoo.injector
+package uk.co.ziazoo.injector.mapping
 {
-	import uk.co.ziazoo.injector.providers.BasicProvider;
-	import uk.co.ziazoo.injector.providers.FactoryProvider;
-	import uk.co.ziazoo.injector.providers.IProvider;
-	import uk.co.ziazoo.injector.providers.InstanceProvider;
+	import uk.co.ziazoo.injector.provider.BasicProvider;
+	import uk.co.ziazoo.injector.provider.FactoryProvider;
+	import uk.co.ziazoo.injector.provider.IProvider;
+	import uk.co.ziazoo.injector.provider.InstanceProvider;
 
 	public class Map implements IMap
 	{
@@ -15,39 +15,60 @@ package uk.co.ziazoo.injector
 			_clazz = clazz;
 		}
 		
+		/**
+		 * @inheritDoc
+		 */ 
 		public function get clazz():Class
 		{
 			return _clazz;
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		public function toClass( clazz:Class ):IProvider
 		{
 			_provider = new BasicProvider( clazz ); 
 			return _provider;
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		public function toFactory( factory:Class ):IProvider
 		{
 			_provider = new FactoryProvider( factory );
 			return _provider;
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		public function toInstance( object:Object ):IProvider
 		{
 			_provider = new InstanceProvider( object );
 			return _provider;
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		public function toSelf():IProvider
 		{
 			return toClass( _clazz );
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		public function get provider():IProvider
 		{
 			return _provider;
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		public function get isFactory():Boolean
 		{
 			return _provider is FactoryProvider;

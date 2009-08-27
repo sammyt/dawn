@@ -39,9 +39,6 @@ package com.example.model
 		
 		public function retrieveAllPeople( responder:IResponder = null ):void
 		{
-			// var token:AsyncToken = service.getAllPeople.send();
-			// token.addResponder( responder );
-			//responder.result( _people );
 			bus.trigger( new PeopleRecieved( _people ) );
 		}
 		

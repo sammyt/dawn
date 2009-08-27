@@ -1,4 +1,4 @@
-package uk.co.ziazoo.injector.providers
+package uk.co.ziazoo.injector.provider
 {
 	public class BasicProvider extends AbstractProvider
 	{
