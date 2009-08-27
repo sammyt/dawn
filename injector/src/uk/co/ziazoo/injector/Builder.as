@@ -14,13 +14,21 @@ package uk.co.ziazoo.injector
 		private var _constructor:IConstructor;
 		private var _mapper:IMapper;
 		
-		public function Builder( config:IConfig )
+		public function Builder( config:IConfig  = null )
 		{
 			_inspector = new Inspector();
 			_mapper = new Mapper();
 			_inspector.mapper = _mapper;
 			_constructor = new Constructor();
 			
+			if( config )
+			{
+				config.create( _mapper );
+			}
+		}
+		
+		public function init( config:IConfig ):void
+		{
 			config.create( _mapper );
 		}
 		
