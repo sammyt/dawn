@@ -1,10 +1,13 @@
 package
 {
+	import uk.co.ziazoo.notifier.INotificationBus;
 	import uk.co.ziazoo.rpc.ICommand;
-	import uk.co.ziazoo.rpc.IRpcNotification;
 
 	public class GetPersonListRpcCommand implements ICommand
 	{
+		[Inject]
+		public var bus:INotificationBus;
+		
 		public function GetPersonListRpcCommand()
 		{
 		}
@@ -12,7 +15,7 @@ package
 		[Execute]
 		public function execute( notification:GetPersonList ):void
 		{
-			notification.onResult( [ "sam", "becky" ] );
+			notification.onResult( [ "sam", "becky", bus ] );
 		}
 	}
 }
