@@ -18,6 +18,11 @@
 				<artifactId>flexmojos-maven-plugin</artifactId>
 				<version>3.3.0</version>
 				<extensions>true</extensions>
+				<configuration>
+					<keepAs3Metadatas>
+						<keepAs3Metadata>InjectHandler</keepAs3Metadata>
+					</keepAs3Metadatas>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
