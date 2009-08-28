@@ -24,7 +24,7 @@ package
 			mapper.map( MoreThoughts ).toInstance( Application.application );
 			mapper.map( CommandMap ).toSelf().asSingleton();
 			mapper.map( INotificationBus ).toClass( NotificationBus ).asSingleton();
-			mapper.map( GetPersonListRpcCommand ).toSelf();
+			mapper.map( GetPersonListCommand ).toSelf();
 		}
 	}
 }

@@ -31,7 +31,7 @@
 				builder.getObject( MoreThoughts );
 				
 				// add a command to the command map
-				commandMap.addCommand( GetPersonListRpcCommand );
+				commandMap.addCommand( GetPersonListCommand );
 				
 				bus.trigger( new GetPersonList(
 					function( list:Array ):void
