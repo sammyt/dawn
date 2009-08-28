@@ -44,18 +44,18 @@ package uk.co.ziazoo.notifier
 		
 		public function testRemoveOneCallback():void
 		{
-			var fun:Function = function(){};
+			var fun:Function = function():void{};
 				assertNull( _bus.callbackPairs );
 			_bus.addCallback( Array, fun );
 			assertTrue( "there is one callBack", _bus.callbackPairs.length == 1 );
 			
-			_bus.removeCallback( fun );
+			_bus.removeCallback( Array, fun );
 			assertTrue( "all gone", _bus.callbackPairs.length == 0 );
 		}
 		
 		public function testAddCallBack():void
 		{
-			var callBack:Function = function(){};
+			var callBack:Function = function():void{};
 			assertNull( _bus.callbackPairs );
 			_bus.addCallback( Array, callBack );
 			assertTrue( "there is one callBack", _bus.callbackPairs.length == 1 );
