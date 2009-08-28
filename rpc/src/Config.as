@@ -2,13 +2,13 @@ package
 {
 	import mx.core.Application;
 	
+	import uk.co.ziazoo.command.CommandMap;
 	import uk.co.ziazoo.injector.IBuilder;
 	import uk.co.ziazoo.injector.IConfig;
 	import uk.co.ziazoo.injector.IMapper;
 	import uk.co.ziazoo.notifier.INotificationBus;
 	import uk.co.ziazoo.notifier.NotificationBus;
-	import uk.co.ziazoo.rpc.CommandDispatcher;
-	
+
 	public class Config implements IConfig
 	{
 		private var _builder:IBuilder;
@@ -22,7 +22,7 @@ package
 		{
 			mapper.map( IBuilder ).toInstance( _builder );
 			mapper.map( MoreThoughts ).toInstance( Application.application );
-			mapper.map( CommandDispatcher ).toSelf().asSingleton();
+			mapper.map( CommandMap ).toSelf().asSingleton();
 			mapper.map( INotificationBus ).toClass( NotificationBus ).asSingleton();
 			mapper.map( GetPersonListRpcCommand ).toSelf();
 		}

@@ -1,9 +1,8 @@
 package
 {
 	import uk.co.ziazoo.notifier.INotificationBus;
-	import uk.co.ziazoo.rpc.ICommand;
 
-	public class GetPersonListRpcCommand implements ICommand
+	public class GetPersonListRpcCommand
 	{
 		[Inject]
 		public var bus:INotificationBus;
@@ -18,4 +17,4 @@ package
 			notification.onResult( [ "sam", "becky", bus ] );
 		}
 	}
-}
+}	

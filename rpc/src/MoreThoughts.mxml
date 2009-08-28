@@ -5,28 +5,33 @@
 	creationComplete="creationCompleteHandler(event)">
 	<mx:Script>
 		<![CDATA[
+			import uk.co.ziazoo.command.CommandMap;
 			import uk.co.ziazoo.notifier.INotificationBus;
-			import uk.co.ziazoo.rpc.CommandDispatcher;
 			import uk.co.ziazoo.injector.Builder;
 			import uk.co.ziazoo.injector.IBuilder;
 			
 			import mx.events.FlexEvent;
 			
 			[Inject]
-			public var commandManager:CommandDispatcher;
+			public var commandMap:CommandMap;
 			
 			[Inject]
 			public var bus:INotificationBus;
 			
-			protected function creationCompleteHandler(event:FlexEvent):void
+			protected function creationCompleteHandler( event:FlexEvent ):void
 			{
+				// create builder and config
 				var builder:Builder = new Builder();
 				var config:Config = new Config( builder );
 				
-				builder.init( config );
+				// add our config the config to the builder
+				builder.addConfig( config );
+				
+				// build the application
 				builder.getObject( MoreThoughts );
 				
-				commandManager.addCommand( GetPersonListRpcCommand );
+				// add a command to the command map
+				commandMap.addCommand( GetPersonListRpcCommand );
 				
 				bus.trigger( new GetPersonList(
 					function( list:Array ):void
@@ -38,5 +43,4 @@
 
 		]]>
 	</mx:Script>
-	
 </mx:WindowedApplication>

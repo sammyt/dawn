@@ -27,7 +27,7 @@ package uk.co.ziazoo.injector
 			}
 		}
 		
-		public function init( config:IConfig ):void
+		public function addConfig( config:IConfig ):void
 		{
 			config.create( _mapper );
 		}
