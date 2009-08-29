@@ -1,0 +1,5 @@
+check out the wiki for the docs http://wiki.github.com/sammyt/dawn
+
+to compile the various Dawn swcs just run @mvn install@ in the  project root
+
+:)
