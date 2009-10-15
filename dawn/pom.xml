@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>commands</artifactId>
+	<artifactId>dawn-complete</artifactId>
 	<packaging>swc</packaging>
-	<name>Commands</name>
+	<name>All Dawn Libs</name>
 	<parent>
 		<groupId>uk.co.ziazoo</groupId>
 		<artifactId>dawn</artifactId>
@@ -38,14 +38,21 @@
 			<artifactId>bus</artifactId>
 			<version>0.6-SNAPSHOT</version>
 			<type>swc</type>
-			<scope>external</scope>
+			<scope>internal</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>injector</artifactId>
 			<version>0.6-SNAPSHOT</version>
 			<type>swc</type>
-			<scope>external</scope>
+			<scope>internal</scope>
+		</dependency>
+		<dependency>
+			<groupId>uk.co.ziazoo</groupId>
+			<artifactId>commands</artifactId>
+			<version>0.6-SNAPSHOT</version>
+			<type>swc</type>
+			<scope>internal</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.sonatype.flexmojos</groupId>

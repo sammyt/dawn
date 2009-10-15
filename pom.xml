@@ -17,6 +17,7 @@
 		<module>bus</module>
 		<module>injector</module>
 		<module>commands</module>
+		<module>dawn</module>
 	</modules>
 	
 	<repositories>
