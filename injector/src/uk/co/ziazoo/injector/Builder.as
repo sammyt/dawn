@@ -27,12 +27,17 @@ package uk.co.ziazoo.injector
 			}
 		}
 		
+		/**
+		*	@inheritDoc
+		*/	
 		public function addConfig( config:IConfig ):void
 		{
 			config.create( _mapper );
 		}
 		
-		
+		/**
+		*	@inheritDoc
+		*/	
 		public function getObject( entryPoint:Class ):Object
 		{
 			var node:TreeNode = _inspector.getTree( _mapper.getMap( entryPoint ) );

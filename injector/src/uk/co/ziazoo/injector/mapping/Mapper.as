@@ -43,6 +43,14 @@ package uk.co.ziazoo.injector.mapping
 					}
 				}
 			}
+			
+			if( !noneNamed )
+			{
+				var autoMap:IMap = this.map( clazz );
+				autoMap.toSelf();
+				return autoMap;
+			}
+			
 			return noneNamed;
 		}
 		
