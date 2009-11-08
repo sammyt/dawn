@@ -6,22 +6,30 @@ package uk.co.ziazoo.notifier
 	public class NotificationBus implements INotificationBus
 	{	
 		protected var _handlers:Array;
-		protected var _callbackPairs:Array;
+		protected var _callbacks:Array;
 		protected var _notificationDetailsMap:Dictionary;
 		
 		public function NotificationBus()
 		{
 		}
-		
-		public function addHandler( handler:Object ):void
+
+		/**
+		*	@inheritDoc
+		*/		
+		public function addHandler( handler:Object ):IListenerRegistration
 		{
 			if( !_handlers )
 			{
 				_handlers = new Array();
 			}
 			_handlers.push( handler );
+			
+			return new HandlerListenerRegistration( this, handler );
 		}
-		
+
+		/**
+		*	@inheritDoc
+		*/		
 		public function removeHandler( handler:Object ):void
 		{
 			var index:int = 0;
@@ -35,31 +43,43 @@ package uk.co.ziazoo.notifier
 				index++;
 			}
 		}
-		
-		public function addCallback( notificationType:Class, callback:Function ):void
+
+		/**
+		*	@inheritDoc
+		*/		
+		public function addCallback( notificationType:Class, callback:Function ):IListenerRegistration
 		{
-			if( !_callbackPairs )
+			if( !_callbacks )
 			{
-				_callbackPairs = new Array();
+				_callbacks = new Array();
 			}
-			_callbackPairs.push( new CallbackTypePair( callback, notificationType ) );
+			
+			var cb:Callback = new Callback( callback, notificationType );
+			_callbacks.push( cb );
+			
+			return new CallbackListenerRegistration( this, cb );
 		}
 		
+		/**
+		*	@inheritDoc
+		*/		
 		public function removeCallback( notificationType:Class, callback:Function ):void
 		{
 			var index:int = 0;
-			for each( var current:CallbackTypePair in _callbackPairs )
+			for each( var current:Callback in _callbacks )
 			{
-				if( current.type == notificationType
-				 	&& current.callback == callback )
+				if( current.encapsulates( callback, notificationType ) )
 				{
-					_callbackPairs.splice( index, 1 );
+					_callbacks.splice( index, 1 );
 					return;
 				}
 				index++;
 			}
 		}
 		
+		/**
+		*	@inheritDoc
+		*/	
 		public function trigger( notification:Object ):void
 		{
 			var notificationClass:String = getQualifiedClassName( notification );
@@ -93,11 +113,11 @@ package uk.co.ziazoo.notifier
 				}	
 			}
 						
-			for each ( var callbackPair:CallbackTypePair in _callbackPairs )
+			for each ( var callback:Callback in _callbacks )
 			{
-				if( notification is callbackPair.type )
+				if( callback.isTriggeredBy( notification ) )
 				{
-					callbackPair.callback.apply( null, [ notification ] );
+					callback.call( notification );
 				}
 			}
 		}
@@ -107,9 +127,9 @@ package uk.co.ziazoo.notifier
 			return _handlers;
 		}
 		
-		internal function get callbackPairs():Array
+		internal function get callbacks():Array
 		{
-			return _callbackPairs;
+			return _callbacks;
 		}
 	}
 }
@@ -135,17 +155,3 @@ class NotificationDetails
 		}
 	}
 }
-
-class CallbackTypePair
-{
-	public var callback:Function;
-	public var type:Class;
-	
-	public function CallbackTypePair( callback:Function, type:Class )
-	{
-		this.callback = callback;
-		this.type = type;
-	}
-}
-
-

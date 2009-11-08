@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>uk.co.ziazoo</groupId>
 		<artifactId>dawn</artifactId>
-		<version>0.6-SNAPSHOT</version>
+		<version>0.7-SNAPSHOT</version>
 	</parent>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -36,21 +36,21 @@
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>bus</artifactId>
-			<version>0.6-SNAPSHOT</version>
+			<version>0.7-SNAPSHOT</version>
 			<type>swc</type>
 			<scope>internal</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>injector</artifactId>
-			<version>0.6-SNAPSHOT</version>
+			<version>0.7-SNAPSHOT</version>
 			<type>swc</type>
 			<scope>internal</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>commands</artifactId>
-			<version>0.6-SNAPSHOT</version>
+			<version>0.7-SNAPSHOT</version>
 			<type>swc</type>
 			<scope>internal</scope>
 		</dependency>

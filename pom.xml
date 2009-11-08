@@ -9,7 +9,7 @@
 	<groupId>uk.co.ziazoo</groupId>
 	<artifactId>dawn</artifactId>
 	<packaging>pom</packaging>
-	<version>0.6-SNAPSHOT</version>
+	<version>0.7-SNAPSHOT</version>
 	<name>Dawn</name>
 	<url>http://wiki.github.com/sammyt/dawn</url>
 	
