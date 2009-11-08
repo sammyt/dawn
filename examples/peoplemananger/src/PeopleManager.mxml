@@ -11,53 +11,59 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
-			import com.example.notifications.IRecieve;
-			import com.example.notifications.PersonRecieved;
-			import com.example.notifications.PeopleRecieved;
-			import com.example.notifications.PersonRequest;
-			import com.example.notifications.PeopleRequest;
+			import com.example.notifications.GetPeople;
 			import com.example.view.AddPersonFormPresenter;
 			import com.example.view.PersonListPresenter;
 			import com.example.view.PersonDetailsPresenter;
-			import com.example.model.PersonModel;
+			import com.example.commands.AddPersonCommand;
+			import com.example.commands.GetPeopleCommand;
 			
 			import uk.co.ziazoo.notifier.INotificationBus;
 			import uk.co.ziazoo.injector.IBuilder;
 			import uk.co.ziazoo.injector.Builder;
+			import uk.co.ziazoo.command.CommandMap;
 			
-			[Inject] public var personModel:PersonModel;
-			[Inject] public var detailsPresenter:PersonDetailsPresenter;
-			[Inject] public var listPresenter:PersonListPresenter;
-			[Inject] public var addFormPresenter:AddPersonFormPresenter;
-			[Inject] public var bus:INotificationBus;
+            [Inject] 
+			/**
+			*    Presenter pattern wrapper around the details view
+			*/
+			public var detailsPresenter:PersonDetailsPresenter;
+			
+			[Inject] 
+			/**
+			*    Presenter pattern wrapper around the list view
+			*/    
+			public var listPresenter:PersonListPresenter;
+			
+			[Inject] 
+			/**
+			*    Presenter pattern wrapper around the add form
+			*/ 
+			public var addFormPresenter:AddPersonFormPresenter;
+			
+			[Inject] 
+			/**
+			*    notification bus used to ferry notifications around the system
+			*/
+			public var bus:INotificationBus;
+			
+			[Inject]
+			public var commandMap:CommandMap;
 			
 			private function init():void
 			{
 				var builder:IBuilder = new Builder( new Config() );
 				builder.getObject( PeopleManager );
 				
-				bus.addHandler( personModel );
-				bus.addHandler( detailsPresenter );
-				bus.addHandler( listPresenter );
-
-				// request data
-				bus.trigger( new PeopleRequest(
+				commandMap.addCommand( GetPeopleCommand );
+				commandMap.addCommand( AddPersonCommand );
+				
+				bus.trigger( new GetPeople(
 					function( people:ArrayCollection ):void
 					{
 						trace( "PeopleRecieved", people );
-					}));
-				
-				bus.addCallback( PersonRequest, 
-					function( note:PersonRequest ):void
-					{
-						trace( "PersonRequest", note );
-					});
-				
-				bus.addCallback( IRecieve, 
-					function( note:IRecieve ):void
-					{
-						trace( "IRecieve", note );
-					});
+					})
+				);
 			}
 			
 		]]>

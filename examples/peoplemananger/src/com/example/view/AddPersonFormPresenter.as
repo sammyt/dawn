@@ -1,7 +1,7 @@
 package com.example.view
 {
 	import com.example.model.Person;
-	import com.example.notifications.AddPersonRequest;
+	import com.example.notifications.AddPerson;
 	
 	import flash.events.Event;
 	
@@ -30,7 +30,7 @@ package com.example.view
 			var person:Person = new Person( _form.nameTxt.text, 
 					parseFloat( _form.ageTxt.text ) );
 			
-			bus.trigger( new AddPersonRequest( person ) );
+			bus.trigger( new AddPerson( person ) );
 			
 			_form.clear();
 		}

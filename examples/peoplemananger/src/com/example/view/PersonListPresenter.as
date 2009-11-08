@@ -11,7 +11,6 @@ package com.example.view
 	import uk.co.ziazoo.notifier.INotificationBus;
 
 	public class PersonListPresenter 
-		implements IPeopleRecievedHandler
 	{
 		private var _personList:PersonList;
 		

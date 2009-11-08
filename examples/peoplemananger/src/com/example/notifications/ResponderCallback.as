@@ -5,11 +5,15 @@ package com.example.notifications
 	
 	import uk.co.ziazoo.notifier.AsyncCallback;
 
+	/**
+	*	Simple extension of the <code>AsyncCallback</code> class to make
+	*	it implement the <code>IResponder</code> interface
+	*/	
 	public class ResponderCallback extends AsyncCallback implements IResponder
 	{
-		public function ResponderCallback( callback:Function=null )
+		public function ResponderCallback( result:Function )
 		{
-			super( callback );
+			super( result );
 		}
 		
 		public function result( data:Object ):void
