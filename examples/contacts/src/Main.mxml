@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="horizontal" minWidth="1024" minHeight="768"
+	creationComplete="onCreationComplete(event)">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.example.commands.CreateContactCommand;
+			import com.example.commands.GetContactsCommand;
+			import com.example.model.GetContacts;
+			import com.example.view.ContactListPresenter;
+			import com.example.view.CreateContactPresenter;
+			
+			import mx.events.FlexEvent;
+			
+			import uk.co.ziazoo.command.CommandMap;
+			import uk.co.ziazoo.injector.Builder;
+			import uk.co.ziazoo.injector.IBuilder;
+			import uk.co.ziazoo.notifier.INotificationBus;
+			
+			[Inject]
+			/**
+			 * The <code>CommandMap</code> is where you can
+			 * register commands with Dawn.  A command is any
+			 * object which has a method with the [Execute] metadata
+			 */ 
+			public var commands:CommandMap;
+			
+			[Inject]
+			/**
+			 * The presenter object for the contact list
+			 */ 
+			public var listPresenter:ContactListPresenter;
+			
+			[Inject]
+			/**
+			 * The presenter object for the creation form
+			 */ 
+			public var createPresenter:CreateContactPresenter;
+			
+			[Inject]
+			/**
+			 * The application wide notification bus
+			 */ 
+			public var bus:INotificationBus;
+			
+			protected function onCreationComplete(event:FlexEvent):void
+			{
+				// setup the Dawn builder
+				var builder:IBuilder = new Builder( new ContactAppConfig( this ) );
+				builder.addConfig( new BasicDawnConfig( builder ) );
+				
+				// construct the application
+				builder.getObject( Main );
+				
+				// register any commands
+				commands.addCommand( GetContactsCommand );
+				commands.addCommand( CreateContactCommand );
+				
+				// add the view objects to the display
+				addChild( listPresenter.displayObject );
+				addChild( createPresenter.displayObject );
+				
+				// get the contacts from the server
+				bus.trigger( new GetContacts() );
+			}
+		]]>
+	</mx:Script>
+	
+</mx:Application>

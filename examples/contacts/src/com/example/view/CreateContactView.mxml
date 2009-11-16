@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="200" height="300">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.example.model.Contact;
+
+			public function get newContact():Contact
+			{
+				return new Contact( nameInput.text );
+			}
+
+			protected function onSubmit(event:MouseEvent):void
+			{
+				dispatchEvent( new Event( "addContact" ) );
+			}
+
+		]]>
+	</mx:Script>
+	
+	<mx:TextInput id="nameInput" />
+	<mx:Button id="submit" label="add" click="onSubmit(event)" />
+	
+</mx:VBox>
