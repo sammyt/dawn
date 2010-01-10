@@ -9,6 +9,10 @@
 		<artifactId>dawn</artifactId>
 		<version>0.7-SNAPSHOT</version>
 	</parent>
+	<properties>
+    <flexversion>3.5.0.12683</flexversion>
+    <mojoversion>3.5.0</mojoversion>
+  </properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
@@ -16,13 +20,21 @@
 			<plugin>
 				<groupId>org.sonatype.flexmojos</groupId>
 				<artifactId>flexmojos-maven-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>${mojoversion}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<keepAs3Metadatas>
 						<keepAs3Metadata>Execute</keepAs3Metadata>
 					</keepAs3Metadatas>
 				</configuration>
+				<dependencies>
+          <dependency>
+            <groupId>com.adobe.flex</groupId>
+            <artifactId>compiler</artifactId>
+            <version>${flexversion}</version>
+            <type>pom</type>
+          </dependency>
+        </dependencies>
 			</plugin>
 		</plugins>
 	</build>
@@ -30,7 +42,7 @@
 		<dependency>
 			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>flex-framework</artifactId>
-			<version>3.2.0.3958</version>
+			<version>${flexversion}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
@@ -57,7 +69,7 @@
 		<dependency>
 			<groupId>org.sonatype.flexmojos</groupId>
 			<artifactId>flexmojos-unittest-support</artifactId>
-			<version>3.3.0</version>
+			<version>${mojoversion}</version>
 			<type>swc</type>
 			<scope>test</scope>
 		</dependency>

@@ -13,7 +13,7 @@
 			<plugin>
 				<groupId>org.sonatype.flexmojos</groupId>
 				<artifactId>flexmojos-maven-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.5.0</version>
 				<extensions>true</extensions>
 				<configuration>
 					<targetPlayer>10.0.0</targetPlayer>
