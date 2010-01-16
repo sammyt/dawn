@@ -5,7 +5,7 @@ package uk.co.ziazoo.injector.inspect
 	import flash.utils.describeType;
 	
 	import uk.co.ziazoo.injector.mapping.IMap;
-	import uk.co.ziazoo.injector.IMapper;
+	import uk.co.ziazoo.injector.mapping.IMapper;
 	
 	public class Inspector implements IInspector
 	{

@@ -2,7 +2,6 @@ package uk.co.ziazoo.injector.mapping
 {
 	import flash.utils.getDefinitionByName;
 	
-	import uk.co.ziazoo.injector.IMapper;
 	
 	public class Mapper implements IMapper
 	{

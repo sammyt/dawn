@@ -3,7 +3,7 @@ package uk.co.ziazoo.command
 	import uk.co.ziazoo.injector.IBuilder;
 	import uk.co.ziazoo.notifier.INotificationBus;
 
-	public class CommandMap
+	public class CommandMap implements ICommandMap
 	{
 		private var _bus:INotificationBus;
 		private var _builder:IBuilder;
@@ -13,9 +13,9 @@ package uk.co.ziazoo.command
 		{
 		}
 		
-		protected function invokeCommand( notification:Object ):void
+		internal function invokeCommand( notification:Object ):void
 		{
-			for each( var details:CommandDetails in commands )
+			for each( var details:Command in commands )
 			{
 				if( notification is details.triggerType )
 				{
@@ -25,9 +25,12 @@ package uk.co.ziazoo.command
 			}
 		}
 		
+		/**
+		 * @inheritDoc
+		 */ 
 		public function addCommand( command:Class ):void
 		{
-			var details:CommandDetails = new CommandDetails( command );
+			var details:Command = new Command( command );
 			commands.push( details );
 			
 			bus.addCallback( details.triggerType, invokeCommand );
@@ -55,7 +58,7 @@ package uk.co.ziazoo.command
 			_bus = value;
 		}
 		
-		protected function get commands():Array
+		internal function get commands():Array
 		{
 			if( !_commands )
 			{

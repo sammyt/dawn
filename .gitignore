@@ -9,3 +9,5 @@
 *build.xml
 *errorlog
 *FlexUnitApplication.mxml
+*.FlexUnitSettings
+*.flexProperties

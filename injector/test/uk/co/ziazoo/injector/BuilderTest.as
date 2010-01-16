@@ -3,7 +3,7 @@ package uk.co.ziazoo.injector {
 	
 	import uk.co.ziazoo.injector.Builder;
 	import uk.co.ziazoo.injector.IConfig;
-	import uk.co.ziazoo.injector.IMapper;
+	import uk.co.ziazoo.injector.mapping.IMapper;
 	
 	import some.thing.Apple;
 	import some.thing.Car;
@@ -13,6 +13,7 @@ package uk.co.ziazoo.injector {
 	import some.thing.QuietRadio;
 	import some.thing.CarWithOneRadio;
 	import some.thing.CarWithTwoRadios;
+	import uk.co.ziazoo.injector.mapping.IMapper;
 	
 	public class BuilderTest extends TestCase implements IConfig
 	{

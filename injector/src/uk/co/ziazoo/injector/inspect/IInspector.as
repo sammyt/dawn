@@ -3,7 +3,7 @@ package uk.co.ziazoo.injector.inspect
 	import de.polygonal.ds.TreeNode;
 	
 	import uk.co.ziazoo.injector.mapping.IMap;
-	import uk.co.ziazoo.injector.IMapper;
+	import uk.co.ziazoo.injector.mapping.IMapper;
 	
 	/**
 	 * The IInspectors job is to perform reflection on a class

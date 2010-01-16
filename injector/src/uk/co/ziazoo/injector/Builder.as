@@ -7,6 +7,7 @@ package uk.co.ziazoo.injector
 	import uk.co.ziazoo.injector.inspect.IInspector;
 	import uk.co.ziazoo.injector.inspect.Inspector;
 	import uk.co.ziazoo.injector.mapping.Mapper;
+	import uk.co.ziazoo.injector.mapping.IMapper;
 
 	public class Builder implements IBuilder
 	{

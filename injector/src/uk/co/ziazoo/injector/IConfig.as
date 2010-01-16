@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector
 {
+	import uk.co.ziazoo.injector.mapping.IMapper;
+
 	/**
 	 * defines the interface a Dawn configuration class must implement. 
 	 */
