@@ -40,14 +40,3 @@ package uk.co.ziazoo.command
 		}
 	}
 }
-
-class MockCommand {
-	
-	public var invokeCount:int = 0;
-	
-	[Execute]
-	public function doIt( note:String ):void
-	{
-		invokeCount ++;
-	}
-}

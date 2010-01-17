@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>uk.co.ziazoo</groupId>
 		<artifactId>dawn</artifactId>
-		<version>0.7-SNAPSHOT</version>
+		<version>0.7.9-SNAPSHOT</version>
 	</parent>
 	<properties>
 		<flexversion>3.5.0.12683</flexversion>
@@ -49,14 +49,14 @@
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>bus</artifactId>
-			<version>0.7-SNAPSHOT</version>
+			<version>0.7.9-SNAPSHOT</version>
 			<type>swc</type>
 			<scope>external</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>injector</artifactId>
-			<version>0.7-SNAPSHOT</version>
+			<version>0.7.9-SNAPSHOT</version>
 			<type>swc</type>
 			<scope>external</scope>
 		</dependency>
@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>com.adobe.flexunit</groupId>
 			<artifactId>flexunit</artifactId>
-			<version>4.0-beta-2</version>
+			<version>4.0-rc-1</version>
 			<type>swc</type>
 			<scope>test</scope>
 		</dependency>

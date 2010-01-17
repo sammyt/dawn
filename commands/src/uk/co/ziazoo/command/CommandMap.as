@@ -3,24 +3,34 @@ package uk.co.ziazoo.command
 	import uk.co.ziazoo.injector.IBuilder;
 	import uk.co.ziazoo.notifier.INotificationBus;
 
+	/**
+	 * Implements ICommandMap allowing users to register commands with
+	 * Dawn.
+	 */ 
 	public class CommandMap implements ICommandMap
 	{
 		private var _bus:INotificationBus;
 		private var _builder:IBuilder;
 		private var _commands:Array;
 		
-		public function CommandMap()
-		{
-		}
+		public function CommandMap(){}
 		
+		/**
+		 * @private
+		 * 
+		 * the function that is invoked by the notification callback.  Invokes
+		 * all commands with triggerType of notification
+		 * 
+		 * @param notification:Object the trigger notification
+		 */ 
 		internal function invokeCommand( notification:Object ):void
 		{
-			for each( var details:Command in commands )
+			for each( var command:Command in commands )
 			{
-				if( notification is details.triggerType )
+				if( notification is command.triggerType )
 				{
-					var command:Object = builder.getObject( details.commandType );
-					details.invoke( command, notification );
+					var instance:Object = builder.getObject( command.commandType );
+					command.invoke( instance, notification );
 				}
 			}
 		}
@@ -37,6 +47,11 @@ package uk.co.ziazoo.command
 		}
 		
 		[Inject]
+		
+		/**
+		 * The <code>IBuilder</code> object that will be used to 
+		 * construct the command objects
+		 */ 
 		public function get builder():IBuilder
 		{
 			return _builder;
@@ -48,6 +63,11 @@ package uk.co.ziazoo.command
 		}
 		
 		[Inject]
+		
+		/**
+		 * instance of <code>INotificationBus</code> where notification will
+		 * to listened for to trigger the commands
+		 */ 
 		public function get bus():INotificationBus
 		{
 			return _bus;
@@ -58,6 +78,11 @@ package uk.co.ziazoo.command
 			_bus = value;
 		}
 		
+		/**
+		 * @private
+		 * 
+		 * list of mapped <code>Command</code> objects
+		 */ 
 		internal function get commands():Array
 		{
 			if( !_commands )

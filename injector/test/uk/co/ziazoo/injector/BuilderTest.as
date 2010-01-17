@@ -24,11 +24,13 @@ package uk.co.ziazoo.injector {
 			super(methodName);
 		}
 		
+		[Before]
 		override public function setUp():void
 		{
 			_builder = new Builder( this );
 		}
 		
+		[After]
 		override public function tearDown():void
 		{
 			_builder = null;
@@ -41,6 +43,7 @@ package uk.co.ziazoo.injector {
 			mapper.map(IRadio).toClass(LoudRadio).withName("loud radio");
 		}
 		
+		[Test]
 		public function testCreateCar():void
 		{
 			var car:Car = _builder.getObject(Car) as Car;
@@ -48,6 +51,7 @@ package uk.co.ziazoo.injector {
 			assertNotNull("created car with engine", car.engine);
 		}
 		
+		[Test]
 		public function testCarAndEngineAreTransient():void
 		{
 			var car1:Car = _builder.getObject(Car) as Car;
@@ -57,6 +61,7 @@ package uk.co.ziazoo.injector {
 			assertTrue( "the engines are not the same", car1.engine != car2.engine );
 		}
 		
+		[Test]
 		public function testAppleIsASingleton():void
 		{
 			var apple1:Apple = _builder.getObject(Apple) as Apple;
@@ -65,6 +70,7 @@ package uk.co.ziazoo.injector {
 			assertTrue( "the apples are the same object", apple1 == apple2 );
 		}
 		
+		[Test]
 		public function testCreateCarWithRadio():void
 		{
 			var car:CarWithOneRadio = _builder.getObject(CarWithOneRadio) as CarWithOneRadio;
@@ -74,6 +80,7 @@ package uk.co.ziazoo.injector {
 			assertNotNull("car has engine", car.engine);
 		}
 		
+		[Test]
 		public function testCreateCarWithTwoRadios():void
 		{
 			var car:CarWithTwoRadios = _builder.getObject(CarWithTwoRadios) as CarWithTwoRadios;
