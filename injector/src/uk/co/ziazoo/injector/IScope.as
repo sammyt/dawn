@@ -1,8 +1,8 @@
 package uk.co.ziazoo.injector 
 {
-	public interface IScope
+	public interface IScope extends IProvider
 	{
-		function getObject():Object;
+		function scopeMapping( mapping:IMapping ):void;
 	}
 }
 

@@ -60,8 +60,7 @@ package uk.co.ziazoo.injector.impl
 		{
 			builder.to(Car).asSingleton();
 			var mapping:IMapping = builder.getMapping();
-			var provider:BasicProvider = BasicProvider( mapping.provider );
-			Assert.assertTrue( "is SingletonScope", provider.scope is SingletonScope )
+			Assert.assertTrue( "is SingletonScope", mapping.provider is SingletonScope )
 		}
 	}
 }

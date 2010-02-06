@@ -2,11 +2,11 @@ package uk.co.ziazoo.injector.impl
 {	
 	import uk.co.ziazoo.injector.IMapping;
 	import uk.co.ziazoo.injector.IMappingBuilder;
+	import uk.co.ziazoo.injector.IScope;
 	
 	public class MappingBuilder implements IMappingBuilder
 	{
 		private var clazz:Class;
-		private var singleton:Boolean;
 		private var name:String;
 		private var mapping:IMapping;
 		
@@ -37,10 +37,15 @@ package uk.co.ziazoo.injector.impl
 			return this;
 		}
 		
-		public function asSingleton():IMappingBuilder
+		public function inScope( scope:IScope ):void
 		{
-			getMapping().provider.scope = new SingletonScope();
-			return null;
+			scope.scopeMapping( getMapping() );
+		}
+		
+		public function asSingleton():void
+		{
+			var singleton:SingletonScope = new SingletonScope();
+			inScope( singleton );
 		}
 		
 		public function getMapping():IMapping
