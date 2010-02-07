@@ -6,8 +6,11 @@ package uk.co.ziazoo.injector.impl
 		public var type:String;
 		public var optional:Boolean;
 		
-		public function Parameter()
+		public function Parameter( reflection:XML )
 		{
+			index = parseInt( reflection.@index );
+			type = reflection.@type;
+			optional = reflection.@optional == "true";
 		}
 	}
 }

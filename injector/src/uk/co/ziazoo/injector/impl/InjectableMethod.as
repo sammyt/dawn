@@ -8,6 +8,19 @@ package uk.co.ziazoo.injector.impl
 
 		public function InjectableMethod( reflection:XML )
 		{
+			name = reflection.@name;
+			
+			params = [];
+			for each( var p:XML in reflection.parameter )
+			{
+				params.push( new Parameter( p ) );
+			}
+			
+			metadata = [];
+			for each( var m:XML in reflection.metadata )
+			{
+				metadata.push( new Metadata( m ) );
+			}
 		}
 	}
 }
