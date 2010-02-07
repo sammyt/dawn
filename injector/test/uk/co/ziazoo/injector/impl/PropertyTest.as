@@ -2,9 +2,9 @@ package uk.co.ziazoo.injector.impl
 {	
 	import org.flexunit.Assert;
 	
-	public class InjectablePropertyTest
+	public class PropertyTest
 	{	
-		public function InjectablePropertyTest()
+		public function PropertyTest()
 		{
 		}
 		
@@ -17,7 +17,7 @@ package uk.co.ziazoo.injector.impl
 	      </metadata>
 	    </variable>;
 			
-			var prop:InjectableProperty = new InjectableProperty( variable );
+			var prop:Property = new Property( variable );
 			
 			Assert.assertTrue( "found the name", prop.name == "car" );
 			Assert.assertTrue( "found the type", prop.type == "some.thing::Car" );
@@ -32,7 +32,7 @@ package uk.co.ziazoo.injector.impl
 	      <metadata name="Inject"/>
 	    </accessor>
 			
-			var prop:InjectableProperty = new InjectableProperty( accessor );
+			var prop:Property = new Property( accessor );
 			
 			Assert.assertTrue( "found the name", prop.name == "radio" );
 			Assert.assertTrue( "found the type", prop.type == "some.thing::IRadio" );

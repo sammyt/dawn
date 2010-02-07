@@ -2,9 +2,9 @@ package uk.co.ziazoo.injector.impl
 {
 	import org.flexunit.Assert;
 		
-	public class InjectableMethodTest
+	public class MethodTest
 	{
-		public function InjectableMethodTest()
+		public function MethodTest()
 		{
 		}
 		
@@ -17,7 +17,7 @@ package uk.co.ziazoo.injector.impl
 	      <metadata name="Inject"/>
 	    </method>;
 			
-			var method:InjectableMethod = new InjectableMethod( reflect );
+			var method:Method = new Method( reflect );
 			
 			Assert.assertTrue( "name of injectLeaf", method.name == "injectLeaf" );
 			Assert.assertTrue( "one param", method.params.length == 1 );

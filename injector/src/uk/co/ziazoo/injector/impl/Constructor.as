@@ -1,11 +1,11 @@
 package uk.co.ziazoo.injector.impl 
 {
-	public class InjectableConstructor
+	public class Constructor
 	{
 		public var params:Array;
 		public var metadata:Array;
 		
-		public function InjectableConstructor( factory:XML )
+		public function Constructor( factory:XML )
 		{
 			params = [];
 			for each( var p:XML in factory.constructor.parameter )

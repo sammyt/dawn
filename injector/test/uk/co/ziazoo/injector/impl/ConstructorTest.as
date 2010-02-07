@@ -2,9 +2,9 @@ package uk.co.ziazoo.injector.impl
 {	
 	import org.flexunit.Assert;
 	
-	public class InjectableConstructorTest
+	public class ConstructorTest
 	{
-		public function InjectableConstructorTest()
+		public function ConstructorTest()
 		{
 		}
 		
@@ -39,8 +39,8 @@ package uk.co.ziazoo.injector.impl
 			    </accessor>
 			  </factory>;
 				
-			var constructor:InjectableConstructor = 
-				new InjectableConstructor( reflection );
+			var constructor:Constructor = 
+				new Constructor( reflection );
 			
 			Assert.assertTrue( "one param", constructor.params.length == 1 );
 			Assert.assertTrue( "two metadatas", constructor.metadata.length == 2 );
@@ -72,8 +72,8 @@ package uk.co.ziazoo.injector.impl
 			    </accessor>
 			  </factory>;
 				
-			var constructor:InjectableConstructor = 
-				new InjectableConstructor( reflection );
+			var constructor:Constructor = 
+				new Constructor( reflection );
 			
 			Assert.assertTrue( "one param", constructor.params.length == 1 );
 			Assert.assertTrue( "no metadata", constructor.metadata.length == 0 );

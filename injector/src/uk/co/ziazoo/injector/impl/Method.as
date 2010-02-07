@@ -1,12 +1,12 @@
 package uk.co.ziazoo.injector.impl
 {	
-	public class InjectableMethod
+	public class Method
 	{
 		public var name:String;
 		public var params:Array;
 		public var metadata:Array;
 
-		public function InjectableMethod( reflection:XML )
+		public function Method( reflection:XML )
 		{
 			name = reflection.@name;
 			

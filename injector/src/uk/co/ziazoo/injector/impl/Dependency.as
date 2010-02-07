@@ -6,22 +6,27 @@ package uk.co.ziazoo.injector.impl
 	
 	public class Dependency implements IDependency
 	{
-		private var _mapping:IMapping;
-		private var _injectionPoint:IInjectionPoint;
+		internal var mapping:IMapping;
+		internal var injectionPoint:IInjectionPoint;
 		
-		public function Dependency( mapping:IMapping )
+		public function Dependency( mapping:IMapping, 
+			injectionPoint:IInjectionPoint = null )
 		{
-			_mapping = mapping;
+			this.mapping = mapping;
+			if( parent )
+			{
+				this.injectionPoint = injectionPoint;
+			}
 		}
 		
-		public function get mapping():IMapping
+		public function getMapping():IMapping
 		{
-			return _mapping;
+			return mapping;
 		}
 		
-		public function get injectionPoint():IInjectionPoint
+		public function getParent():IInjectionPoint
 		{
-			return _injectionPoint;
+			return injectionPoint;
 		}
 	}
 }

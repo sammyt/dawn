@@ -1,12 +1,12 @@
 package uk.co.ziazoo.injector.impl
 {	
-	public class InjectableProperty
+	public class Property
 	{
 		public var name:String;
 		public var type:String;
 		public var metadata:Array;
 		
-		public function InjectableProperty( prop:XML )
+		public function Property( prop:XML )
 		{
 			name = prop.@name;
 			type = prop.@type;

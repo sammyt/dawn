@@ -15,21 +15,10 @@ package uk.co.ziazoo.injector.impl
 		*/	
 		public function inject( object:Object ):Object
 		{
-			var clazz:Class;
-			if( object is Class )
-			{
-				clazz = object as Class;
-			}
-			else
-			{
-				clazz = getClass( object );
-			}
-			
-			//var root:Dependency = new Dependency( getMapping( clazz ) );
+			var clazz:Class = getClass( object );
 			
 			return null;
 		}
-		
 		/**
 		*	@inheritDoc
 		*/	
@@ -54,7 +43,14 @@ package uk.co.ziazoo.injector.impl
 		
 		internal function getClass( object:Object ):Class
 		{
-			return Array;
+			if( object is Class )
+			{
+				return object as Class;
+			}
+			else
+			{
+				return null;
+			}
 		}
 	}
 }
