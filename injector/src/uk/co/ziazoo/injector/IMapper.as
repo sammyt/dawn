@@ -4,6 +4,6 @@ package uk.co.ziazoo.injector
 	{
 		function map( clazz:Class ):IMappingBuilder;
 		
-		function getProvider( mapping:IMapping ):IProvider;
+		function getMapping( type:Class, name:String = "" ):IMapping;
 	}
 }

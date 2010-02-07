@@ -7,7 +7,6 @@ package uk.co.ziazoo.injector.impl
 	public class MappingBuilder implements IMappingBuilder
 	{
 		private var clazz:Class;
-		private var name:String;
 		private var mapping:IMapping;
 		
 		public function MappingBuilder( clazz:Class )

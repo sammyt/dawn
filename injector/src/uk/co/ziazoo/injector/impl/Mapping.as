@@ -12,6 +12,7 @@ package uk.co.ziazoo.injector.impl
 		public function Mapping( type:Class )
 		{
 			_type = type;
+			_name = "";
 		}
 		
 		public function get type():Class

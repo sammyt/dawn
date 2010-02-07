@@ -21,9 +21,26 @@ package uk.co.ziazoo.injector.impl
 			return builder;
 		}
 		
-		public function getProvider( mapping:IMapping ):IProvider
+		public function getMapping( type:Class, name:String = "" ):IMapping
 		{
-			return null;
+			var unNamed:IMapping;
+			for each( var builder:IMappingBuilder in builders )
+			{
+				var mapping:IMapping = builder.getMapping();
+				
+				if( mapping.type == type )
+				{
+					if( mapping.name == name )
+					{
+						return mapping;
+					}
+					else if( mapping.name == "" )
+					{
+						unNamed = mapping;
+					}
+				}
+			}
+			return unNamed;
 		}
 	}
 }
