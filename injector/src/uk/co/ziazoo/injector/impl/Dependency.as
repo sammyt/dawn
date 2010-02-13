@@ -13,7 +13,8 @@ package uk.co.ziazoo.injector.impl
 			injectionPoint:IInjectionPoint = null )
 		{
 			this.mapping = mapping;
-			if( parent )
+			
+			if( injectionPoint )
 			{
 				this.injectionPoint = injectionPoint;
 			}

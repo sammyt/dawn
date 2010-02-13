@@ -15,10 +15,33 @@ package uk.co.ziazoo.injector.impl
 		*/	
 		public function inject( object:Object ):Object
 		{
-			var clazz:Class = getClass( object );
+			var mapping:IMapping = getMapping( getClass( object ) );
+			var dependency:IDependency = new Dependency( mapping );
+			
+			// magic
 			
 			return null;
 		}
+		
+		private function createInjectionPoints( type:Class ):Array
+		{
+			var reflection:Reflection = new Reflection( type );
+			var injectionPoints:Array = [];
+			
+			/*append( injectionPoints, 
+				InjectionPoint.forProperties( reflection.properties ) );*/
+			
+			return null;
+		}
+		
+		internal function append( destination:Array, source:Array ):void
+		{
+			for each( var item:Object in source )
+			{
+				destination.push( item );
+			}
+		}
+		
 		/**
 		*	@inheritDoc
 		*/	

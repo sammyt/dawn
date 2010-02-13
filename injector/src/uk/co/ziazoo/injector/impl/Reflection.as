@@ -1,8 +1,12 @@
 package uk.co.ziazoo.injector.impl 
 {
 	import flash.utils.describeType;
+	import flash.utils.Dictionary;
 	
-	internal class Reflector 
+	/**
+	*	A very basic reflection of a type
+	*/	
+	internal class Reflection 
 	{
 		private var type:Class;
 		
@@ -10,7 +14,7 @@ package uk.co.ziazoo.injector.impl
 		public var methods:Array;
 		public var constructor:Constructor;
 		
-		public function Reflector( type:Class )
+		public function Reflection( type:Class )
 		{
 			this.type = type;
 			

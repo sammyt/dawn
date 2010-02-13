@@ -10,7 +10,7 @@ package some.thing
 		}
 		
 		[Inject]
-		public function injectLeaf( leaf:Leaf ):void
+		public function injectLeaf( leaf:Leaf, bacon:Array ):void
 		{
 			
 		}

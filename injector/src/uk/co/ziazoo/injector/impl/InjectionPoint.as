@@ -19,4 +19,3 @@ package uk.co.ziazoo.injector.impl
 		}
 	}
 }
-
