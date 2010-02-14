@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {
 	import uk.co.ziazoo.injector.*;
 	
-	public class InjectionPointFactory implements IInjectionPointFactory
+	public class InjectionPointFactory
 	{
 		private var dependencyFactory:DependencyFactory;
 		private var mapper:IMapper;
@@ -26,7 +26,16 @@ package uk.co.ziazoo.injector.impl
 		
 		public function forProperty( property:Property ):IInjectionPoint
 		{
-			return new PropertyInjectionPoint( property );
+			var injectionPoint:PropertyInjectionPoint = 
+				new PropertyInjectionPoint( property );
+			
+			var mapping:IMapping = mapper.getMappingFromQName( 
+				property.type, getNameForProperty( property ) );
+			
+			injectionPoint.setDependency( 
+				dependencyFactory.forMapping( mapping , injectionPoint ) );
+			
+			return injectionPoint;
 		}
 		
 		public function forMethods( methods:Array ):Array
@@ -82,6 +91,18 @@ package uk.co.ziazoo.injector.impl
 					{
 						return metadata.properties["name"];
 					}
+				}
+			}
+			return "";
+		}
+		
+		internal function getNameForProperty( property:Property ):String
+		{
+			for each( var metadata:Metadata in property.metadata )
+			{
+				if( metadata.name == "Named" )
+				{
+					return metadata.properties["name"];
 				}
 			}
 			return "";

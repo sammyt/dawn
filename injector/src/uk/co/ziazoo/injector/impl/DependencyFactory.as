@@ -11,7 +11,7 @@ package uk.co.ziazoo.injector.impl
 		public function forMapping( mapping:IMapping, 
 			injectionPoint:IInjectionPoint = null ):IDependency
 		{
-			return null;
+			return new Dependency( mapping, injectionPoint );
 		}
 	}
 }

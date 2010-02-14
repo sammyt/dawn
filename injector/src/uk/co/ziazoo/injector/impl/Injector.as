@@ -2,12 +2,18 @@ package uk.co.ziazoo.injector.impl
 {	
 	import uk.co.ziazoo.injector.*;
 	
-	public class Injector implements IInjector
+	internal class Injector implements IInjector
 	{
-		private var _mapper:IMapper;
+		private var mapper:IMapper;
+		private var dependencyFactory:DependencyFactory;
+		private var injectionPointFactory:InjectionPointFactory;
 		
-		public function Injector()
+		public function Injector( dependencyFactory:DependencyFactory,
+		 	injectionPointFactory:InjectionPointFactory, mapper:IMapper )
 		{
+			this.dependencyFactory = dependencyFactory;
+			this.injectionPointFactory = injectionPointFactory;
+			this.mapper = mapper;
 		}
 		
 		/**
@@ -15,31 +21,10 @@ package uk.co.ziazoo.injector.impl
 		*/	
 		public function inject( object:Object ):Object
 		{
-			var mapping:IMapping = getMapping( getClass( object ) );
-			var dependency:IDependency = new Dependency( mapping );
-			
-			// magic
+			var mapping:IMapping = getMapping( object );
+			var dependency:IDependency = dependencyFactory.forMapping( mapping );
 			
 			return null;
-		}
-		
-		private function createInjectionPoints( type:Class ):Array
-		{
-			var reflection:Reflection = new Reflection( type );
-			var injectionPoints:Array = [];
-			
-			/*append( injectionPoints, 
-				InjectionPoint.forProperties( reflection.properties ) );*/
-			
-			return null;
-		}
-		
-		internal function append( destination:Array, source:Array ):void
-		{
-			for each( var item:Object in source )
-			{
-				destination.push( item );
-			}
 		}
 		
 		/**
@@ -50,18 +35,9 @@ package uk.co.ziazoo.injector.impl
 			configuration.configure( mapper );
 		}
 		
-		public function getMapping( type:Class, name:String = "" ):IMapping
+		public function getMapping( object:Object, name:String = "" ):IMapping
 		{
-			return mapper.getMapping( type, name );
-		}
-		
-		public function get mapper():IMapper
-		{
-			if( !_mapper )
-			{
-				_mapper = new Mapper();
-			}
-			return _mapper;
+			return mapper.getMapping( getClass( object ), name );
 		}
 		
 		internal function getClass( object:Object ):Class

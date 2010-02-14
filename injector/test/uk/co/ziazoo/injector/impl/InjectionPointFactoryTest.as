@@ -100,7 +100,7 @@ package uk.co.ziazoo.injector.impl
 			Assert.assertNotNull( "we get a injectionPoint", injectionPoint );
 			
 			var deps:Array = injectionPoint.getDependencies();
-			Assert.assertTrue( "has no deps", 0 == deps.length );
+			Assert.assertTrue( "has one deps", 1 == deps.length );
 		}
 		
 		[Test]
