@@ -19,10 +19,14 @@ package uk.co.ziazoo.injector.impl
 			var injectionPoints:Array = [];
 			for each( var property:Property in properties )
 			{
-				var injectionPoint:InjectionPoint = new InjectionPoint();
-				injectionPoints.push( injectionPoint );
+				injectionPoints.push( forProperty( property ) );
 			}
 			return injectionPoints;
+		}
+		
+		public function forProperty( property:Property ):IInjectionPoint
+		{
+			return new PropertyInjectionPoint( property );
 		}
 		
 		public function forMethods( methods:Array ):Array
@@ -44,6 +48,22 @@ package uk.co.ziazoo.injector.impl
 			{
 				var mapping:IMapping = mapper.getMappingFromQName( 
 					parameter.type, getNameForParam( method.metadata, parameter ) );
+				
+				injectionPoint.addDependency( 
+					dependencyFactory.forMapping( mapping, injectionPoint ) );
+			}
+			return injectionPoint;
+		}
+		
+		public function forConstructor( constructor:Constructor ):IInjectionPoint
+		{
+			var injectionPoint:ConstructorInjectionPoint = 
+				new ConstructorInjectionPoint( constructor );
+			
+			for each( var parameter:Parameter in constructor.params )
+			{
+				var mapping:IMapping = mapper.getMappingFromQName( 
+					parameter.type, getNameForParam( constructor.metadata, parameter ) );
 				
 				injectionPoint.addDependency( 
 					dependencyFactory.forMapping( mapping, injectionPoint ) );
