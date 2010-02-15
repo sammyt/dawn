@@ -7,9 +7,10 @@ package uk.co.ziazoo.injector.impl
 		private var object:Object;
 		private var _parameterIndex:int = 0;
 		
-		public function MockDependency( object:Object )
+		public function MockDependency( object:Object, index:int = 0 )
 		{
 			this.object = object;
+			parameterIndex = index;
 		}
 		
 		public function getMapping():IMapping
