@@ -4,18 +4,19 @@ package uk.co.ziazoo.injector.impl
 	{
 		public var name:String;
 		public var type:String;
-		public var metadata:Array;
+		public var metadatas:Array;
 		
-		public function Property( prop:XML )
+		public function Property()
 		{
-			name = prop.@name;
-			type = prop.@type;
-			
-			metadata = [];
-			for each( var m:XML in prop.metadata )
+		}
+		
+		public function addMetadata( metadata:Metadata ):void
+		{
+			if( !metadatas )
 			{
-				metadata.push( new Metadata( m ) );
+				metadatas = [];
 			}
+			metadatas.push( metadata );
 		}
 	}
 }

@@ -3,21 +3,28 @@ package uk.co.ziazoo.injector.impl
 	public class Constructor
 	{
 		public var params:Array;
-		public var metadata:Array;
+		public var metadatas:Array;
 		
-		public function Constructor( factory:XML )
+		public function Constructor()
 		{
-			params = [];
-			for each( var p:XML in factory.constructor.parameter )
+		}
+		
+		public function addParameter( parameter:Parameter ):void
+		{
+			if( !params )
 			{
-				params.push( new Parameter( p ) );
+				params = [];
 			}
-			
-			metadata = [];
-			for each( var m:XML in factory.metadata )
+			params.push( parameter );
+		}
+		
+		public function addMetadata( metadata:Metadata ):void
+		{
+			if( !metadatas )
 			{
-				metadata.push( new Metadata( m ) );
+				metadatas = [];
 			}
+			metadatas.push( metadata );
 		}
 	}
 }

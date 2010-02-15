@@ -56,7 +56,7 @@ package uk.co.ziazoo.injector.impl
 			for each( var parameter:Parameter in method.params )
 			{
 				var mapping:IMapping = mapper.getMappingFromQName( 
-					parameter.type, getNameForParam( method.metadata, parameter ) );
+					parameter.type, getNameForParam( method.metadatas, parameter ) );
 				
 				injectionPoint.addDependency( 
 					dependencyFactory.forMapping( mapping, injectionPoint ) );
@@ -72,7 +72,7 @@ package uk.co.ziazoo.injector.impl
 			for each( var parameter:Parameter in constructor.params )
 			{
 				var mapping:IMapping = mapper.getMappingFromQName( 
-					parameter.type, getNameForParam( constructor.metadata, parameter ) );
+					parameter.type, getNameForParam( constructor.metadatas, parameter ) );
 				
 				injectionPoint.addDependency( 
 					dependencyFactory.forMapping( mapping, injectionPoint ) );
@@ -98,7 +98,7 @@ package uk.co.ziazoo.injector.impl
 		
 		internal function getNameForProperty( property:Property ):String
 		{
-			for each( var metadata:Metadata in property.metadata )
+			for each( var metadata:Metadata in property.metadatas )
 			{
 				if( metadata.name == "Named" )
 				{

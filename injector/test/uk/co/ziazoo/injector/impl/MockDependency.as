@@ -5,6 +5,7 @@ package uk.co.ziazoo.injector.impl
 	public class MockDependency implements IDependency
 	{
 		private var object:Object;
+		private var _parameterIndex:int = 0;
 		
 		public function MockDependency( object:Object )
 		{
@@ -29,6 +30,16 @@ package uk.co.ziazoo.injector.impl
 		public function getObject():Object
 		{
 			return object;
+		}
+		
+		public function get parameterIndex():int
+		{
+			return _parameterIndex;
+		}
+		
+		public function set parameterIndex(value:int):void 
+		{
+			_parameterIndex = value;
 		}
 	}
 }

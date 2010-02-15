@@ -2,10 +2,24 @@ package uk.co.ziazoo.injector.impl
 {	
 	import org.flexunit.Assert;
 	
-	public class PropertyTest
+	public class PropertyReflectionTest
 	{	
-		public function PropertyTest()
+		public var reflector:Reflector;
+		
+		public function PropertyReflectionTest()
 		{
+		}
+		
+		[Before]
+		public function setUp():void
+		{
+			reflector = new Reflector();
+		}
+		
+		[After]
+		public function tearDown():void
+		{
+			reflector = null;
 		}
 		
 		[Test]
@@ -17,11 +31,11 @@ package uk.co.ziazoo.injector.impl
 	      </metadata>
 	    </variable>;
 			
-			var prop:Property = new Property( variable );
+			var prop:Property = reflector.parseProperty( variable );
 			
 			Assert.assertTrue( "found the name", prop.name == "car" );
 			Assert.assertTrue( "found the type", prop.type == "some.thing::Car" );
-			Assert.assertTrue( "one metadata", prop.metadata.length == 1 );
+			Assert.assertTrue( "one metadata", prop.metadatas.length == 1 );
 		}
 		
 		[Test]
@@ -32,11 +46,11 @@ package uk.co.ziazoo.injector.impl
 	      <metadata name="Inject"/>
 	    </accessor>
 			
-			var prop:Property = new Property( accessor );
+			var prop:Property = reflector.parseProperty( accessor );
 			
 			Assert.assertTrue( "found the name", prop.name == "radio" );
 			Assert.assertTrue( "found the type", prop.type == "some.thing::IRadio" );
-			Assert.assertTrue( "one metadata", prop.metadata.length == 1 );
+			Assert.assertTrue( "one metadata", prop.metadatas.length == 1 );
 		}
 	}
 }

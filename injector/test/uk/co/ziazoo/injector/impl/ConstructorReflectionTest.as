@@ -2,12 +2,25 @@ package uk.co.ziazoo.injector.impl
 {	
 	import org.flexunit.Assert;
 	
-	public class ConstructorTest
+	public class ConstructorReflectionTest
 	{
-		public function ConstructorTest()
+		public var reflector:Reflector;
+		
+		public function ConstructorReflectionTest()
 		{
 		}
 		
+		[Before]
+		public function setUp():void
+		{
+			reflector = new Reflector();
+		}
+		
+		[After]
+		public function tearDown():void
+		{
+			reflector = null;
+		}
 		[Test]
 		public function canParseWithMetadata():void
 		{
@@ -39,11 +52,10 @@ package uk.co.ziazoo.injector.impl
 			    </accessor>
 			  </factory>;
 				
-			var constructor:Constructor = 
-				new Constructor( reflection );
+			var constructor:Constructor = reflector.parseConstructor( reflection );
 			
 			Assert.assertTrue( "one param", constructor.params.length == 1 );
-			Assert.assertTrue( "two metadatas", constructor.metadata.length == 2 );
+			Assert.assertTrue( "two metadatas", constructor.metadatas.length == 2 );
 		}
 		
 		[Test]
@@ -72,11 +84,10 @@ package uk.co.ziazoo.injector.impl
 			    </accessor>
 			  </factory>;
 				
-			var constructor:Constructor = 
-				new Constructor( reflection );
+			var constructor:Constructor = reflector.parseConstructor( reflection );
 			
 			Assert.assertTrue( "one param", constructor.params.length == 1 );
-			Assert.assertTrue( "no metadata", constructor.metadata.length == 0 );
+			Assert.assertNull( "no metadata", constructor.metadatas );
 		}
 	}
 }

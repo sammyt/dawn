@@ -7,14 +7,17 @@ package uk.co.ziazoo.injector.impl
 		public var name:String;
 		public var properties:Dictionary;
 		
-		public function Metadata( reflect:XML )
+		public function Metadata()
 		{
-			name = reflect.@name;
-			properties = new Dictionary();
-			for each( var p:XML in reflect.arg )
+		}
+		
+		public function addProperty( name:String, value:String ):void
+		{
+			if( !properties )
 			{
-				properties[ String(p.@key) ] = String(p.@value);
+				properties = new Dictionary();
 			}
+			properties[ name ] = value;
 		}
 	}
 }

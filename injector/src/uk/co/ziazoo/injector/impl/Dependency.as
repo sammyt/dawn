@@ -10,12 +10,13 @@ package uk.co.ziazoo.injector.impl
 		private var injectionPoint:IInjectionPoint;
 		private var injectionPoints:Array;
 		private var reflection:Reflection;
+		private var _parameterIndex:int;
 		
 		public function Dependency( mapping:IMapping, reflection:Reflection,
 			injectionPoint:IInjectionPoint = null )
 		{
 			this.mapping = mapping;
-			
+			_parameterIndex = 0;
 			if( injectionPoint )
 			{
 				this.injectionPoint = injectionPoint;
@@ -57,6 +58,16 @@ package uk.co.ziazoo.injector.impl
 		public function getParent():IInjectionPoint
 		{
 			return injectionPoint;
+		}
+		
+		public function get parameterIndex():int
+		{
+			return _parameterIndex;
+		}
+		
+		public function set parameterIndex(value:int):void 
+		{
+			_parameterIndex = value;
 		}
 	}
 }

@@ -15,13 +15,15 @@ package uk.co.ziazoo.injector.impl
 		[Before]
 		public function setUp():void
 		{
-			var reflect:XML = <method name="injectLeaf" 
-				declaredBy="some.thing::Tree" returnType="void">
-		    <parameter index="1" type="some.thing::Leaf" optional="false"/>
-		    <metadata name="Inject"/>
-		  </method>;
-      
-			var method:Method = new Method( reflect );
+			var method:Method = new Method();
+			method.name = "injectLeaf";
+			
+			var leaf:Parameter = new Parameter();
+			leaf.type = "some.thing.::Leaf";
+			leaf.index = 1;
+			leaf.optional = false;
+			
+			method.addParameter( leaf );
 			
 			var dependencies:Array = [ 
 				new MockDependency( new Leaf() ) ];

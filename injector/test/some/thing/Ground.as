@@ -1,13 +1,21 @@
-package some.thing {
-
-public class Ground extends Object {
-	
-	public function Ground()
+package some.thing
+{	
+	public class Ground
 	{
-		super();
+		public var engine:Engine;
+		public var apple:Apple;
+		public var car:Car;
+		
+		public function Ground()
+		{
+		}
+		
+		[Inject]
+		public function setThings( engine:Engine, apple:Apple, car:Car ):void
+		{
+			this.engine = engine;
+			this.apple = apple;
+			this.car = car;
+		}
 	}
-	
 }
-
-}
-

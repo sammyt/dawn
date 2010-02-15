@@ -2,10 +2,24 @@ package uk.co.ziazoo.injector.impl
 {
 	import org.flexunit.Assert;
 		
-	public class MethodTest
+	public class MethodReflectionTest
 	{
-		public function MethodTest()
+		public var reflector:Reflector;
+		
+		public function MethodReflectionTest()
 		{
+		}
+		
+		[Before]
+		public function setUp():void
+		{
+			reflector = new Reflector();
+		}
+		
+		[After]
+		public function tearDown():void
+		{
+			reflector = null;
 		}
 		
 		[Test]
@@ -17,11 +31,11 @@ package uk.co.ziazoo.injector.impl
 	      <metadata name="Inject"/>
 	    </method>;
 			
-			var method:Method = new Method( reflect );
+			var method:Method = reflector.parseMethod( reflect );
 			
 			Assert.assertTrue( "name of injectLeaf", method.name == "injectLeaf" );
 			Assert.assertTrue( "one param", method.params.length == 1 );
-			Assert.assertTrue( "one metadata", method.metadata.length == 1 );
+			Assert.assertTrue( "one metadata", method.metadatas.length == 1 );
 		}
 	}
 }

@@ -3,49 +3,33 @@ package uk.co.ziazoo.injector.impl
 	import flash.utils.describeType;
 	import flash.utils.Dictionary;
 	
-	/**
-	*	A very basic reflection of a type
-	*/	
 	internal class Reflection 
 	{
-		private var type:Class;
-		
+		public var type:Class;
 		public var properties:Array;
 		public var methods:Array;
 		public var constructor:Constructor;
 		
-		public function Reflection( type:Class )
+		public function Reflection()
 		{
-			this.type = type;
-			
-      var reflection:XML = describeType( type );
-      
-			properties = [];
-			addProperties( reflection.descendants( "variable" ) );
-			addProperties( reflection.descendants( "accessor" ) );
-			
-			methods = [];
-			addMethods( reflection.descendants( "method" ) );
-			
-			constructor = new Constructor( XML( reflection.factory ) );
 		}
 		
-		internal function addProperties( reflection:XMLList ):void
+		public function addProperty( property:Property ):void
 		{
-			var withInjects:XMLList = reflection.metadata.( @name == "Inject" );
-			for each( var p:XML in withInjects )
+			if( !properties )
 			{
-				properties.push( new Property( p.parent() ) );
+				properties = [];
 			}
+			properties.push( property );
 		}
 		
-		internal function addMethods( reflection:XMLList ):void
+		public function addMethod( method:Method ):void
 		{
-			var withInjects:XMLList = reflection.metadata.( @name == "Inject" );
-			for each ( var m:XML in withInjects )
-      {
-				methods.push( new Method( m.parent() ) );
+			if( !methods )
+			{
+				methods = [];
 			}
+			methods.push( method );
 		}
 	}
 }

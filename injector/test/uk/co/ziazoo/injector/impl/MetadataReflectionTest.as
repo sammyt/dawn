@@ -3,10 +3,24 @@ package uk.co.ziazoo.injector.impl
 	import org.flexunit.Assert;
 	import flash.utils.Dictionary;
 	
-	public class MetadataTest
+	public class MetadataReflectionTest
 	{
-		public function MetadataTest()
+		public var reflector:Reflector;
+		
+		public function MetadataReflectionTest()
 		{
+		}
+		
+		[Before]
+		public function setUp():void
+		{
+			reflector = new Reflector();
+		}
+		
+		[After]
+		public function tearDown():void
+		{
+			reflector = null;
 		}
 		
 		[Test]
@@ -14,8 +28,7 @@ package uk.co.ziazoo.injector.impl
 		{
 			var reflect:XML = <metadata name="Inject"/>;
 			
-			var metadata:Metadata = new Metadata( reflect );
-			
+			var metadata:Metadata = reflector.parseMetadata( reflect );
 			Assert.assertTrue( "named inject", metadata.name == "Inject" );
 		}
 		
@@ -27,7 +40,7 @@ package uk.co.ziazoo.injector.impl
 				<arg key="thing" value="woo"/>
       </metadata>;
 			
-			var metadata:Metadata = new Metadata( reflect );
+			var metadata:Metadata = reflector.parseMetadata( reflect );
 			
 			Assert.assertTrue( "named inject", metadata.name == "Inject" );
 			

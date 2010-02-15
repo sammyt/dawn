@@ -9,6 +9,9 @@ package uk.co.ziazoo.injector
 		function getInjectionPoints():Array;
 		
 		function getObject():Object;
+		
+		function get parameterIndex():int;
+		function set parameterIndex(value:int):void;
 	}
 }
 

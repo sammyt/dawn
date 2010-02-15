@@ -4,23 +4,28 @@ package uk.co.ziazoo.injector.impl
 	{
 		public var name:String;
 		public var params:Array;
-		public var metadata:Array;
+		public var metadatas:Array;
 
-		public function Method( reflection:XML )
+		public function Method()
 		{
-			name = reflection.@name;
-			
-			params = [];
-			for each( var p:XML in reflection.parameter )
+		}
+		
+		public function addParameter( parameter:Parameter ):void
+		{
+			if( !params )
 			{
-				params.push( new Parameter( p ) );
+				params = [];
 			}
-			
-			metadata = [];
-			for each( var m:XML in reflection.metadata )
+			params.push( parameter );
+		}
+		
+		public function addMetadata( metadata:Metadata ):void
+		{
+			if( !metadatas )
 			{
-				metadata.push( new Metadata( m ) );
+				metadatas = [];
 			}
+			metadatas.push( metadata );
 		}
 	}
 }
