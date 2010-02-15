@@ -5,5 +5,7 @@ package uk.co.ziazoo.injector
 		function getDependencies():Array;
 		
 		function isOptional():Boolean;
+		
+		function addObserver( observer:IInjectionObserver ):void;
 	}
 }

@@ -13,6 +13,11 @@ package uk.co.ziazoo.injector.impl
 			dependencies = [];
 		}
 		
+		public function getMethod():Method
+		{
+			return method;
+		}
+		
 		public function getDependencies():Array
 		{
 			return dependencies;
@@ -21,6 +26,11 @@ package uk.co.ziazoo.injector.impl
 		public function isOptional():Boolean
 		{
 			return false;
+		}
+		
+		public function addObserver( observer:IInjectionObserver ):void
+		{
+			
 		}
 		
 		internal function addDependency( dependency:IDependency ):void

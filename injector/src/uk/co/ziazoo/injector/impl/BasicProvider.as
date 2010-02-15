@@ -13,7 +13,7 @@ package uk.co.ziazoo.injector.impl
 		
 		public function getObject():Object
 		{
-			return null;
+			return new type();
 		}
 	}
 }

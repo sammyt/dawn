@@ -4,6 +4,8 @@ package uk.co.ziazoo.injector.impl
 	
 	import uk.co.ziazoo.injector.*;
 	
+	import some.thing.*;
+	
 	public class InjectionPointFactoryTest
 	{
 		private var factory:InjectionPointFactory;
@@ -16,7 +18,13 @@ package uk.co.ziazoo.injector.impl
 		public function setUp():void
 		{
 			var mapper:IMapper = new Mapper();
-			factory = new InjectionPointFactory( new DependencyFactory(), mapper );
+			mapper.map( Car ).to( Car );
+			mapper.map( Leaf ).to( Leaf );
+			mapper.map( Tree ).to( Tree );
+			mapper.map( Ground ).to( Ground );
+			
+			factory = new InjectionPointFactory( 
+				new DependencyFactory( new Reflector() ), mapper );
 		}
 		
 		[After]
@@ -93,7 +101,7 @@ package uk.co.ziazoo.injector.impl
 		
 		[Test]
 		public function getInjectionForProperty():void
-		{
+		{	
 			var injectionPoint:IInjectionPoint = 
 				factory.forProperty( createProperty() );
 				

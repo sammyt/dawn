@@ -4,15 +4,16 @@ package some.thing
 	[Named(arg="ground", name="earth")]
 	public class Tree
 	{
+		public var leaf:Leaf;
 		
 		public function Tree( ground:Ground )
 		{
 		}
 		
 		[Inject]
-		public function injectLeaf( leaf:Leaf, bacon:Array ):void
+		public function injectLeaf( leaf:Leaf ):void
 		{
-			
+			this.leaf = leaf;
 		}
 		
 		[Inject(name="fast")]

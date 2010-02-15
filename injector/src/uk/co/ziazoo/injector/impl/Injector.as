@@ -8,8 +8,8 @@ package uk.co.ziazoo.injector.impl
 		private var dependencyFactory:DependencyFactory;
 		private var injectionPointFactory:InjectionPointFactory;
 		
-		public function Injector( dependencyFactory:DependencyFactory,
-		 	injectionPointFactory:InjectionPointFactory, mapper:IMapper )
+		public function Injector( dependencyFactory:DependencyFactory, mapper:IMapper,
+		 	injectionPointFactory:InjectionPointFactory )
 		{
 			this.dependencyFactory = dependencyFactory;
 			this.injectionPointFactory = injectionPointFactory;
@@ -24,6 +24,13 @@ package uk.co.ziazoo.injector.impl
 			var mapping:IMapping = getMapping( object );
 			var dependency:IDependency = dependencyFactory.forMapping( mapping );
 			
+			
+			return null;
+		}
+		
+		internal function create( dependency:IDependency ):Object
+		{
+		
 			return null;
 		}
 		
