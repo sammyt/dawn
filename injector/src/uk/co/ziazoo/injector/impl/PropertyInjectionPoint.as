@@ -5,11 +5,18 @@ package uk.co.ziazoo.injector.impl
 	public class PropertyInjectionPoint implements IInjectionPoint
 	{
 		private var dependencies:Array;
-		
+		private var property:Property;
+    
 		public function PropertyInjectionPoint( property:Property )
 		{
+      this.property = property;
 		}
 		
+    public function getPropertyName():String
+    {
+      return property.name;  
+    }
+    
 		public function getDependencies():Array
 		{
 			return dependencies;

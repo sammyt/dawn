@@ -1,10 +1,9 @@
 package uk.co.ziazoo.injector.impl 
 {
-	import uk.co.ziazoo.injector.IScope;
 	import uk.co.ziazoo.injector.IProvider;
-	import uk.co.ziazoo.injector.IMapping;
+	import uk.co.ziazoo.injector.IScope;
 	
-	public class SingletonScope implements IScope
+	public class SingletonScope implements IScope, IProvider
 	{
 		private var provider:IProvider;
 		private var instance:Object;
@@ -22,10 +21,10 @@ package uk.co.ziazoo.injector.impl
 			return instance;
 		}
 		
-		public function scopeMapping( mapping:IMapping ):void
+		public function wrapInScope( provider:IProvider ):IProvider
 		{
-			provider = mapping.provider;
-			mapping.provider = this;
+			this.provider = provider;
+			return this;
 		}
 	}
 }

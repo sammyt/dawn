@@ -8,6 +8,6 @@ package uk.co.ziazoo.injector
 		function named( name:String ):IMappingBuilder;
 		function inScope( scope:IScope ):void;
 		function asSingleton():void;
-		function getMapping():IMapping;
+		function get mapping():IMapping;
 	}
 }

@@ -13,9 +13,9 @@ package uk.co.ziazoo.injector.impl
 			dependencies = [];
 		}
 		
-		public function getMethod():Method
+		public function getMethodName():String
 		{
-			return method;
+			return method.name;
 		}
 		
 		public function getDependencies():Array

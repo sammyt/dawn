@@ -3,7 +3,6 @@ package uk.co.ziazoo.injector.impl
 	import uk.co.ziazoo.injector.IMapper;
 	import uk.co.ziazoo.injector.IMapping;
 	import uk.co.ziazoo.injector.IMappingBuilder;
-	import uk.co.ziazoo.injector.IProvider;
 	
 	import flash.utils.getDefinitionByName;
 	
@@ -28,7 +27,7 @@ package uk.co.ziazoo.injector.impl
 			var unNamed:IMapping;
 			for each( var builder:IMappingBuilder in builders )
 			{
-				var mapping:IMapping = builder.getMapping();
+				var mapping:IMapping = builder.mapping;
 				
 				if( mapping.type == type )
 				{

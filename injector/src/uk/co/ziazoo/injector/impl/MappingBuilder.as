@@ -7,7 +7,7 @@ package uk.co.ziazoo.injector.impl
 	public class MappingBuilder implements IMappingBuilder
 	{
 		private var clazz:Class;
-		private var mapping:IMapping;
+		private var _mapping:IMapping;
 		
 		public function MappingBuilder( clazz:Class )
 		{
@@ -16,7 +16,7 @@ package uk.co.ziazoo.injector.impl
 		
 		public function to( type:Class ):IMappingBuilder
 		{
-			getMapping().provider = new BasicProvider( type );	
+			mapping.provider = new BasicProvider( type );	
 			return this;
 		}
 		
@@ -32,13 +32,13 @@ package uk.co.ziazoo.injector.impl
 		
 		public function named( name:String ):IMappingBuilder
 		{
-			getMapping().name = name;
+			mapping.name = name;
 			return this;
 		}
 		
 		public function inScope( scope:IScope ):void
 		{
-			scope.scopeMapping( getMapping() );
+			// mapping.provider = scope.wrapInScope( mapping.provider );
 		}
 		
 		public function asSingleton():void
@@ -47,13 +47,13 @@ package uk.co.ziazoo.injector.impl
 			inScope( singleton );
 		}
 		
-		public function getMapping():IMapping
+		public function get mapping():IMapping
 		{
-			if( !mapping )
+			if( !_mapping )
 			{
-				mapping = new Mapping( clazz );
+				_mapping = new Mapping( clazz );
 			}
-			return mapping;
+			return _mapping;
 		}
 	}
 }

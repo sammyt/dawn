@@ -25,7 +25,7 @@ package uk.co.ziazoo.injector.impl
 			return cache[ type ] as Reflection;
 		}
 		
-		public function reflect( type:Class ):Reflection
+		private function reflect( type:Class ):Reflection
 		{	
 			var source:XML = describeType( type );		
 			var reflection:Reflection = new Reflection();
