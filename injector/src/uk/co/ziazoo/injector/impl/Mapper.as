@@ -41,6 +41,11 @@ package uk.co.ziazoo.injector.impl
 					}
 				}
 			}
+      
+      if( !unNamed )
+      {
+        unNamed = map( type ).to( type ).mapping;
+      }
 			return unNamed;
 		}
 		

@@ -1,5 +1,8 @@
 package uk.co.ziazoo.injector.impl
 {	
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
+	
 	import uk.co.ziazoo.injector.*;
 	
 	internal class Injector implements IInjector
@@ -120,7 +123,7 @@ package uk.co.ziazoo.injector.impl
 			}
 			else
 			{
-				return null;
+				return getDefinitionByName( getQualifiedClassName( object ) ) as Class;
 			}
 		}
 	}

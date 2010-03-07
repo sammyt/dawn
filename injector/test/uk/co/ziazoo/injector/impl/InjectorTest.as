@@ -32,9 +32,11 @@ package uk.co.ziazoo.injector.impl
       mapper = new Mapper();
       var reflector:Reflector = new Reflector();
       var dependencyFactory:DependencyFactory = new DependencyFactory();
-      var injectionFactory:InjectionPointFactory = new InjectionPointFactory( dependencyFactory, mapper );
+      var injectionFactory:InjectionPointFactory = 
+          new InjectionPointFactory( dependencyFactory, mapper );
       
-      injector = new Injector( dependencyFactory, mapper, injectionFactory, reflector );
+      injector = new Injector( 
+          dependencyFactory, mapper, injectionFactory, reflector );
     }
     
     [After]
@@ -47,8 +49,6 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function canCreate():void
     {
-      mapper.map( Apple ).to( Apple );
-      
       var obj:Object = injector.inject( Apple );
       
       Assert.assertNotNull( obj );
@@ -58,9 +58,6 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function canCreateWithPropertyDependency():void
     {
-      mapper.map( Car ).to( Car );
-      mapper.map( Engine ).to( Engine );
-      
       var obj:Object = injector.inject( Car );
       
       Assert.assertNotNull( obj );
@@ -73,11 +70,6 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function canInjectViaMethod():void
     {
-      mapper.map( Ground ).to( Ground );
-      mapper.map( Engine ).to( Engine );
-      mapper.map( Apple ).to( Apple );
-      mapper.map( Car ).to( Car );
-      
       var obj:Object = injector.inject( Ground );
       
       Assert.assertNotNull( obj );
@@ -96,7 +88,6 @@ package uk.co.ziazoo.injector.impl
       mapper.map( Car ).to( CarWithTwoRadios );
       mapper.map( IRadio ).to( LoudRadio ).named( "loud radio" )
       mapper.map( IRadio ).to( QuietRadio );
-      mapper.map( Engine ).to( Engine );
       
       var obj:Object = injector.inject( Car );
       
@@ -115,9 +106,6 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function injectionsByConstructor():void
     {
-      mapper.map( Table ).to( Table );
-      mapper.map( PlantPot ).to( PlantPot );
-      
       var obj:Object = injector.inject( Table );
       
       Assert.assertNotNull( obj );
