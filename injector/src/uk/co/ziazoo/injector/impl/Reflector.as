@@ -36,10 +36,27 @@ package uk.co.ziazoo.injector.impl
 			
 			addMethods( reflection, source.descendants( "method" ) );
 			
-			reflection.constructor = parseConstructor( XML( source.factory ) );
+			reflection.constructor = parseConstructorWithHack( XML( source.factory ), type );
 			
 			return reflection;
 		}
+    
+    internal function parseConstructorWithHack( reflection:XML, type:Class ):Constructor
+    {
+      var params:XMLList = reflection.constructor.parameter;
+      if( params.length() > 0 )
+      {
+        try
+        {
+          var args:Array = [];
+          for( var i:int = 0; i < params.length(); i++ ) { args.push( null ); }
+          InstanceCreator.create( type, args );
+          reflection = XML( describeType( type ).factory );
+        }
+        catch( e:Error ){}
+      }
+      return parseConstructor( reflection );
+    }
 		
 		internal function parseConstructor( reflection:XML ):Constructor
 		{

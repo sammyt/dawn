@@ -24,7 +24,7 @@ package uk.co.ziazoo.injector.impl
 			mapper.map( Ground ).to( Ground );
 			
 			factory = new InjectionPointFactory( 
-				new DependencyFactory( new Reflector() ), mapper );
+				new DependencyFactory(), mapper );
 		}
 		
 		[After]

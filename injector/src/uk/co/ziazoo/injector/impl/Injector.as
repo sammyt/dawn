@@ -26,29 +26,31 @@ package uk.co.ziazoo.injector.impl
 			var mapping:IMapping = getMapping( object );
 			var dependency:IDependency = dependencyFactory.forMapping( mapping );
 			
-			return create( dependency );
+			return create( dependency ).getObject();
 		}
 		
-		internal function create( dependency:IDependency ):Object
+		internal function create( dependency:IDependency ):IDependency
 		{
       var reflection:Reflection = getReflection( dependency );
       
-      var injectionPoint:IInjectionPoint = 
-          injectionPointFactory.forConstructor( reflection.constructor );
-      
-      var dependencies:Array = [];
-      for each( var child:IDependency in injectionPoint.getDependencies() )
+      if( reflection.constructor.hasParams() )
       {
-        create( child );
-        dependencies.push( child );
+        var injectionPoint:IInjectionPoint = 
+          injectionPointFactory.forConstructor( reflection.constructor );
+
+        for each( var child:IDependency in injectionPoint.getDependencies() )
+        {
+          create( child );
+        }
+        
+        var provider:IProvider = dependency.getProvider();
+        provider.withDependencies( injectionPoint.getDependencies() ); 
       }
-      
-      var injector:ConstructorInjector = new ConstructorInjector( dependencies );
       
       injectMethodDependencies( dependency );
       injectPropertyDependencies( dependency );
       
-			return dependency.getObject();
+			return dependency;
 		}
     
     internal function injectPropertyDependencies( dependency:IDependency ):void
@@ -62,10 +64,8 @@ package uk.co.ziazoo.injector.impl
       {
         for each( var child:IDependency in injectionPoint.getDependencies() )
         {
-          create( child );
-          
           var injector:InstancePropertyInjector = new InstancePropertyInjector(
-            injectionPoint.getPropertyName(), child.getObject() );
+            injectionPoint.getPropertyName(), create( child ).getObject() );
           
           injector.inject( dependency.getObject() );
         }
@@ -81,14 +81,13 @@ package uk.co.ziazoo.injector.impl
       
       for each( var injectionPoint:MethodInjectionPoint in injectionPoints )
       {
-        var dependencies:Array = [];
         for each( var child:IDependency in injectionPoint.getDependencies() )
         {
-          create( dependency );
-          dependencies.push( child );
+          create( child );
         }
+        
         var injector:InstanceMethodInjector = new InstanceMethodInjector(
-          injectionPoint.getMethodName(), dependencies );
+          injectionPoint.getMethodName(), injectionPoint.getDependencies() );
         
         injector.inject( dependency.getObject() );
       }
@@ -96,7 +95,7 @@ package uk.co.ziazoo.injector.impl
     
     private function getReflection( dependency:IDependency ):Reflection
     {
-      var type:Class = dependency.getMapping().type;
+      var type:Class = dependency.getProvider().type;
       return reflector.getReflection( type ); 
     }
 		

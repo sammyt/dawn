@@ -1,25 +1,36 @@
 package uk.co.ziazoo.injector.impl 
 {
+  import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IProvider;
 	
 	internal class BasicProvider implements IProvider
 	{	
-		internal var type:Class;
-    private var dependencies:Array;
-		
+		private var _type:Class;
+    
+    private var params:Array;
+    
 		public function BasicProvider( type:Class )
 		{
-			this.type = type;
+			_type = type;
 		}
 		
 		public function getObject():Object
 		{
-			return new type();
+			return InstanceCreator.create( _type, params );
 		}
     
-    public function setDependencies( dependencies:Array ):void
+    public function withDependencies( dependencies:Array ):void
     {
-      this.dependencies = dependencies;
+      params = [];
+      for each( var dependency:IDependency in dependencies )
+      {
+        params.push( dependency.getObject() );
+      }
+    }
+    
+    public function get type():Class
+    {
+      return _type;
     }
 	}
 }

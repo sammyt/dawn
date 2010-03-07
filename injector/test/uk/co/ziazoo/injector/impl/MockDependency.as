@@ -23,6 +23,11 @@ package uk.co.ziazoo.injector.impl
 			return null;
 		}
     
+    public function getProvider():IProvider
+    {
+      return null;
+    }
+    
 		public function getInjectionPoints():Array
 		{
 			return null

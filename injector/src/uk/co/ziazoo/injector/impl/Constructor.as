@@ -26,6 +26,11 @@ package uk.co.ziazoo.injector.impl
 			}
 			metadatas.push( metadata );
 		}
+    
+    public function hasParams():Boolean
+    {
+      return params != null;
+    }
 	}
 }
 

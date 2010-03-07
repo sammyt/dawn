@@ -27,11 +27,6 @@ package uk.co.ziazoo.injector.impl
 			return false;
 		}
 		
-		public function addObserver( observer:IInjectionObserver ):void
-		{
-			
-		}
-		
 		public function setDependency( dependency:IDependency ):void
 		{
 			dependencies = [ dependency ];

@@ -4,7 +4,7 @@ package uk.co.ziazoo.injector.impl
 	
 	public class DependencyFactory
 	{
-		public function DependencyFactory( reflector:Reflector )
+		public function DependencyFactory()
 		{
 		}
 		

@@ -3,12 +3,14 @@ package uk.co.ziazoo.injector.impl
 	import uk.co.ziazoo.injector.IDependency;
 	import uk.co.ziazoo.injector.IInjectionPoint;
 	import uk.co.ziazoo.injector.IMapping;
+	import uk.co.ziazoo.injector.IProvider;
 	
 	public class Dependency implements IDependency
 	{
 		private var mapping:IMapping;
 		private var injectionPoint:IInjectionPoint;
 		private var _parameterIndex:int;
+    private var instance:Object;
 		
 		public function Dependency( mapping:IMapping,
       injectionPoint:IInjectionPoint = null )
@@ -23,13 +25,22 @@ package uk.co.ziazoo.injector.impl
 		
 		public function getObject():Object
 		{
-			return mapping.provider.getObject();
+      if( !instance )
+      {
+        instance = getProvider().getObject();
+      }
+			return instance; 
 		}
 		
 		public function getMapping():IMapping
 		{
 			return mapping;
 		}
+    
+    public function getProvider():IProvider
+    {
+      return mapping.provider;
+    }
 		
 		public function getParent():IInjectionPoint
 		{

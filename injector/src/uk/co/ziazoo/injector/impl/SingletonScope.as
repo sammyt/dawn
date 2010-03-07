@@ -3,7 +3,7 @@ package uk.co.ziazoo.injector.impl
 	import uk.co.ziazoo.injector.IProvider;
 	import uk.co.ziazoo.injector.IScope;
 	
-	public class SingletonScope implements IScope, IProvider
+	public class SingletonScope implements IScope
 	{
 		private var provider:IProvider;
 		private var instance:Object;
@@ -20,11 +20,11 @@ package uk.co.ziazoo.injector.impl
 			}
 			return instance;
 		}
-		
+    
 		public function wrapInScope( provider:IProvider ):IProvider
 		{
 			this.provider = provider;
-			return this;
+			return null;
 		}
 	}
 }

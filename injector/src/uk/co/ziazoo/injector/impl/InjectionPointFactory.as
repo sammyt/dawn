@@ -31,7 +31,7 @@ package uk.co.ziazoo.injector.impl
 			
 			var mapping:IMapping = mapper.getMappingFromQName( 
 				property.type, getNameForProperty( property ) );
-			
+      
 			injectionPoint.setDependency( 
 				dependencyFactory.forMapping( mapping , injectionPoint ) );
 			
