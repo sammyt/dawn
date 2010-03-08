@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {	
 	import uk.co.ziazoo.injector.IMapping;
 	import uk.co.ziazoo.injector.IMappingBuilder;
-	import uk.co.ziazoo.injector.IScope;
+	import uk.co.ziazoo.injector.IProvider;
 	
 	public class MappingBuilder implements IMappingBuilder
 	{
@@ -25,12 +25,14 @@ package uk.co.ziazoo.injector.impl
 		public function toFactory( factory:Class ):IMappingBuilder
 		{
       mapping.provider = new FactoryProvider( factory, reflector );
+      asSingleton();
 			return this;
 		}
 		
 		public function toInstance( object:Object ):IMappingBuilder
 		{
-			return null;
+      mapping.provider = new InstanceProvider( object );
+			return this;
 		}
 		
 		public function named( name:String ):IMappingBuilder
@@ -39,15 +41,10 @@ package uk.co.ziazoo.injector.impl
 			return this;
 		}
 		
-		public function inScope( scope:IScope ):void
-		{
-			// mapping.provider = scope.wrapInScope( mapping.provider );
-		}
-		
 		public function asSingleton():void
 		{
-			var singleton:SingletonScope = new SingletonScope();
-			inScope( singleton );
+      var provider:IProvider = mapping.provider;
+			mapping.provider = new SingletonScope( mapping.provider );
 		}
 		
 		public function get mapping():IMapping

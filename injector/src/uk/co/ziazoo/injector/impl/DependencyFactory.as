@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {	
 	import uk.co.ziazoo.injector.*;
 	
-	public class DependencyFactory
+	internal class DependencyFactory
 	{
 		public function DependencyFactory()
 		{

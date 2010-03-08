@@ -6,7 +6,6 @@ package uk.co.ziazoo.injector.impl
   import some.thing.Apple;
   import some.thing.Car;
   import some.thing.CarWithTwoRadios;
-  import some.thing.Engine;
   import some.thing.Ground;
   import some.thing.IRadio;
   import some.thing.LoudRadio;
@@ -15,13 +14,12 @@ package uk.co.ziazoo.injector.impl
   import some.thing.QuietRadio;
   import some.thing.Table;
   
-  import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.injector.IMapper;
 
   public class InjectorTest
   {
     private var mapper:IMapper;
-    private var injector:IInjector;
+    private var injector:Injector;
     
     public function InjectorTest()
     {
@@ -130,6 +128,36 @@ package uk.co.ziazoo.injector.impl
       var table:Table = Table( obj );
       
       Assert.assertNotNull( table.plantPot );
+    }
+    
+    [Test]
+    public function instanceInjection():void
+    {
+      var pot:PlantPot = new PlantPot();
+      mapper.map( PlantPot ).toInstance( pot );
+      
+      var obj:Object = injector.inject( Table );
+      
+      Assert.assertNotNull( obj );
+      Assert.assertTrue( "obj is a Table", obj is Table );
+      
+      var table:Table = Table( obj );
+      
+      Assert.assertNotNull( table.plantPot );
+      Assert.assertTrue( "has correct instance", table.plantPot == pot );
+    }
+    
+    [Test]
+    public function singletonScoping():void
+    {
+      mapper.map( Apple ).asSingleton();
+      
+      var obj:Object = injector.inject( Apple );
+      
+      Assert.assertNotNull( obj );
+      Assert.assertTrue( "obj is an Apple", obj is Apple );
+      
+      Assert.assertTrue( "same instance returned", obj == injector.inject( Apple ) );
     }
   }
 }

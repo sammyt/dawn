@@ -3,7 +3,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IProvider;
   
-  public class FactoryProvider implements IProvider
+  internal class FactoryProvider implements IProvider
   {
     private var factoryType:Class;
     private var params:Array;
@@ -29,6 +29,11 @@ package uk.co.ziazoo.injector.impl
         factory = InstanceCreator.create( factoryType, params );
       }
       return invokeFactoryMethod();
+    }
+    
+    public function get requiresInjection():Boolean
+    {
+      return true;
     }
     
     public function withDependencies( dependencies:Array ):void

@@ -1,6 +1,6 @@
 package uk.co.ziazoo.injector.impl 
 {
-	public class Constructor
+	internal class Constructor
 	{
 		public var params:Array;
 		public var metadatas:Array;

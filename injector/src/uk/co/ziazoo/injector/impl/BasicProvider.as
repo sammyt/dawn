@@ -32,6 +32,11 @@ package uk.co.ziazoo.injector.impl
     {
       return _type;
     }
+    
+    public function get requiresInjection():Boolean
+    {
+      return true;
+    }
 	}
 }
 

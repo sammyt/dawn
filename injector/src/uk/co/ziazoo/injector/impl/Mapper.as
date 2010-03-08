@@ -21,6 +21,9 @@ package uk.co.ziazoo.injector.impl
 		{
 			var builder:IMappingBuilder = new MappingBuilder( clazz, reflector );
 			builders.push( builder );
+      
+      builder.to( clazz );
+      
 			return builder;
 		}
 		

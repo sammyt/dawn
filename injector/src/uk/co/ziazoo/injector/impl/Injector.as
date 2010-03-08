@@ -34,6 +34,12 @@ package uk.co.ziazoo.injector.impl
 		
 		internal function create( dependency:IDependency ):IDependency
 		{
+      var provider:IProvider = dependency.getProvider();
+      if( !provider.requiresInjection )
+      {
+        return dependency;
+      }
+      
       var reflection:Reflection = getReflection( dependency );
       
       if( reflection.constructor.hasParams() )
@@ -45,8 +51,6 @@ package uk.co.ziazoo.injector.impl
         {
           create( child );
         }
-        
-        var provider:IProvider = dependency.getProvider();
         provider.withDependencies( injectionPoint.getDependencies() ); 
       }
       
