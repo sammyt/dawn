@@ -5,7 +5,7 @@ package uk.co.ziazoo.injector.impl
 		public var name:String;
 		public var params:Array;
 		public var metadatas:Array;
-
+    
 		public function Method()
 		{
 		}

@@ -35,7 +35,8 @@ package uk.co.ziazoo.injector.impl
 			addProperties( reflection, source.descendants( "accessor" ) );
 			
 			addMethods( reflection, source.descendants( "method" ) );
-			
+			addProviderMethod( reflection, source.descendants( "method" ) );
+      
 			reflection.constructor = parseConstructorWithHack( XML( source.factory ), type );
 			
 			return reflection;
@@ -143,5 +144,15 @@ package uk.co.ziazoo.injector.impl
 				reflection.addMethod( parseMethod( m.parent() ) );
 			}
 		}
+    
+    internal function addProviderMethod( reflection:Reflection, source:XMLList ):void
+    {
+      var provider:XMLList = source.metadata.( @name == "Provider" );
+      
+      if( provider.length() == 1 )
+      {
+        reflection.setProviderMethod( parseMethod( provider[0].parent() ) );
+      }
+    }
 	}
 }

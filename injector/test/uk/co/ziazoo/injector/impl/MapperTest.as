@@ -16,7 +16,7 @@ package uk.co.ziazoo.injector.impl
 		[Before]
 		public function setUp():void
 		{
-			mapper = new Mapper();
+			mapper = new Mapper( null );
 		}
 		
 		[After]

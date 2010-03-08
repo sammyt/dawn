@@ -2,11 +2,11 @@ package uk.co.ziazoo.injector.impl
 {	
 	import org.flexunit.Assert;
 	
-	import uk.co.ziazoo.injector.IMapping;
-	import uk.co.ziazoo.injector.IMappingBuilder;
-	
 	import some.thing.Apple;
 	import some.thing.Car;
+	
+	import uk.co.ziazoo.injector.IMapping;
+	import uk.co.ziazoo.injector.IMappingBuilder;
 	 
 	public class MappingBuilderTest
 	{
@@ -19,7 +19,7 @@ package uk.co.ziazoo.injector.impl
 		[Before]
 		public function setUp():void
 		{
-			builder = new MappingBuilder(Apple);
+			builder = new MappingBuilder(Apple, new Reflector());
 		}
 		
 		[After]

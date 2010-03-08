@@ -1,23 +1,25 @@
 package uk.co.ziazoo.injector.impl
 {	
+	import flash.utils.getDefinitionByName;
+	
 	import uk.co.ziazoo.injector.IMapper;
 	import uk.co.ziazoo.injector.IMapping;
 	import uk.co.ziazoo.injector.IMappingBuilder;
 	
-	import flash.utils.getDefinitionByName;
-	
 	public class Mapper implements IMapper
 	{
 		internal var builders:Array;
-		
-		public function Mapper()
+		private var reflector:Reflector;
+    
+		public function Mapper( reflector:Reflector )
 		{
 			builders = [];
+      this.reflector = reflector;
 		}
 		
 		public function map( clazz:Class ):IMappingBuilder
 		{
-			var builder:IMappingBuilder = new MappingBuilder( clazz );
+			var builder:IMappingBuilder = new MappingBuilder( clazz, reflector );
 			builders.push( builder );
 			return builder;
 		}

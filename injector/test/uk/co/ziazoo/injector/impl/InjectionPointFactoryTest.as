@@ -2,9 +2,9 @@ package uk.co.ziazoo.injector.impl
 {
 	import org.flexunit.Assert;
 	
-	import uk.co.ziazoo.injector.*;
-	
 	import some.thing.*;
+	
+	import uk.co.ziazoo.injector.*;
 	
 	public class InjectionPointFactoryTest
 	{
@@ -17,11 +17,7 @@ package uk.co.ziazoo.injector.impl
 		[Before]
 		public function setUp():void
 		{
-			var mapper:IMapper = new Mapper();
-			mapper.map( Car ).to( Car );
-			mapper.map( Leaf ).to( Leaf );
-			mapper.map( Tree ).to( Tree );
-			mapper.map( Ground ).to( Ground );
+			var mapper:IMapper = new Mapper( null );
 			
 			factory = new InjectionPointFactory( 
 				new DependencyFactory(), mapper );

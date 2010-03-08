@@ -11,6 +11,7 @@ package uk.co.ziazoo.injector.impl
   import some.thing.IRadio;
   import some.thing.LoudRadio;
   import some.thing.PlantPot;
+  import some.thing.PlantPotFactory;
   import some.thing.QuietRadio;
   import some.thing.Table;
   
@@ -29,8 +30,8 @@ package uk.co.ziazoo.injector.impl
     [Before]
     public function setUp():void
     {
-      mapper = new Mapper();
       var reflector:Reflector = new Reflector();
+      mapper = new Mapper( reflector );
       var dependencyFactory:DependencyFactory = new DependencyFactory();
       var injectionFactory:InjectionPointFactory = 
           new InjectionPointFactory( dependencyFactory, mapper );
@@ -106,6 +107,21 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function injectionsByConstructor():void
     {
+      var obj:Object = injector.inject( Table );
+      
+      Assert.assertNotNull( obj );
+      Assert.assertTrue( "obj is a Table", obj is Table );
+      
+      var table:Table = Table( obj );
+      
+      Assert.assertNotNull( table.plantPot );
+    }
+    
+    [Test]
+    public function factoryInjection():void
+    {
+      mapper.map( PlantPot ).toFactory( PlantPotFactory );
+      
       var obj:Object = injector.inject( Table );
       
       Assert.assertNotNull( obj );

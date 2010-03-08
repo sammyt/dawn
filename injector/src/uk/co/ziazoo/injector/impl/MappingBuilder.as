@@ -8,10 +8,12 @@ package uk.co.ziazoo.injector.impl
 	{
 		private var clazz:Class;
 		private var _mapping:IMapping;
+    private var reflector:Reflector;
 		
-		public function MappingBuilder( clazz:Class )
+		public function MappingBuilder( clazz:Class, reflector:Reflector )
 		{
 			this.clazz = clazz;
+      this.reflector = reflector;
 		}
 		
 		public function to( type:Class ):IMappingBuilder
@@ -20,9 +22,10 @@ package uk.co.ziazoo.injector.impl
 			return this;
 		}
 		
-		public function toFactory( object:Object ):IMappingBuilder
+		public function toFactory( factory:Class ):IMappingBuilder
 		{
-			return null;
+      mapping.provider = new FactoryProvider( factory, reflector );
+			return this;
 		}
 		
 		public function toInstance( object:Object ):IMappingBuilder

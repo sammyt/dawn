@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector.impl 
 {
-	import flash.utils.describeType;
 	import flash.utils.Dictionary;
+	import flash.utils.describeType;
 	
 	internal class Reflection 
 	{
@@ -9,6 +9,8 @@ package uk.co.ziazoo.injector.impl
 		public var properties:Array;
 		public var methods:Array;
 		public var constructor:Constructor;
+    
+    private var _providerMethod:Method;
 		
 		public function Reflection()
 		{
@@ -31,5 +33,20 @@ package uk.co.ziazoo.injector.impl
 			}
 			methods.push( method );
 		}
+    
+    public function setProviderMethod( provider:Method ):void
+    {
+      _providerMethod = provider;
+    }
+    
+    public function hasProviderMethod():Boolean
+    {
+      return _providerMethod != null;
+    }
+    
+    public function get providerMethod():Method
+    {
+      return _providerMethod;
+    }
 	}
 }
