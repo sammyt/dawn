@@ -4,7 +4,7 @@ package uk.co.ziazoo.injector.impl
 	import uk.co.ziazoo.injector.IMappingBuilder;
 	import uk.co.ziazoo.injector.IProvider;
 	
-	public class MappingBuilder implements IMappingBuilder
+  internal class MappingBuilder implements IMappingBuilder
 	{
 		private var clazz:Class;
 		private var _mapping:IMapping;

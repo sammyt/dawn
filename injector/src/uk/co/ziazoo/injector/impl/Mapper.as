@@ -6,7 +6,7 @@ package uk.co.ziazoo.injector.impl
 	import uk.co.ziazoo.injector.IMapping;
 	import uk.co.ziazoo.injector.IMappingBuilder;
 	
-	public class Mapper implements IMapper
+  internal class Mapper implements IMapper
 	{
 		internal var builders:Array;
 		private var reflector:Reflector;

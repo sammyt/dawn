@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {
 	import uk.co.ziazoo.injector.*;
 	
-	public class InjectionPointFactory
+	internal class InjectionPointFactory
 	{
 		private var dependencyFactory:DependencyFactory;
 		private var mapper:IMapper;

@@ -3,7 +3,7 @@ package uk.co.ziazoo.injector.impl
 	import uk.co.ziazoo.injector.IMapping;
 	import uk.co.ziazoo.injector.IProvider;
 	
-	public class Mapping implements IMapping
+  internal class Mapping implements IMapping
 	{
 		private var _type:Class;
 		private var _name:String;

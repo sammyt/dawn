@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {
 	import uk.co.ziazoo.injector.*;
 		
-	public class PropertyInjectionPoint implements IInjectionPoint
+  internal class PropertyInjectionPoint implements IInjectionPoint
 	{
 		private var dependencies:Array;
 		private var property:Property;

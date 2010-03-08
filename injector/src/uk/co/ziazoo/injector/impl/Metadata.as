@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {	
 	import flash.utils.Dictionary;
 	
-	public class Metadata
+  internal class Metadata
 	{
 		public var name:String;
 		public var properties:Dictionary;

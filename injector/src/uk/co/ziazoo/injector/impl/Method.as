@@ -1,12 +1,12 @@
 package uk.co.ziazoo.injector.impl
 {	
-	public class Method
+  internal class Method
 	{
 		public var name:String;
 		public var params:Array;
 		public var metadatas:Array;
     
-		public function Method()
+    public function Method()
 		{
 		}
 		

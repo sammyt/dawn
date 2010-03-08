@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {
 	import uk.co.ziazoo.injector.*;
 	
-	public class MethodInjectionPoint implements IInjectionPoint
+  internal class MethodInjectionPoint implements IInjectionPoint
 	{
 		private var method:Method;
 		private var dependencies:Array;

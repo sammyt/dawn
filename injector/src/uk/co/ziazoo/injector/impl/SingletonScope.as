@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {
 	import uk.co.ziazoo.injector.IProvider;
 	
-	public class SingletonScope implements IProvider
+  internal class SingletonScope implements IProvider
 	{
 		private var provider:IProvider;
 		private var instance:Object;

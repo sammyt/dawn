@@ -1,6 +1,6 @@
 package uk.co.ziazoo.injector.impl
 {	
-	public class Property
+  internal class Property
 	{
 		public var name:String;
 		public var type:String;
