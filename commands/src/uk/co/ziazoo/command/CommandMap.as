@@ -1,6 +1,6 @@
 package uk.co.ziazoo.command
 {
-	import uk.co.ziazoo.injector.IBuilder;
+	import uk.co.ziazoo.injector.IInjector;
 	import uk.co.ziazoo.notifier.INotificationBus;
 
 	/**
@@ -9,12 +9,16 @@ package uk.co.ziazoo.command
 	 */ 
 	public class CommandMap implements ICommandMap
 	{
-		private var _bus:INotificationBus;
-		private var _builder:IBuilder;
+		private var bus:INotificationBus;
+		private var injector:IInjector;
 		private var _commands:Array;
 		
-		public function CommandMap(){}
-		
+		public function CommandMap( injector:IInjector, bus:INotificationBus )
+    {
+      this.injector = injector;
+      this.bus = bus;
+    }
+    
 		/**
 		 * @private
 		 * 
@@ -29,7 +33,7 @@ package uk.co.ziazoo.command
 			{
 				if( notification is command.triggerType )
 				{
-					var instance:Object = builder.getObject( command.commandType );
+					var instance:Object = injector.inject( command.commandType );
 					command.invoke( instance, notification );
 				}
 			}
@@ -44,38 +48,6 @@ package uk.co.ziazoo.command
 			commands.push( details );
 			
 			bus.addCallback( details.triggerType, invokeCommand );
-		}
-		
-		[Inject]
-		
-		/**
-		 * The <code>IBuilder</code> object that will be used to 
-		 * construct the command objects
-		 */ 
-		public function get builder():IBuilder
-		{
-			return _builder;
-		}
-		
-		public function set builder( value:IBuilder ):void
-		{
-			_builder = value;
-		}
-		
-		[Inject]
-		
-		/**
-		 * instance of <code>INotificationBus</code> where notification will
-		 * to listened for to trigger the commands
-		 */ 
-		public function get bus():INotificationBus
-		{
-			return _bus;
-		}
-		
-		public function set bus( value:INotificationBus ):void
-		{
-			_bus = value;
 		}
 		
 		/**

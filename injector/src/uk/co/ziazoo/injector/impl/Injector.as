@@ -3,9 +3,15 @@ package uk.co.ziazoo.injector.impl
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
-	import uk.co.ziazoo.injector.*;
+	import uk.co.ziazoo.injector.IConfiguration;
+	import uk.co.ziazoo.injector.IDependency;
+	import uk.co.ziazoo.injector.IInjectionPoint;
+	import uk.co.ziazoo.injector.IInjector;
+	import uk.co.ziazoo.injector.IMapper;
+	import uk.co.ziazoo.injector.IMapping;
+	import uk.co.ziazoo.injector.IProvider;
 	
-	internal class Injector implements IInjector
+	public class Injector implements IInjector
 	{
 		private var mapper:IMapper;
 		private var dependencyFactory:DependencyFactory;
@@ -20,6 +26,18 @@ package uk.co.ziazoo.injector.impl
 			this.mapper = mapper;
       this.reflector = reflector;
 		}
+    
+    public static function createInjector():IInjector
+    {
+      var reflector:Reflector = new Reflector();
+      var mapper:IMapper = new Mapper( reflector );
+      var dependencyFactory:DependencyFactory = new DependencyFactory();
+      var injectionFactory:InjectionPointFactory = 
+        new InjectionPointFactory( dependencyFactory, mapper );
+      
+      return new Injector( 
+        dependencyFactory, mapper, injectionFactory, reflector );
+    }
 		
 		/**
 		*	@inheritDoc
@@ -32,7 +50,7 @@ package uk.co.ziazoo.injector.impl
 			return create( dependency ).getObject();
 		}
 		
-		internal function create( dependency:IDependency ):IDependency
+		private function create( dependency:IDependency ):IDependency
 		{
       var provider:IProvider = dependency.getProvider();
       if( !provider.requiresInjection )
@@ -60,7 +78,7 @@ package uk.co.ziazoo.injector.impl
 			return dependency;
 		}
     
-    internal function injectPropertyDependencies( dependency:IDependency ):void
+    private function injectPropertyDependencies( dependency:IDependency ):void
     {
       var reflection:Reflection = getReflection( dependency );
       
@@ -79,7 +97,7 @@ package uk.co.ziazoo.injector.impl
       }
     }
     
-    internal function injectMethodDependencies( dependency:IDependency ):void
+    private function injectMethodDependencies( dependency:IDependency ):void
     {
       var reflection:Reflection = getReflection( dependency );
       
@@ -114,12 +132,12 @@ package uk.co.ziazoo.injector.impl
 			configuration.configure( mapper );
 		}
 		
-		public function getMapping( object:Object, name:String = "" ):IMapping
+    private function getMapping( object:Object, name:String = "" ):IMapping
 		{
 			return mapper.getMapping( getClass( object ), name );
 		}
 		
-		internal function getClass( object:Object ):Class
+    private function getClass( object:Object ):Class
 		{
 			if( object is Class )
 			{
