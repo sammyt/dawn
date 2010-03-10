@@ -11,6 +11,7 @@ package uk.co.ziazoo.injector.impl
 		public var constructor:Constructor;
     
     private var _providerMethod:Method;
+    private var _completeMethod:Method;
 		
 		public function Reflection()
 		{
@@ -47,6 +48,21 @@ package uk.co.ziazoo.injector.impl
     public function get providerMethod():Method
     {
       return _providerMethod;
+    }
+    
+    public function setCompleteMethod( callback:Method ):void
+    {
+      _completeMethod = callback;
+    }
+    
+    public function hasCompleteMethod():Boolean
+    {
+      return _completeMethod != null;
+    }
+    
+    public function get completeMethod():Method
+    {
+      return _completeMethod;
     }
 	}
 }

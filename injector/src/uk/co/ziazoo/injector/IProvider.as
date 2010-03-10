@@ -8,6 +8,8 @@ package uk.co.ziazoo.injector
     
     function get requiresInjection():Boolean;
     
+    function get instanceCreated():Boolean;
+    
     function getObject():Object;
 	}
 }

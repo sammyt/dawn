@@ -32,6 +32,7 @@ package uk.co.ziazoo.injector.impl
 		public function toInstance( object:Object ):IMappingBuilder
 		{
       mapping.provider = new InstanceProvider( object );
+      asSingleton();
 			return this;
 		}
 		

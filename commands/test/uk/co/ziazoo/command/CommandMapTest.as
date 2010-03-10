@@ -43,31 +43,15 @@ package uk.co.ziazoo.command
 		{
 			var command:MockCommand = new MockCommand();
 			
-			injector.install( new Configuration( command )	);
+      injector.map( MockCommand ).toInstance( command );
+      
 			commands.addCommand( MockCommand );
 			
 			bus.trigger( "object of same type as execute method param" );
 			
 			Assert.assertNotNull( "can create command", injector.inject( MockCommand ) );
-			
+			Assert.assertTrue( "same instance", injector.inject( MockCommand ) == command );
 			Assert.assertEquals( "command has executed", 1, command.invokeCount );
 		}
 	}
-}
-import uk.co.ziazoo.command.MockCommand;
-import uk.co.ziazoo.injector.IConfiguration;
-import uk.co.ziazoo.injector.IMapper;
-
-class Configuration implements IConfiguration
-{
-  private var instance:MockCommand;
-  
-  public function Configuration( instance:MockCommand )
-  {
-    this.instance = instance;
-  }
-  public function configure( mapper:IMapper ):void
-  {
-    mapper.map( MockCommand ).toInstance( instance );
-  }
 }

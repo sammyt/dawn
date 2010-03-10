@@ -31,6 +31,11 @@ package uk.co.ziazoo.injector.impl
     
     public function get requiresInjection():Boolean
     {
+      return true;
+    }
+    
+    public function get instanceCreated():Boolean
+    {
       return false;
     }
     

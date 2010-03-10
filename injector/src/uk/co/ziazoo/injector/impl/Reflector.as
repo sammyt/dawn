@@ -33,9 +33,10 @@ package uk.co.ziazoo.injector.impl
 
 			addProperties( reflection, source.descendants( "variable" ) );
 			addProperties( reflection, source.descendants( "accessor" ) );
-			
-			addMethods( reflection, source.descendants( "method" ) );
-			addProviderMethod( reflection, source.descendants( "method" ) );
+			var methods:XMLList = source.descendants( "method" );
+			addMethods( reflection, methods );
+			addProviderMethod( reflection, methods );
+      addCompleteMethod( reflection, methods );
       
 			reflection.constructor = parseConstructorWithHack( XML( source.factory ), type );
 			
@@ -127,7 +128,7 @@ package uk.co.ziazoo.injector.impl
 			return parameter;
 		}
 		
-		internal function addProperties( reflection:Reflection, source:XMLList ):void
+    private function addProperties( reflection:Reflection, source:XMLList ):void
 		{
 			var withInjects:XMLList = source.metadata.( @name == "Inject" );
 			for each( var p:XML in withInjects )
@@ -136,7 +137,7 @@ package uk.co.ziazoo.injector.impl
 			}
 		}
 		
-		internal function addMethods( reflection:Reflection, source:XMLList ):void
+    private function addMethods( reflection:Reflection, source:XMLList ):void
 		{
 			var withInjects:XMLList = source.metadata.( @name == "Inject" );
 			for each ( var m:XML in withInjects )
@@ -145,13 +146,23 @@ package uk.co.ziazoo.injector.impl
 			}
 		}
     
-    internal function addProviderMethod( reflection:Reflection, source:XMLList ):void
+    private function addProviderMethod( reflection:Reflection, source:XMLList ):void
     {
       var provider:XMLList = source.metadata.( @name == "Provider" );
       
       if( provider.length() == 1 )
       {
         reflection.setProviderMethod( parseMethod( provider[0].parent() ) );
+      }
+    }
+    
+    private function addCompleteMethod( reflection:Reflection, source:XMLList ):void
+    {
+      var provider:XMLList = source.metadata.( @name == "DependenciesInjected" );
+      
+      if( provider.length() == 1 )
+      {
+        reflection.setCompleteMethod( parseMethod( provider[0].parent() ) );
       }
     }
 	}

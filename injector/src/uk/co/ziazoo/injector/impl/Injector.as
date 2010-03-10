@@ -9,6 +9,7 @@ package uk.co.ziazoo.injector.impl
 	import uk.co.ziazoo.injector.IInjector;
 	import uk.co.ziazoo.injector.IMapper;
 	import uk.co.ziazoo.injector.IMapping;
+	import uk.co.ziazoo.injector.IMappingBuilder;
 	import uk.co.ziazoo.injector.IProvider;
 	
 	public class Injector implements IInjector
@@ -39,6 +40,11 @@ package uk.co.ziazoo.injector.impl
         dependencyFactory, mapper, injectionFactory, reflector );
     }
 		
+    public function map( clazz:Class ):IMappingBuilder
+    {
+      return mapper.map( clazz );
+    }
+    
 		/**
 		*	@inheritDoc
 		*/	
@@ -58,25 +64,43 @@ package uk.co.ziazoo.injector.impl
         return dependency;
       }
       
-      var reflection:Reflection = getReflection( dependency );
-      
-      if( reflection.constructor.hasParams() )
+      if( provider.instanceCreated )
       {
-        var injectionPoint:IInjectionPoint = 
-          injectionPointFactory.forConstructor( reflection.constructor );
-
-        for each( var child:IDependency in injectionPoint.getDependencies() )
+        var reflection:Reflection = getReflection( dependency );
+        
+        if( reflection.constructor.hasParams() )
         {
-          create( child );
+          var injectionPoint:IInjectionPoint = 
+            injectionPointFactory.forConstructor( reflection.constructor );
+          
+          for each( var child:IDependency in injectionPoint.getDependencies() )
+          {
+            create( child );
+          }
+          provider.withDependencies( injectionPoint.getDependencies() ); 
         }
-        provider.withDependencies( injectionPoint.getDependencies() ); 
       }
-      
+            
       injectMethodDependencies( dependency );
       injectPropertyDependencies( dependency );
+      invokeCompletionCallback( dependency );
       
 			return dependency;
 		}
+    
+    private function invokeCompletionCallback( dependency:IDependency ):void
+    {
+      var reflection:Reflection = getReflection( dependency );
+      if( reflection.hasCompleteMethod() )
+      {
+        var methodName:String = reflection.completeMethod.name;
+        
+        var invoker:MethodInvoker = 
+          new MethodInvoker( dependency.getObject(), methodName );
+        
+        invoker.invoke();
+      }
+    }
     
     private function injectPropertyDependencies( dependency:IDependency ):void
     {

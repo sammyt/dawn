@@ -34,6 +34,11 @@ package uk.co.ziazoo.injector.impl
       }
     }
     
+    public function get instanceCreated():Boolean
+    {
+      return provider.instanceCreated;
+    }
+    
 		public function getObject():Object
 		{
 			if( !instance )

@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>flex-framework</artifactId>
-			<version>3.3.0.4852</version>
+			<version>3.5.0.12683</version>
 			<type>pom</type>
 			<exclusions>
 				<exclusion>
@@ -37,7 +37,7 @@
 		<dependency>
 			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>playerglobal</artifactId>
-			<version>3.3.0.4852</version>
+			<version>3.5.0.12683</version>
 			<classifier>10</classifier>
 			<type>swc</type>
 		</dependency>

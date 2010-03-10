@@ -1,12 +1,12 @@
 package
 {
-	import com.example.model.MockContactsService;
 	import com.example.model.IContactsService;
+	import com.example.model.MockContactsService;
 	
-	import uk.co.ziazoo.injector.IConfig;
+	import uk.co.ziazoo.injector.IConfiguration;
 	import uk.co.ziazoo.injector.IMapper;
 	
-	public class ContactAppConfig implements IConfig
+	public class ContactAppConfig implements IConfiguration
 	{
 		private var _main:Main;
 		
@@ -15,10 +15,10 @@ package
 			_main = main;
 		}
 		
-		public function create(mapper:IMapper):void
+		public function configure(mapper:IMapper):void
 		{
 			mapper.map( Main ).toInstance( _main );
-			mapper.map( IContactsService ).toClass( MockContactsService ).asSingleton();
+			mapper.map( IContactsService ).to( MockContactsService ).asSingleton();
 		}
 	}
 }

@@ -26,8 +26,10 @@ package com.example.view
 		 */ 
 		private var _view:ContactListView;
 		
-		public function ContactListPresenter()
+		public function ContactListPresenter( view:ContactListView, bus:INotificationBus )
 		{
+      _view = view;
+      _bus = bus;
 		}
 		
 		[DependenciesInjected]
@@ -55,18 +57,6 @@ package com.example.view
 			{
 				listener.remove();
 			}
-		}
-		
-		[Inject]
-		public function set bus( value:INotificationBus ):void
-		{
-			_bus = value;
-		}
-		
-		[Inject]
-		public function set view( value:ContactListView ):void
-		{
-			_view = value;
 		}
 		
 		public function get displayObject():DisplayObject
