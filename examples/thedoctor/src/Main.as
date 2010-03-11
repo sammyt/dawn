@@ -4,25 +4,24 @@ package
 	import flash.text.TextField;
 	
 	import com.timelord.TheDoctor;
+	import com.timelord.RoseTyler;
+	import com.timelord.Daleks;
+	import com.timelord.IMission;
+	import com.timelord.IAssistant;
 	
-	import uk.co.ziazoo.injector.IBuilder;
-	import uk.co.ziazoo.injector.Builder;
+	import uk.co.ziazoo.injector.impl.Injector;
+	import uk.co.ziazoo.injector.IInjector;
 	
 	public class Main extends Sprite
 	{
-		[Inject]
-		public var doctor:TheDoctor;
-		
 		public function Main()
 		{
-			// create the builder
-			var builder:IBuilder = new Builder(new Config(this));
+			var injector:IInjector = Injector.createInjector();
+			injector.map(IAssistant).to(RoseTyler);
+			injector.map(IMission).to(Daleks);
 			
-			// construct this application
-			builder.getObject(Main);
+			var doctor:TheDoctor = TheDoctor(injector.inject(TheDoctor));	
 			
-			// the doctor is now created
-			// so we output the creds 
 			var output:TextField = new TextField();
 			output.width = stage.stageWidth;
 			output.text = doctor.credits();
