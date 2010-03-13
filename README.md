@@ -1,19 +1,25 @@
-Dawn
-==
+# Dawn #
 
-Actionscript library for type safe fun
---
+## Actionscript library for type safe fun ##
 
-Checkout the [docs](http://wiki.github.com/sammyt/dawn "wiki")
+Checkout the some 0.7 [docs](http://wiki.github.com/sammyt/dawn "wiki")
+And here are the [slides](http://www.slideshare.net/sammyt/dawn-actionscript-library-2563556) 
+form the [FLUG](http://www.meetup.com/flexlondon/calendar/11793506/?from=list&offset=0) presentation I gave
+
+## News ##
+### next version of Dawn code complete ###
+Feature development for Dawn 0.8 is now complete (phew).  You can check it out now, its in 
+the [refactor](http://github.com/sammyt/dawn/tree/refactor) branch (will hit master branch asap).
+
+I've worked hard to improve the code base for future features I have in the pipeline, but new wins
+in this release include constructor/method injection and a much improved DSL for configuration
 
 
-<div id="__ss_2563556" style="width: 425px; text-align: left;">
-	<a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" title="Dawn - Presentation" href="http://www.slideshare.net/sammyt/dawn-actionscript-library-2563556">Dawn - Actionscript Library</a>
-	<object style="margin:0px" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="425" height="355" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0">
-		<param name="allowFullScreen" value="true" />
-		<param name="allowScriptAccess" value="always" />
-		<param name="src" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=dawn-091123043638-phpapp01&amp;rel=0&amp;stripped_title=dawn-actionscript-library-2563556" />
-		<param name="allowfullscreen" value="true" />
-		<embed style="margin:0px" type="application/x-shockwave-flash" width="425" height="355" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=dawn-091123043638-phpapp01&amp;rel=0&amp;stripped_title=dawn-actionscript-library-2563556" allowscriptaccess="always" allowfullscreen="true"></embed>
-	</object>
-</div>
+
+
+
+
+
+
+
+
