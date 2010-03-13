@@ -4,13 +4,12 @@ package uk.co.ziazoo
   import uk.co.ziazoo.command.ICommandMap;
   import uk.co.ziazoo.injector.IConfiguration;
   import uk.co.ziazoo.injector.IInjector;
-  import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.impl.Injector;
   import uk.co.ziazoo.notifier.INotificationBus;
   import uk.co.ziazoo.notifier.NotificationBus;
 
-  public class Dawn implements IInjector, IConfiguration
+  public class Dawn implements IInjector
   {
     private var injector:IInjector;
     private var bus:INotificationBus;
@@ -22,20 +21,15 @@ package uk.co.ziazoo
       bus = new NotificationBus();
       commands = new CommandMap( injector, bus );
       
-      install( this );
+      map( IInjector ).toInstance( injector );
+      map( INotificationBus ).toInstance( bus );
+      map( ICommandMap ).toInstance( commands );
     }
     
     public function inject( object:Object ):Object
     {
       return injector.inject( object );
     }
-    
-    public function configure( mapper:IMapper ):void
-    {
-      mapper.map( IInjector ).toInstance( injector );
-      mapper.map( INotificationBus ).toInstance( bus );
-      mapper.map( ICommandMap ).toInstance( commands );
-    }  
       
     public function install( configuration:IConfiguration ):void
     {

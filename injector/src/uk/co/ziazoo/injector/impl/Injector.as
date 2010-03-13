@@ -28,13 +28,19 @@ package uk.co.ziazoo.injector.impl
       this.reflector = reflector;
 		}
     
-    public static function createInjector():IInjector
+    public static function createInjector(
+        configuration:IConfiguration = null ):IInjector
     {
       var reflector:Reflector = new Reflector();
       var mapper:IMapper = new Mapper( reflector );
       var dependencyFactory:DependencyFactory = new DependencyFactory();
       var injectionFactory:InjectionPointFactory = 
         new InjectionPointFactory( dependencyFactory, mapper );
+      
+      if( configuration )
+      {
+        configuration.configure( mapper ); 
+      }
       
       return new Injector( 
         dependencyFactory, mapper, injectionFactory, reflector );
