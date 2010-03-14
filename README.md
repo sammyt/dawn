@@ -7,6 +7,9 @@ And here are the [slides](http://www.slideshare.net/sammyt/dawn-actionscript-lib
 form the [FLUG](http://www.meetup.com/flexlondon/calendar/11793506/?from=list&offset=0) presentation I gave
 
 ## News ##
+### Dawn 0.8 now in master branch! ###
+Just merged Dawn 0.8 into the master branch --  now to update the docs!
+
 ### next version of Dawn code complete ###
 Feature development for Dawn 0.8 is now complete (phew).  You can check it out now, its in 
 the [refactor](http://github.com/sammyt/dawn/tree/refactor) branch (will hit master branch asap).
