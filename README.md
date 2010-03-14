@@ -1,12 +1,15 @@
 # Dawn #
 
-## Actionscript library for type safe fun ##
+## Actionscript library for type safe FUN ##
 
-Checkout the some 0.7 [docs](http://wiki.github.com/sammyt/dawn "wiki")
-And here are the [slides](http://www.slideshare.net/sammyt/dawn-actionscript-library-2563556) 
+Checkout the some 0.8 [docs](http://wiki.github.com/sammyt/dawn "wiki")
+... and here are the [slides](http://www.slideshare.net/sammyt/dawn-actionscript-library-2563556) 
 form the [FLUG](http://www.meetup.com/flexlondon/calendar/11793506/?from=list&offset=0) presentation I gave
 
 ## News ##
+### Docs updated! ###
+I have now updated the [injector](http://wiki.github.com/sammyt/dawn/dawninjections) page to reflect the changes made in 0.8
+
 ### Dawn 0.8 now in master branch! ###
 Just merged Dawn 0.8 into the master branch --  now to update the docs!
 

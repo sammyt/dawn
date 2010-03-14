@@ -1,7 +1,6 @@
 package some.thing 
 {
 	[Inject]
-	[Named(arg="ground", name="earth")]
 	public class Tree
 	{
 		public var leaf:Leaf;

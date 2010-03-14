@@ -3,6 +3,11 @@ package uk.co.ziazoo.injector.impl
   import org.flexunit.Assert;
   import org.flexunit.asserts.assertTrue;
   
+  import some.otherthing.AnalogDial;
+  import some.otherthing.DigitalDial;
+  import some.otherthing.IDial;
+  import some.otherthing.SlowBike;
+  import some.otherthing.SlowBikeEngine;
   import some.thing.Apple;
   import some.thing.Car;
   import some.thing.CarWithTwoRadios;
@@ -13,7 +18,7 @@ package uk.co.ziazoo.injector.impl
   import some.thing.PlantPotFactory;
   import some.thing.QuietRadio;
   import some.thing.Table;
-	import some.thing.Wibble;
+  import some.thing.Wibble;
   
   import uk.co.ziazoo.injector.IMapper;
 
@@ -191,6 +196,21 @@ package uk.co.ziazoo.injector.impl
 			
 			Assert.assertTrue( "has the right radio", wibble.radio is LoudRadio );
 		}
+    
+    [Test]
+    public function createBikeWithContreteConstructorArg():void
+    {
+      injector.map(IDial).to(DigitalDial);
+      injector.map(IDial).named("analog").to(AnalogDial);
+      injector.map(String).named("bike name").toInstance("my bike");
+      
+      var bike:SlowBike = SlowBike(injector.inject(SlowBike));
+      
+      Assert.assertTrue( "engine is slow engine", bike.engine is SlowBikeEngine );
+      Assert.assertNotNull( bike.dial );
+      Assert.assertTrue( "dial is analog", bike.dial is AnalogDial );
+      Assert.assertTrue( "gets the name", bike.name == "my bike" );
+    }
   }
 }
 
