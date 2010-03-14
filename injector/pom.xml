@@ -7,7 +7,7 @@
   <parent>
     <groupId>uk.co.ziazoo</groupId>
     <artifactId>dawn</artifactId>
-    <version>0.7.9-SNAPSHOT</version>
+    <version>0.8-SNAPSHOT</version>
   </parent>
   <properties>
     <flexversion>3.5.0.12683</flexversion>
@@ -27,6 +27,7 @@
             <keepAs3Metadata>Inject</keepAs3Metadata>
             <keepAs3Metadata>Provider</keepAs3Metadata>
             <keepAs3Metadata>DependenciesInjected</keepAs3Metadata>
+            <keepAs3Metadata>Named</keepAs3Metadata>
           </keepAs3Metadatas>
         </configuration>
         <dependencies>
@@ -48,12 +49,6 @@
       <type>pom</type>
     </dependency>
     <dependency>
-      <groupId>lab.polygonal</groupId>
-      <artifactId>as3ds</artifactId>
-      <version>1.04</version>
-      <type>swc</type>
-    </dependency>
-    <dependency>
       <groupId>org.sonatype.flexmojos</groupId>
       <artifactId>flexmojos-unittest-support</artifactId>
       <version>${mojoversion}</version>
@@ -68,15 +63,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <repositories>
-    <repository>
-      <id>lib-repo</id>
-      <name>lib-m1-repository</name>
-      <url>file://${basedir}/libs</url>
-      <layout>legacy</layout>
-      <releases>
-        <checksumPolicy>ignore</checksumPolicy>
-      </releases>
-    </repository>
-  </repositories>
 </project>

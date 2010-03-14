@@ -6,18 +6,17 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.example.commands.CreateContactCommand;
-			import com.example.commands.GetContactsCommand;
-			import com.example.model.GetContacts;
-			import com.example.view.ContactListPresenter;
-			import com.example.view.CreateContactPresenter;
-			
-			import mx.events.FlexEvent;
-			
-			import uk.co.ziazoo.command.CommandMap;
-			import uk.co.ziazoo.injector.Builder;
-			import uk.co.ziazoo.injector.IBuilder;
-			import uk.co.ziazoo.notifier.INotificationBus;
+      import com.example.commands.CreateContactCommand;
+      import com.example.commands.GetContactsCommand;
+      import com.example.model.GetContacts;
+      import com.example.view.ContactListPresenter;
+      import com.example.view.CreateContactPresenter;
+      
+      import mx.events.FlexEvent;
+      
+      import uk.co.ziazoo.Dawn;
+      import uk.co.ziazoo.command.ICommandMap;
+      import uk.co.ziazoo.notifier.INotificationBus;
 			
 			[Inject]
 			/**
@@ -25,7 +24,7 @@
 			 * register commands with Dawn.  A command is any
 			 * object which has a method with the [Execute] metadata
 			 */ 
-			public var commands:CommandMap;
+			public var commands:ICommandMap;
 			
 			[Inject]
 			/**
@@ -48,11 +47,11 @@
 			protected function onCreationComplete(event:FlexEvent):void
 			{
 				// setup the Dawn builder
-				var builder:IBuilder = new Builder( new ContactAppConfig( this ) );
-				builder.addConfig( new BasicDawnConfig( builder ) );
+        var dawn:Dawn = new Dawn();
+        dawn.install( new ContactAppConfig( this ) );
 				
 				// construct the application
-				builder.getObject( Main );
+				dawn.inject( this );
 				
 				// register any commands
 				commands.addCommand( GetContactsCommand );

@@ -14,8 +14,10 @@ package com.example.view
 		private var _listeners:Vector.<IListenerRegistration>;
 		private var _bus:INotificationBus;
 		
-		public function CreateContactPresenter()
+		public function CreateContactPresenter( view:CreateContactView, bus:INotificationBus )
 		{
+      _view = view;
+      _bus = bus;
 		}
 		
 		[DependenciesInjected]
@@ -42,18 +44,6 @@ package com.example.view
 				_bus.trigger( new CreateContact( _view.newContact ) );
 				_view.nameInput.text = "";
 			}
-		}
-		
-		[Inject]
-		public function set view( value:CreateContactView ):void
-		{
-			_view = value;
-		}
-		
-		[Inject]
-		public function set bus( value:INotificationBus ):void
-		{
-			_bus = value;
 		}
 		
 		public function get displayObject():DisplayObject
