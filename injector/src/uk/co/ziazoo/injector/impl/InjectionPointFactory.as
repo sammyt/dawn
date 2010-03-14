@@ -68,7 +68,7 @@ package uk.co.ziazoo.injector.impl
 		{
 			var injectionPoint:ConstructorInjectionPoint = 
 				new ConstructorInjectionPoint( constructor );
-			
+
 			for each( var parameter:Parameter in constructor.params )
 			{
 				var mapping:IMapping = mapper.getMappingFromQName( 
@@ -98,14 +98,23 @@ package uk.co.ziazoo.injector.impl
 		
 		internal function getNameForProperty( property:Property ):String
 		{
+			var fromInject:String;
 			for each( var metadata:Metadata in property.metadatas )
 			{
+				if( metadata.name == "Inject" )
+				{
+					if( metadata.properties
+					 	&& metadata.properties["name"])
+					{
+						fromInject = metadata.properties["name"];
+					}
+				}
 				if( metadata.name == "Named" )
 				{
 					return metadata.properties["name"];
 				}
 			}
-			return "";
+			return fromInject;
 		}
 	}
 }

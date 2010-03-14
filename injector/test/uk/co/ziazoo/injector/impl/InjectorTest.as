@@ -13,6 +13,7 @@ package uk.co.ziazoo.injector.impl
   import some.thing.PlantPotFactory;
   import some.thing.QuietRadio;
   import some.thing.Table;
+	import some.thing.Wibble;
   
   import uk.co.ziazoo.injector.IMapper;
 
@@ -159,6 +160,37 @@ package uk.co.ziazoo.injector.impl
       
       Assert.assertTrue( "same instance returned", obj == injector.inject( Apple ) );
     }
+
+		[Test]
+		public function injectNamedViaConstructor():void
+		{
+			var granny:Apple = new Apple()
+			mapper.map( Apple );
+			mapper.map( Apple ).named("granny").toInstance(granny);
+      mapper.map(IRadio).to(QuietRadio);
+      
+			
+			var obj:Object = injector.inject( Wibble );
+      Assert.assertTrue( "obj is a Wibble", obj is Wibble );
+
+			var wibble:Wibble = Wibble(obj);
+			
+			Assert.assertTrue( "has the right apple", wibble.apple == granny );
+		}
+		
+		[Test]
+		public function injectNamedInInjectSystax():void
+		{
+			mapper.map(IRadio).to(QuietRadio);
+			mapper.map(IRadio).to(LoudRadio).named("loud");
+			
+			var obj:Object = injector.inject( Wibble );
+      Assert.assertTrue( "obj is a Wibble", obj is Wibble );
+
+			var wibble:Wibble = Wibble(obj);
+			
+			Assert.assertTrue( "has the right radio", wibble.radio is LoudRadio );
+		}
   }
 }
 
