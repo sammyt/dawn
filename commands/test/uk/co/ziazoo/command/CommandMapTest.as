@@ -31,14 +31,6 @@ package uk.co.ziazoo.command
 		}
 		
 		[Test]
-		public function canAddCommands():void
-		{
-			Assert.assertEquals( "has no commands", 0, commands.commands.length );
-			commands.addCommand( MockCommand );
-			Assert.assertEquals( "has one command", 1, commands.commands.length );
-		}
-		
-		[Test]
 		public function doesTriggerViaBus():void
 		{
 			var command:MockCommand = new MockCommand();

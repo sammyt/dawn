@@ -11,32 +11,25 @@ package uk.co.ziazoo.command
 	{
 		private var bus:INotificationBus;
 		private var injector:IInjector;
-		private var _commands:Array;
 		
 		public function CommandMap( injector:IInjector, bus:INotificationBus )
     {
-      this.injector = injector;
-      this.bus = bus;
+			this.injector = injector;
+			this.bus = bus;
     }
     
 		/**
 		 * @private
 		 * 
-		 * the function that is invoked by the notification callback.  Invokes
-		 * all commands with triggerType of notification
+		 * the function that is invoked by the notification callback.
 		 * 
+		 * @param command:Command the command details of the command to invoke 
 		 * @param notification:Object the trigger notification
 		 */ 
-		internal function invokeCommand( notification:Object ):void
+		internal function invokeCommand( command:Command, notification:Object ):void
 		{
-			for each( var command:Command in commands )
-			{
-				if( notification is command.triggerType )
-				{
-					var instance:Object = injector.inject( command.commandType );
-					command.invoke( instance, notification );
-				}
-			}
+			var instance:Object = injector.inject( command.commandType );
+			command.invoke( instance, notification );
 		}
 		
 		/**
@@ -45,23 +38,12 @@ package uk.co.ziazoo.command
 		public function addCommand( command:Class ):void
 		{
 			var details:Command = new Command( command );
-			commands.push( details );
 			
-			bus.addCallback( details.triggerType, invokeCommand );
-		}
-		
-		/**
-		 * @private
-		 * 
-		 * list of mapped <code>Command</code> objects
-		 */ 
-		internal function get commands():Array
-		{
-			if( !_commands )
-			{
-				_commands = new Array();
-			}
-			return _commands;
+			bus.addCallback( details.triggerType, 
+				function( note:Object ):void
+				{
+					invokeCommand( details, note );
+				});
 		}
 	}
 }
