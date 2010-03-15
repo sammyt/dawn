@@ -1,35 +1,34 @@
 package uk.co.ziazoo.injector.impl
 {	
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
-	
-	import uk.co.ziazoo.injector.IConfiguration;
-	import uk.co.ziazoo.injector.IDependency;
-	import uk.co.ziazoo.injector.IInjectionPoint;
-	import uk.co.ziazoo.injector.IInjector;
-	import uk.co.ziazoo.injector.IMapper;
-	import uk.co.ziazoo.injector.IMapping;
-	import uk.co.ziazoo.injector.IMappingBuilder;
-	import uk.co.ziazoo.injector.IProvider;
-	
-	public class Injector implements IInjector
-	{
-		private var mapper:IMapper;
-		private var dependencyFactory:DependencyFactory;
-		private var injectionPointFactory:InjectionPointFactory;
+  import flash.utils.getDefinitionByName;
+  import flash.utils.getQualifiedClassName;
+  
+  import uk.co.ziazoo.injector.IConfiguration;
+  import uk.co.ziazoo.injector.IDependency;
+  import uk.co.ziazoo.injector.IInjectionPoint;
+  import uk.co.ziazoo.injector.IInjector;
+  import uk.co.ziazoo.injector.IMapper;
+  import uk.co.ziazoo.injector.IMapping;
+  import uk.co.ziazoo.injector.IMappingBuilder;
+  import uk.co.ziazoo.injector.IProvider;
+  
+  public class Injector implements IInjector
+  {
+    private var mapper:IMapper;
+    private var dependencyFactory:DependencyFactory;
+    private var injectionPointFactory:InjectionPointFactory;
     private var reflector:Reflector;
     
-		public function Injector( dependencyFactory:DependencyFactory, mapper:IMapper,
-		 	injectionPointFactory:InjectionPointFactory, reflector:Reflector )
-		{
-			this.dependencyFactory = dependencyFactory;
-			this.injectionPointFactory = injectionPointFactory;
-			this.mapper = mapper;
+    public function Injector( dependencyFactory:DependencyFactory, mapper:IMapper,
+      injectionPointFactory:InjectionPointFactory, reflector:Reflector )
+    {
+      this.dependencyFactory = dependencyFactory;
+      this.injectionPointFactory = injectionPointFactory;
+      this.mapper = mapper;
       this.reflector = reflector;
-		}
-    
+    }
     public static function createInjector(
-        configuration:IConfiguration = null ):IInjector
+      configuration:IConfiguration = null ):IInjector
     {
       var reflector:Reflector = new Reflector();
       var mapper:IMapper = new Mapper( reflector );
@@ -45,25 +44,25 @@ package uk.co.ziazoo.injector.impl
       return new Injector( 
         dependencyFactory, mapper, injectionFactory, reflector );
     }
-		
+    
     public function map( clazz:Class ):IMappingBuilder
     {
       return mapper.map( clazz );
     }
     
-		/**
-		*	@inheritDoc
-		*/	
-		public function inject( object:Object ):Object
-		{
-			var mapping:IMapping = getMapping( object );
-			var dependency:IDependency = dependencyFactory.forMapping( mapping );
-			
-			return create( dependency ).getObject();
-		}
-		
-		private function create( dependency:IDependency ):IDependency
-		{
+    /**
+     *	@inheritDoc
+     */	
+    public function inject( object:Object ):Object
+    {
+      var mapping:IMapping = getMapping( object );
+      var dependency:IDependency = dependencyFactory.forMapping( mapping );
+      
+      return create( dependency ).getObject();
+    }
+    
+    private function create( dependency:IDependency ):IDependency
+    {
       var provider:IProvider = dependency.getProvider();
       if( !provider.requiresInjection )
       {
@@ -86,13 +85,13 @@ package uk.co.ziazoo.injector.impl
           provider.withDependencies( injectionPoint.getDependencies() ); 
         }
       }
-            
+      
       injectMethodDependencies( dependency );
       injectPropertyDependencies( dependency );
       invokeCompletionCallback( dependency );
       
-			return dependency;
-		}
+      return dependency;
+    }
     
     private function invokeCompletionCallback( dependency:IDependency ):void
     {
@@ -153,30 +152,30 @@ package uk.co.ziazoo.injector.impl
       var type:Class = dependency.getProvider().type;
       return reflector.getReflection( type ); 
     }
-		
-		/**
-		*	@inheritDoc
-		*/	
-		public function install( configuration:IConfiguration ):void
-		{
-			configuration.configure( mapper );
-		}
-		
+    
+    /**
+     *	@inheritDoc
+     */	
+    public function install( configuration:IConfiguration ):void
+    {
+      configuration.configure( mapper );
+    }
+    
     private function getMapping( object:Object, name:String = "" ):IMapping
-		{
-			return mapper.getMapping( getClass( object ), name );
-		}
-		
+    {
+      return mapper.getMapping( getClass( object ), name );
+    }
+    
     private function getClass( object:Object ):Class
-		{
-			if( object is Class )
-			{
-				return object as Class;
-			}
-			else
-			{
-				return getDefinitionByName( getQualifiedClassName( object ) ) as Class;
-			}
-		}
-	}
+    {
+      if( object is Class )
+      {
+        return object as Class;
+      }
+      else
+      {
+        return getDefinitionByName( getQualifiedClassName( object ) ) as Class;
+      }
+    }
+  }
 }

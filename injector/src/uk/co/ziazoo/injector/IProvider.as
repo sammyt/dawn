@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector
 {	
-	public interface IProvider
-	{
+  public interface IProvider
+  {
     function get type():Class;
     
     function withDependencies( dependencies:Array ):void;
@@ -11,5 +11,5 @@ package uk.co.ziazoo.injector
     function get instanceCreated():Boolean;
     
     function getObject():Object;
-	}
+  }
 }

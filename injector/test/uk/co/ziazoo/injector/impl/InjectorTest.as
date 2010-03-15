@@ -21,7 +21,7 @@ package uk.co.ziazoo.injector.impl
   import some.thing.Wibble;
   
   import uk.co.ziazoo.injector.IMapper;
-
+  
   public class InjectorTest
   {
     private var mapper:IMapper;
@@ -38,10 +38,10 @@ package uk.co.ziazoo.injector.impl
       mapper = new Mapper( reflector );
       var dependencyFactory:DependencyFactory = new DependencyFactory();
       var injectionFactory:InjectionPointFactory = 
-          new InjectionPointFactory( dependencyFactory, mapper );
+        new InjectionPointFactory( dependencyFactory, mapper );
       
       injector = new Injector( 
-          dependencyFactory, mapper, injectionFactory, reflector );
+        dependencyFactory, mapper, injectionFactory, reflector );
     }
     
     [After]
@@ -165,37 +165,37 @@ package uk.co.ziazoo.injector.impl
       
       Assert.assertTrue( "same instance returned", obj == injector.inject( Apple ) );
     }
-
-		[Test]
-		public function injectNamedViaConstructor():void
-		{
-			var granny:Apple = new Apple()
-			mapper.map( Apple );
-			mapper.map( Apple ).named("granny").toInstance(granny);
+    
+    [Test]
+    public function injectNamedViaConstructor():void
+    {
+      var granny:Apple = new Apple()
+      mapper.map( Apple );
+      mapper.map( Apple ).named("granny").toInstance(granny);
       mapper.map(IRadio).to(QuietRadio);
       
-			
-			var obj:Object = injector.inject( Wibble );
+      
+      var obj:Object = injector.inject( Wibble );
       Assert.assertTrue( "obj is a Wibble", obj is Wibble );
-
-			var wibble:Wibble = Wibble(obj);
-			
-			Assert.assertTrue( "has the right apple", wibble.apple == granny );
-		}
-		
-		[Test]
-		public function injectNamedInInjectSystax():void
-		{
-			mapper.map(IRadio).to(QuietRadio);
-			mapper.map(IRadio).to(LoudRadio).named("loud");
-			
-			var obj:Object = injector.inject( Wibble );
+      
+      var wibble:Wibble = Wibble(obj);
+      
+      Assert.assertTrue( "has the right apple", wibble.apple == granny );
+    }
+    
+    [Test]
+    public function injectNamedInInjectSystax():void
+    {
+      mapper.map(IRadio).to(QuietRadio);
+      mapper.map(IRadio).to(LoudRadio).named("loud");
+      
+      var obj:Object = injector.inject( Wibble );
       Assert.assertTrue( "obj is a Wibble", obj is Wibble );
-
-			var wibble:Wibble = Wibble(obj);
-			
-			Assert.assertTrue( "has the right radio", wibble.radio is LoudRadio );
-		}
+      
+      var wibble:Wibble = Wibble(obj);
+      
+      Assert.assertTrue( "has the right radio", wibble.radio is LoudRadio );
+    }
     
     [Test]
     public function createBikeWithContreteConstructorArg():void

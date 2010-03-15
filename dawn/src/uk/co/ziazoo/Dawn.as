@@ -8,7 +8,7 @@ package uk.co.ziazoo
   import uk.co.ziazoo.injector.impl.Injector;
   import uk.co.ziazoo.notifier.INotificationBus;
   import uk.co.ziazoo.notifier.NotificationBus;
-
+  
   public class Dawn implements IInjector
   {
     private var injector:IInjector;
@@ -30,7 +30,7 @@ package uk.co.ziazoo
     {
       return injector.inject( object );
     }
-      
+    
     public function install( configuration:IConfiguration ):void
     {
       injector.install( configuration );

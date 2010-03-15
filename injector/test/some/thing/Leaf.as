@@ -1,13 +1,13 @@
 package some.thing {
-
-public class Leaf extends Object {
-	
-	public function Leaf()
-	{
-		super();
-	}
-	
-}
-
+  
+  public class Leaf extends Object {
+    
+    public function Leaf()
+    {
+      super();
+    }
+    
+  }
+  
 }
 

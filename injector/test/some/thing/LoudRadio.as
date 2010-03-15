@@ -1,10 +1,10 @@
 package some.thing 
 {
-	public class LoudRadio implements IRadio
-	{
-		public function LoudRadio()
-		{
-		}
-	}
+  public class LoudRadio implements IRadio
+  {
+    public function LoudRadio()
+    {
+    }
+  }
 }
 

@@ -1,23 +1,23 @@
 package uk.co.ziazoo.injector.impl
 {	
-	import flash.utils.Dictionary;
-	
+  import flash.utils.Dictionary;
+  
   internal class Metadata
-	{
-		public var name:String;
-		public var properties:Dictionary;
-		
-		public function Metadata()
-		{
-		}
-		
-		public function addProperty( name:String, value:String ):void
-		{
-			if( !properties )
-			{
-				properties = new Dictionary();
-			}
-			properties[ name ] = value;
-		}
-	}
+  {
+    public var name:String;
+    public var properties:Dictionary;
+    
+    public function Metadata()
+    {
+    }
+    
+    public function addProperty( name:String, value:String ):void
+    {
+      if( !properties )
+      {
+        properties = new Dictionary();
+      }
+      properties[ name ] = value;
+    }
+  }
 }

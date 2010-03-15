@@ -1,10 +1,10 @@
 package some.thing 
 {
-	public class Engine
-	{
-		public function Engine()
-		{
-		}
-	}
+  public class Engine
+  {
+    public function Engine()
+    {
+    }
+  }
 }
 

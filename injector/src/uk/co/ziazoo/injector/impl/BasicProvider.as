@@ -2,22 +2,22 @@ package uk.co.ziazoo.injector.impl
 {
   import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IProvider;
-	
-	internal class BasicProvider implements IProvider
-	{	
-		private var _type:Class;
+  
+  internal class BasicProvider implements IProvider
+  {	
+    private var _type:Class;
     
     private var params:Array;
     
-		public function BasicProvider( type:Class )
-		{
-			_type = type;
-		}
-		
-		public function getObject():Object
-		{
-			return InstanceCreator.create( _type, params );
-		}
+    public function BasicProvider( type:Class )
+    {
+      _type = type;
+    }
+    
+    public function getObject():Object
+    {
+      return InstanceCreator.create( _type, params );
+    }
     
     public function withDependencies( dependencies:Array ):void
     {
@@ -42,6 +42,6 @@ package uk.co.ziazoo.injector.impl
     {
       return true;
     }
-	}
+  }
 }
 

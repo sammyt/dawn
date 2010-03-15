@@ -1,16 +1,16 @@
 package uk.co.ziazoo.injector.impl 
 {
-	import uk.co.ziazoo.injector.IProvider;
-	
+  import uk.co.ziazoo.injector.IProvider;
+  
   internal class SingletonScope implements IProvider
-	{
-		private var provider:IProvider;
-		private var instance:Object;
-		
-		public function SingletonScope( provider:IProvider )
-		{
+  {
+    private var provider:IProvider;
+    private var instance:Object;
+    
+    public function SingletonScope( provider:IProvider )
+    {
       this.provider = provider;
-		}
+    }
     
     public function get type():Class
     {
@@ -39,14 +39,14 @@ package uk.co.ziazoo.injector.impl
       return provider.instanceCreated;
     }
     
-		public function getObject():Object
-		{
-			if( !instance )
-			{
-				instance = provider.getObject();
-			}
-			return instance;
-		}
-	}
+    public function getObject():Object
+    {
+      if( !instance )
+      {
+        instance = provider.getObject();
+      }
+      return instance;
+    }
+  }
 }
 
