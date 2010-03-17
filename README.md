@@ -6,6 +6,9 @@ Checkout the some 0.8 [docs](http://wiki.github.com/sammyt/dawn "wiki")
 ... and here are the [slides](http://www.slideshare.net/sammyt/dawn-actionscript-library-2563556) 
 form the [FLUG](http://www.meetup.com/flexlondon/calendar/11793506/?from=list&offset=0) presentation I gave
 
+## Thoughts? ##
+fire questions at me on twitter @sammyt123
+
 ## News ##
 ### Docs updated! ###
 I have now updated the [injector](http://wiki.github.com/sammyt/dawn/dawninjections) page to reflect the changes made in 0.8

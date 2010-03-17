@@ -1,7 +1,5 @@
 package uk.co.ziazoo.injector 
 {
-  import uk.co.ziazoo.injector.impl.Reflector;
-  
   public interface IDependency
   {
     function getMapping():IMapping;
