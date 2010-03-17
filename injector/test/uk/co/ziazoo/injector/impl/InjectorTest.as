@@ -211,6 +211,20 @@ package uk.co.ziazoo.injector.impl
       Assert.assertTrue( "dial is analog", bike.dial is AnalogDial );
       Assert.assertTrue( "gets the name", bike.name == "my bike" );
     }
+    
+    [Test]
+    public function doesPostConstructGetCalled():void
+    {
+      var engine:SlowBikeEngine = SlowBikeEngine(injector.inject(SlowBikeEngine));
+      Assert.assertTrue( "PostConstruct method called", engine.invokeCount == 1 );
+    }
+    
+    [Test]
+    public function doesDependenciesInjectedGetCalled():void
+    {
+      var dial:DigitalDial = DigitalDial(injector.inject(DigitalDial));
+      Assert.assertTrue( "DependenciesInjected method called", dial.invokeCount == 1 );
+    }
   }
 }
 

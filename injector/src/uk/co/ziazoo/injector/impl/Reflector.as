@@ -158,11 +158,20 @@ package uk.co.ziazoo.injector.impl
     
     private function addCompleteMethod( reflection:Reflection, source:XMLList ):void
     {
-      var provider:XMLList = source.metadata.( @name == "DependenciesInjected" );
+      var postConstruct:XMLList = source.metadata.( @name == "PostConstruct" );
       
-      if( provider.length() == 1 )
+      if( postConstruct.length() == 1 )
       {
-        reflection.setCompleteMethod( parseMethod( provider[0].parent() ) );
+        reflection.setCompleteMethod( parseMethod( postConstruct[0].parent() ) );
+      }
+      else
+      {
+        var depsInjected:XMLList = source.metadata.( 
+            @name == "DependenciesInjected" );
+        if( depsInjected.length() == 1 )
+        {
+          reflection.setCompleteMethod( parseMethod( depsInjected[0].parent() ) ); 
+        }
       }
     }
   }

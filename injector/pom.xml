@@ -28,6 +28,7 @@
             <keepAs3Metadata>Provider</keepAs3Metadata>
             <keepAs3Metadata>DependenciesInjected</keepAs3Metadata>
             <keepAs3Metadata>Named</keepAs3Metadata>
+            <keepAs3Metadata>PostConstruct</keepAs3Metadata>
           </keepAs3Metadatas>
         </configuration>
         <dependencies>
