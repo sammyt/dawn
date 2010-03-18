@@ -2,6 +2,8 @@
 
 ## Actionscript library for type safe FUN ##
 
+At has 3 core parts [[DawnInjections]], [[DawnNotifications]] and [[DawnCommands]]
+
 Checkout the some 0.8 [docs](http://wiki.github.com/sammyt/dawn "wiki")
 ... and here are the [slides](http://www.slideshare.net/sammyt/dawn-actionscript-library-2563556) 
 form the [FLUG](http://www.meetup.com/flexlondon/calendar/11793506/?from=list&offset=0) presentation I gave
