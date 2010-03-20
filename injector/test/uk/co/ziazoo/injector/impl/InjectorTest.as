@@ -204,7 +204,7 @@ package uk.co.ziazoo.injector.impl
       injector.map(IDial).named("analog").to(AnalogDial);
       injector.map(String).named("bike name").toInstance("my bike");
       
-      var bike:SlowBike = SlowBike(injector.inject(SlowBike));
+      var bike:SlowBike = SlowBike(injector.inject( SlowBike ));
       
       Assert.assertTrue( "engine is slow engine", bike.engine is SlowBikeEngine );
       Assert.assertNotNull( bike.dial );

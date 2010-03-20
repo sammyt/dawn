@@ -3,6 +3,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.IProvider;
+  import uk.co.ziazoo.injector.IScope;
   
   internal class MappingBuilder implements IMappingBuilder
   {
@@ -42,10 +43,15 @@ package uk.co.ziazoo.injector.impl
       return this;
     }
     
-    public function asSingleton():void
+    public function inScope(scope:IScope):void
     {
       var provider:IProvider = mapping.provider;
-      mapping.provider = new SingletonScope( mapping.provider );
+      mapping.provider = new ScopeWrapper( scope.wrap(provider), provider );
+    }
+    
+    public function asSingleton():void
+    {
+      inScope(new SingletonScope());
     }
     
     public function get mapping():IMapping

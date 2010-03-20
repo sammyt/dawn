@@ -7,6 +7,7 @@ package uk.co.ziazoo.injector
     function toInstance( object:Object ):IMappingBuilder;
     function named( name:String ):IMappingBuilder;
     function asSingleton():void;
+    function inScope(scope:IScope):void;
     function get mapping():IMapping;
   }
 }

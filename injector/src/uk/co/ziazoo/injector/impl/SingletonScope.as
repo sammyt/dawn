@@ -1,25 +1,21 @@
 package uk.co.ziazoo.injector.impl 
 {
   import uk.co.ziazoo.injector.IProvider;
+  import uk.co.ziazoo.injector.IScope;
   
-  internal class SingletonScope implements IProvider
+  internal class SingletonScope implements IScope
   {
     private var provider:IProvider;
     private var instance:Object;
     
-    public function SingletonScope( provider:IProvider )
+    public function SingletonScope()
+    {
+    }
+    
+    public function wrap(provider:IProvider):IScope
     {
       this.provider = provider;
-    }
-    
-    public function get type():Class
-    {
-      return provider.type;
-    }
-    
-    public function withDependencies( dependencies:Array ):void
-    {
-      provider.withDependencies( dependencies );
+      return this;
     }
     
     public function get requiresInjection():Boolean
