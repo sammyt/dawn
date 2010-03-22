@@ -8,7 +8,6 @@ package uk.co.ziazoo.injector.impl
     private var _type:Class;
     private var _name:String;
     private var _provider:IProvider;
-    private var _isEager:Boolean;
     
     public function Mapping( type:Class )
     {
@@ -39,16 +38,6 @@ package uk.co.ziazoo.injector.impl
     public function set name(value:String):void 
     {
       _name = value;
-    }
-    
-    public function get isEager():Boolean
-    {
-      return _isEager;
-    }
-    
-    public function set isEager(value:Boolean):void
-    {
-      _isEager = value;
     }
   }
 }

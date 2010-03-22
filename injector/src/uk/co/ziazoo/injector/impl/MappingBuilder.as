@@ -4,17 +4,20 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.IScope;
+  import uk.co.ziazoo.injector.IMapper;
   
   internal class MappingBuilder implements IMappingBuilder
   {
     private var clazz:Class;
     private var _mapping:IMapping;
     private var reflector:Reflector;
+    private var mapper:IMapper;
     
-    public function MappingBuilder( clazz:Class, reflector:Reflector )
+    public function MappingBuilder( clazz:Class, reflector:Reflector, mapper:IMapper )
     {
       this.clazz = clazz;
       this.reflector = reflector;
+      this.mapper = mapper;
     }
     
     public function to( type:Class ):IMappingBuilder
@@ -57,7 +60,7 @@ package uk.co.ziazoo.injector.impl
     public function asEagerSingleton():void
     {
       asSingleton();
-      mapping.isEager = true;
+      mapper.addToEagerQueue(mapping)
     }
     
     public function get mapping():IMapping

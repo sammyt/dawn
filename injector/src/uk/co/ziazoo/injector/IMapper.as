@@ -8,6 +8,8 @@ package uk.co.ziazoo.injector
     
     function getMappingFromQName( qName:String, name:String = "" ):IMapping;
     
+    function addToEagerQueue(mapper:IMapping):void;
+    
     function getEagerQueue():Array;
   }
 }

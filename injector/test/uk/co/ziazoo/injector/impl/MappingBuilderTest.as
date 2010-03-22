@@ -19,7 +19,7 @@ package uk.co.ziazoo.injector.impl
     [Before]
     public function setUp():void
     {
-      builder = new MappingBuilder(Apple, new Reflector());
+      builder = new MappingBuilder(Apple, new Reflector(), null);
     }
     
     [After]

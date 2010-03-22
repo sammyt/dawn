@@ -8,7 +8,8 @@ package uk.co.ziazoo.injector.impl
   
   internal class Mapper implements IMapper
   {
-    internal var builders:Array;
+    private var builders:Array;
+    private var eagers:Array;
     private var reflector:Reflector;
     
     public function Mapper( reflector:Reflector )
@@ -19,7 +20,7 @@ package uk.co.ziazoo.injector.impl
     
     public function map( clazz:Class ):IMappingBuilder
     {
-      var builder:IMappingBuilder = new MappingBuilder( clazz, reflector );
+      var builder:IMappingBuilder = new MappingBuilder( clazz, reflector, this );
       builders.push( builder );
       
       builder.to( clazz );
@@ -61,18 +62,23 @@ package uk.co.ziazoo.injector.impl
       return getMapping( type, name );
     }
     
+    public function addToEagerQueue(mapping:IMapping):void
+    {
+      if(!eagers)
+      {
+        eagers = [];
+      }
+      eagers.push(mapping);
+    }
+    
     public function getEagerQueue():Array
     {
       var queue:Array = [];
-      for each( var builder:IMappingBuilder in builders )
+      for each(var mapping:IMapping in eagers)
       {
-        var mapping:IMapping = builder.mapping;
-        if( mapping.isEager
-          && ! mapping.provider.instanceCreated )
-        {
-          queue.push( mapping );
-        }
+        queue.push(mapping);
       }
+      eagers = [];
       return queue;
     }
   }

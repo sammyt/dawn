@@ -36,7 +36,6 @@ package uk.co.ziazoo.injector.impl
       public function canMap():void
       {
         mapper.map( Car ).to( CarWithTwoRadios );
-        Assert.assertTrue( "has one builder", mapper.builders.length == 1 );
         var mapping:IMapping = mapper.getMapping( Car );
         Assert.assertTrue( "correct type for DSL", mapping.type == Car );
         Assert.assertTrue( "correct name for DSL", mapping.name == "" );
@@ -55,6 +54,16 @@ package uk.co.ziazoo.injector.impl
         
         Assert.assertTrue( "correct type for DSL", named.type == Car );
         Assert.assertTrue( "correct name for DSL", named.name == "one" );
+      }
+      
+      [Test]
+      public function canGetEagers():void
+      {
+        var mapping:Mapping = new Mapping(Tree);
+        mapper.addToEagerQueue(mapping);
+        
+        Assert.assertTrue("one item in queue", mapper.getEagerQueue().length == 1);
+        Assert.assertTrue("queue cleared", mapper.getEagerQueue().length == 0);
       }
     }
 }
