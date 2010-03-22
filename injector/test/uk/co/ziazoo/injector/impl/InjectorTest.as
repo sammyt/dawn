@@ -1,16 +1,16 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.utils.getTimer;
+  
   import org.flexunit.Assert;
   import org.flexunit.asserts.assertTrue;
   
-  import some.otherthing.AnalogDial;
-  import some.otherthing.DigitalDial;
-  import some.otherthing.IDial;
-  import some.otherthing.SlowBike;
-  import some.otherthing.SlowBikeEngine;
+  import some.otherthing.*;
+  
   import some.thing.Apple;
   import some.thing.Car;
   import some.thing.CarWithTwoRadios;
+  import some.thing.EagerBunny;
   import some.thing.Ground;
   import some.thing.IRadio;
   import some.thing.LoudRadio;
@@ -224,6 +224,17 @@ package uk.co.ziazoo.injector.impl
     {
       var dial:DigitalDial = DigitalDial(injector.inject(DigitalDial));
       Assert.assertTrue( "DependenciesInjected method called", dial.invokeCount == 1 );
+    }
+    
+    [Test]
+    public function createEagerSingletons():void
+    {
+      var createdCount:int = 0;
+      injector.map(EagerBunny).asEagerSingleton();
+      
+      injector.inject(PlantPot);
+      
+      Assert.assertTrue("EagerBunny was created", EagerBunny.createCount == 1 );
     }
   }
 }

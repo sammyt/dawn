@@ -60,5 +60,20 @@ package uk.co.ziazoo.injector.impl
       var type:Class = getDefinitionByName( qName ) as Class;
       return getMapping( type, name );
     }
+    
+    public function getEagerQueue():Array
+    {
+      var queue:Array = [];
+      for each( var builder:IMappingBuilder in builders )
+      {
+        var mapping:IMapping = builder.mapping;
+        if( mapping.isEager
+          && ! mapping.provider.instanceCreated )
+        {
+          queue.push( mapping );
+        }
+      }
+      return queue;
+    }
   }
 }

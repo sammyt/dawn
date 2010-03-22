@@ -38,11 +38,15 @@ package uk.co.ziazoo.injector.impl
       
       if( configuration )
       {
-        configuration.configure( mapper ); 
+        configuration.configure( mapper );
       }
       
-      return new Injector( 
-        dependencyFactory, mapper, injectionFactory, reflector );
+      var injector:Injector = new Injector( 
+        dependencyFactory, mapper, injectionFactory, reflector ); 
+      
+      injector.injectEagerQueue();
+      
+      return injector
     }
     
     public function map( clazz:Class ):IMappingBuilder
@@ -55,7 +59,14 @@ package uk.co.ziazoo.injector.impl
      */	
     public function inject( object:Object ):Object
     {
+      injectEagerQueue();
+      
       var mapping:IMapping = getMapping( object );
+      return injectMapping(mapping);
+    }
+    
+    private function injectMapping(mapping:IMapping):Object
+    {
       var dependency:IDependency = dependencyFactory.forMapping( mapping );
       
       return create( dependency ).getObject();
@@ -69,7 +80,7 @@ package uk.co.ziazoo.injector.impl
         return dependency;
       }
       
-      if( provider.instanceCreated )
+      if( !provider.instanceCreated )
       {
         var reflection:Reflection = getReflection( dependency );
         
@@ -153,12 +164,22 @@ package uk.co.ziazoo.injector.impl
       return reflector.getReflection( type ); 
     }
     
+    internal function injectEagerQueue():void
+    {
+      for each( var mapping:IMapping in mapper.getEagerQueue() )
+      {
+        injectMapping(mapping);
+      }
+    }
+    
     /**
      *	@inheritDoc
      */	
     public function install( configuration:IConfiguration ):void
     {
       configuration.configure( mapper );
+      
+      injectEagerQueue();
     }
     
     private function getMapping( object:Object, name:String = "" ):IMapping

@@ -54,6 +54,12 @@ package uk.co.ziazoo.injector.impl
       inScope(new SingletonScope());
     }
     
+    public function asEagerSingleton():void
+    {
+      asSingleton();
+      mapping.isEager = true;
+    }
+    
     public function get mapping():IMapping
     {
       if( !_mapping )

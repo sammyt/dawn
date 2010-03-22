@@ -23,5 +23,9 @@ package uk.co.ziazoo.injector
      */ 
     function get name():String;
     function set name(value:String):void;
+    
+    function get isEager():Boolean;
+    function set isEager(value:Boolean):void;
+    
   }
 }

@@ -36,7 +36,7 @@ package uk.co.ziazoo.injector.impl
     
     public function get instanceCreated():Boolean
     {
-      return false;
+      return true;
     }
     
     public function withDependencies( dependencies:Array ):void

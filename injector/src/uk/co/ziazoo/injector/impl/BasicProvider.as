@@ -40,7 +40,7 @@ package uk.co.ziazoo.injector.impl
     
     public function get instanceCreated():Boolean
     {
-      return true;
+      return false;
     }
   }
 }

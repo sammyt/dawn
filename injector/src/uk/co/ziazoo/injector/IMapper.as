@@ -7,5 +7,7 @@ package uk.co.ziazoo.injector
     function getMapping( type:Class, name:String = "" ):IMapping;
     
     function getMappingFromQName( qName:String, name:String = "" ):IMapping;
+    
+    function getEagerQueue():Array;
   }
 }
