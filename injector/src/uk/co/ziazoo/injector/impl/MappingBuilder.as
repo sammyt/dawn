@@ -29,7 +29,6 @@ package uk.co.ziazoo.injector.impl
     public function toFactory( factory:Class ):IMappingBuilder
     {
       mapping.provider = new FactoryProvider( factory, reflector );
-      asSingleton();
       return this;
     }
     
