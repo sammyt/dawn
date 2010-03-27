@@ -9,7 +9,7 @@ Checkout the some 0.8 [docs](http://wiki.github.com/sammyt/dawn "wiki")
 form the [FLUG](http://www.meetup.com/flexlondon/calendar/11793506/?from=list&offset=0) presentation I gave
 
 ## Questions/Feedback ##
-I've just created a [forum](http://www.dawn-lib.org) for Dawn.  There Isn't a lot there, but don't let that stop you asking any burning questions :)
+I've just created a [forum](http://www.dawn-lib.org) for Dawn.  There Isn't a lot there, but feel free to ask if you want any help or have some thoughts :)
 
 
 ## News ##
