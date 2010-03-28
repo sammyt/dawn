@@ -35,7 +35,7 @@
         <dependency>
             <groupId>uk.co.ziazoo</groupId>
             <artifactId>dawn-complete</artifactId>
-            <version>0.8</version>
+            <version>0.8.5-SNAPSHOT</version>
             <type>swc</type>
         </dependency>
     </dependencies>

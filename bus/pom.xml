@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>bus</artifactId>
 	<packaging>swc</packaging>
@@ -7,12 +8,12 @@
 	<parent>
 		<groupId>uk.co.ziazoo</groupId>
 		<artifactId>dawn</artifactId>
-		<version>0.8</version>
+		<version>0.8.5-SNAPSHOT</version>
 	</parent>
 	<properties>
-	  <flexversion>3.5.0.12683</flexversion>
-	  <mojoversion>3.5.0</mojoversion>
-  </properties>
+		<flexversion>3.5.0.12683</flexversion>
+		<mojoversion>3.5.0</mojoversion>
+	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
@@ -28,13 +29,13 @@
 					</keepAs3Metadatas>
 				</configuration>
 				<dependencies>
-          <dependency>
-            <groupId>com.adobe.flex</groupId>
-            <artifactId>compiler</artifactId>
-            <version>${flexversion}</version>
-            <type>pom</type>
-          </dependency>
-        </dependencies>
+					<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>${flexversion}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
@@ -53,11 +54,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-      <groupId>com.adobe.flexunit</groupId>
-      <artifactId>flexunit</artifactId>
-      <version>0.90</version>
-      <type>swc</type>
-      <scope>test</scope>
-    </dependency>
+			<groupId>com.adobe.flexunit</groupId>
+			<artifactId>flexunit</artifactId>
+			<version>4.0-rc-1</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

@@ -6,11 +6,11 @@ package uk.co.ziazoo.notifier
    */	
   public interface INotifier
   { 
-    function trigger(notification:Object):void;
+    function trigger(payload:Object):void;
     
-    function add(notificationType:Class, callback:Function, 
+    function add(type:Class, callback:Function, 
       polymorphic:Boolean = false):Function;
     
-    function remove(callback:Function):void;
+    function remove(type:Class, callback:Function):void;
   }
 }

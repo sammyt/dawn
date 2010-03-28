@@ -29,10 +29,10 @@ package uk.co.ziazoo.notifier
     /**
      *	@inheritDoc
      */		
-    public function add(notificationType:Class, 
-      callback:Function, polymorphic:Boolean=false):Function
+    public function add(type:Class, callback:Function, 
+      polymorphic:Boolean=false):Function
     {
-      var cb:Callback = new Callback(callback, notificationType);
+      var cb:Details = new Details(callback, type);
       
       if(!polymorphic)
       {
@@ -46,12 +46,12 @@ package uk.co.ziazoo.notifier
       return callback;
     }
     
-    private function addPolymorphicCallback(callback:Callback):void
+    private function addPolymorphicCallback(callback:Details):void
     {
       callbackList.push(callback);
     }
     
-    private function addNonPolymorphicCallback(callback:Callback):void
+    private function addNonPolymorphicCallback(callback:Details):void
     {
       // are there already any other callbacks registered
       if(!callbackMap[callback.type])
@@ -65,47 +65,85 @@ package uk.co.ziazoo.notifier
     /**
      *	@inheritDoc
      */		
-    public function remove(callback:Function):void
+    public function remove(type:Class, callback:Function):void
     {
-      /*
-      var index:int = 0;
-      for each(var current:Callback in _callbacks)
-      {
-        if(current.encapsulates(callback, notificationType))
-        {
-          _callbacks.splice(index, 1);
-          return;
-        }
-        index++;
-      }
-      */
+      removeFromMap(type, callback);
+      removeFromList(type, callback);
     }
     
-    /**
-     *	@inheritDoc
-     */	
-    public function trigger(notification:Object):void
-    { 
-      
-      var mappedList:Array = callbackMap[getType(notification)] as Array;
-      var index:uint = mappedList.length;
+    private function removeFromList(type:Class, callback:Function):void
+    {
+      var index:int = callbackList.length - 1;
       
       while(index > -1)
       {
-        var callback:Callback = mappedList[index] as Callback;
-        callback.call(notification);
+        var details:Details = callbackList[index] as Details;
+        
+        if(details.encapsulates(type, callback))
+        {
+          removeFromArray(callbackList, index);
+          break;
+        }
         index --;
       }
-      invokePolymorphicCallbacks(notification);
+    }
+    
+    private function removeFromMap(type:Class, callback:Function):void
+    {
+      var mappedList:Array = callbackMap[type] as Array;
+      
+      if(!mappedList)
+      {
+        return;
+      }
+      var index:int = mappedList.length - 1;
+
+      while(index > -1)
+      {
+        var details:Details = mappedList[index] as Details;
+        
+        if(details.callback == callback)
+        {
+          removeFromArray(mappedList, index);
+          break;
+        }
+        index --;
+      }
+    }
+    
+    private function removeFromArray(array:Array, index:int):void
+    {
+      array.splice(index, 1)
+    }
+
+    /**
+     *	@inheritDoc
+     */	
+    public function trigger(payload:Object):void
+    { 
+      var mappedList:Array = callbackMap[getType(payload)] as Array;
+      
+      if(mappedList)
+      {
+        var index:int = mappedList.length - 1;
+        
+        while(index > -1)
+        {
+          var callback:Details = mappedList[index] as Details;
+          callback.call(payload);
+          index --;
+        } 
+      }
+      invokePolymorphicCallbacks(payload);
     }
     
     private function invokePolymorphicCallbacks(notification:Object):void
     {  
-      var index:uint = callbackList.length;
+      var index:int = callbackList.length - 1;
       
       while(index > -1)
       {
-        var callback:Callback = callbackList[index] as Callback;
+        var callback:Details = callbackList[index] as Details;
         if(callback.isTriggeredBy(notification))
         {
           callback.call(notification);

@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>uk.co.ziazoo</groupId>
 		<artifactId>dawn</artifactId>
-		<version>0.8</version>
+		<version>0.8.5-SNAPSHOT</version>
 	</parent>
 	<properties>
     <flexversion>3.5.0.12683</flexversion>
@@ -48,21 +48,21 @@
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>bus</artifactId>
-			<version>0.8</version>
+			<version>0.8.5-SNAPSHOT</version>
 			<type>swc</type>
 			<scope>internal</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>injector</artifactId>
-			<version>0.8</version>
+			<version>0.8.5-SNAPSHOT</version>
 			<type>swc</type>
 			<scope>internal</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.co.ziazoo</groupId>
 			<artifactId>commands</artifactId>
-			<version>0.8</version>
+			<version>0.8.5-SNAPSHOT</version>
 			<type>swc</type>
 			<scope>internal</scope>
 		</dependency>
