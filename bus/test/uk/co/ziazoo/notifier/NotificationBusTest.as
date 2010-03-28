@@ -4,7 +4,7 @@ package uk.co.ziazoo.notifier
 	
 	public class NotificationBusTest extends TestCase
 	{
-		private var _bus:NotificationBus;
+		private var _bus:Notifier;
 		
 		public function NotificationBusTest(methodName:String=null)
 		{
@@ -14,7 +14,7 @@ package uk.co.ziazoo.notifier
 		override public function setUp():void
 		{
 			super.setUp();
-			_bus = new NotificationBus();
+			_bus = new Notifier();
 		}
 		
 		override public function tearDown():void
@@ -23,71 +23,35 @@ package uk.co.ziazoo.notifier
 			_bus = null;
 		}
 		
-		public function testAddHandler():void
-		{
-			var handler:Object = {};
-			assertNull( _bus.handlers );
-			_bus.addHandler( handler );
-			assertTrue( "there is one handler", _bus.handlers.length == 1 );
-		}
-		
-		public function testRemoveHandler():void
-		{
-			var handler:Object = {};
-			assertNull( _bus.handlers );
-			_bus.addHandler( handler );
-			assertTrue( "there is one handler", _bus.handlers.length == 1 );
-			
-			_bus.removeHandler( handler );
-			assertTrue( "there are no handlers", _bus.handlers.length == 0 );
-		}
-		
-		public function testRemoveHandlerWithListenerRegistration():void
-		{
-			var handler:Object = {};
-			assertNull( _bus.handlers );
-			var registration:IListenerRegistration = _bus.addHandler( handler );
-			assertTrue( "there is one handler", _bus.handlers.length == 1 );
-			
-			registration.remove();
-			
-			assertTrue( "there are no handlers", _bus.handlers.length == 0 );
-		}
-		
 		public function testAddCallBack():void
 		{
 			var callBack:Function = function():void{};
-			assertNull( _bus.callbacks );
 			
 			_bus.addCallback( Array, callBack );
-			assertTrue( "there is one callBack", _bus.callbacks.length == 1 );
+			assertTrue( "there is one callBack", _bus.callbackList.length == 1 );
 		}
 		
 		public function testRemoveOneCallback():void
 		{
 			var fun:Function = function():void{};
 			
-			assertNull( _bus.callbacks );
-			
 			_bus.addCallback( Array, fun );
-			assertTrue( "there is one callBack", _bus.callbacks.length == 1 );
+			assertTrue( "there is one callBack", _bus.callbackList.length == 1 );
 			
 			_bus.removeCallback( Array, fun );
-			assertTrue( "all gone", _bus.callbacks.length == 0 );
+			assertTrue( "all gone", _bus.callbackList.length == 0 );
 		}
 		
 		public function testRemoveWithListenerRegistation():void
 		{
 			var fun:Function = function():void{};
 			
-			assertNull( _bus.callbacks );
-			
 			var registration:IListenerRegistration = _bus.addCallback( Array, fun );
-			assertTrue( "there is one callBack", _bus.callbacks.length == 1 );
+			assertTrue( "there is one callBack", _bus.callbackList.length == 1 );
 			
 			registration.remove();
 			
-			assertTrue( "all gone", _bus.callbacks.length == 0 );
+			assertTrue( "all gone", _bus.callbackList.length == 0 );
 		}
 		
 		public function testRemoveCorrectFunWithListenerRegistation():void
@@ -95,18 +59,16 @@ package uk.co.ziazoo.notifier
 			var fun1:Function = function():void{};
 			var fun2:Function = function():void{};
 			
-			assertNull( _bus.callbacks );
-			
 			var registration:IListenerRegistration = _bus.addCallback( Array, fun1 );
 			_bus.addCallback( Array, fun2 );
 			
-			assertTrue( "there are two callBacks", _bus.callbacks.length == 2 );
+			assertTrue( "there are two callBacks", _bus.callbackList.length == 2 );
 			
 			registration.remove();
 			
-			assertTrue( "there is one callBack", _bus.callbacks.length == 1 );
+			assertTrue( "there is one callBack", _bus.callbackList.length == 1 );
 			
-			assertTrue( "the remaining callback is fun2", fun2 == _bus.callbacks[0].callback );
+			assertTrue( "the remaining callback is fun2", fun2 == _bus.callbackList[0].callback );
 		}
 	}
 }
