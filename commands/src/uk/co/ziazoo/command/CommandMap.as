@@ -1,7 +1,7 @@
 package uk.co.ziazoo.command
 {
   import uk.co.ziazoo.injector.IInjector;
-  import uk.co.ziazoo.notifier.INotificationBus;
+  import uk.co.ziazoo.notifier.INotifier;
   
   /**
    * Implements ICommandMap allowing users to register commands with
@@ -9,13 +9,13 @@ package uk.co.ziazoo.command
    */ 
   public class CommandMap implements ICommandMap
   {
-    private var bus:INotificationBus;
+    private var notifier:INotifier;
     private var injector:IInjector;
     
-    public function CommandMap( injector:IInjector, bus:INotificationBus )
+    public function CommandMap(injector:IInjector, notifier:INotifier)
     {
       this.injector = injector;
-      this.bus = bus;
+      this.notifier = notifier;
     }
     
     /**
@@ -26,7 +26,7 @@ package uk.co.ziazoo.command
      * @param command:Command the command details of the command to invoke 
      * @param notification:Object the trigger notification
      */ 
-    internal function invokeCommand( command:Command, notification:Object ):void
+    internal function invokeCommand(command:Command, notification:Object):void
     {
       var instance:Object = injector.inject( command.commandType );
       command.invoke( instance, notification );
@@ -35,15 +35,15 @@ package uk.co.ziazoo.command
     /**
      * @inheritDoc
      */ 
-    public function addCommand( command:Class ):void
+    public function add(command:Class, polymorphic:Boolean = false):void
     {
       var details:Command = new Command( command );
       
-      bus.addCallback( details.triggerType, 
+      notifier.add( details.triggerType, 
         function( note:Object ):void
         {
           invokeCommand( details, note );
-        });
+        }, polymorphic);
     }
   }
 }

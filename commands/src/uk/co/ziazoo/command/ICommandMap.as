@@ -10,7 +10,8 @@ package uk.co.ziazoo.command
      * the Execute metadata) to Dawn
      * 
      * @param command:Class the class/type of the command
+     * @param should polymorphic feature of <code>INotifier</code> be used
      */ 
-    function addCommand( command:Class ):void;
+    function add(command:Class, polymorphic:Boolean = false):void;
   }
 }
