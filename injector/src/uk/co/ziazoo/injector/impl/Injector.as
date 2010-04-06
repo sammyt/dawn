@@ -54,6 +54,11 @@ package uk.co.ziazoo.injector.impl
       return mapper.map( clazz );
     }
     
+    public function add( configuration:IConfiguration ):void
+    {
+      install(configuration);
+    }
+    
     /**
      *	@inheritDoc
      */	

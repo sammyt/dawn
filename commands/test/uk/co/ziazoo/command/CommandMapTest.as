@@ -4,14 +4,14 @@ package uk.co.ziazoo.command
   
   import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.injector.impl.Injector;
-  import uk.co.ziazoo.notifier.INotificationBus;
-  import uk.co.ziazoo.notifier.NotificationBus;
+  import uk.co.ziazoo.notifier.INotifier;
+  import uk.co.ziazoo.notifier.Notifier;
   
   public class CommandMapTest
   {		
     private var commands:CommandMap;
     private var injector:IInjector;
-    private var bus:INotificationBus;
+    private var bus:INotifier;
     
     public function CommandMapTest(){}
     
@@ -19,7 +19,7 @@ package uk.co.ziazoo.command
     public function setUp():void
     {
       injector = Injector.createInjector();
-      bus = new NotificationBus();
+      bus = new Notifier();
       
       commands = new CommandMap( injector, bus );
     }
@@ -37,7 +37,7 @@ package uk.co.ziazoo.command
       
       injector.map( MockCommand ).toInstance( command );
       
-      commands.addCommand( MockCommand );
+      commands.add( MockCommand );
       
       bus.trigger( "object of same type as execute method param" );
       

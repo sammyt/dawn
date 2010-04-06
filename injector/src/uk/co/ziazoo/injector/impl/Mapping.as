@@ -9,10 +9,12 @@ package uk.co.ziazoo.injector.impl
     private var _name:String;
     private var _provider:IProvider;
     
-    public function Mapping( type:Class )
+    public function Mapping( type:Class, name:String = "", 
+      provider:IProvider = null )
     {
       _type = type;
-      _name = "";
+      _name = name;
+      _provider = provider;
     }
     
     public function get type():Class

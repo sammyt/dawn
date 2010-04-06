@@ -4,13 +4,15 @@ package uk.co.ziazoo.injector.impl
   
   import some.thing.Apple;
   import some.thing.Car;
+  import some.thing.IRadio;
+  import some.thing.LoudRadio;
   
   import uk.co.ziazoo.injector.IMapping;
-  import uk.co.ziazoo.injector.IMappingBuilder;
+  import uk.co.ziazoo.injector.IProvider;
   
   public class MappingBuilderTest
   {
-    private var builder:IMappingBuilder;
+    private var builder:MappingBuilder;
     
     public function MappingBuilderTest()
     {
@@ -19,7 +21,8 @@ package uk.co.ziazoo.injector.impl
     [Before]
     public function setUp():void
     {
-      builder = new MappingBuilder(Apple, new Reflector(), null);
+      builder = new MappingBuilder(Apple, new Reflector(), 
+        new Mapper(new Reflector()));
     }
     
     [After]
@@ -32,9 +35,10 @@ package uk.co.ziazoo.injector.impl
     public function createMapping():void
     {
       builder.to(Car);
-      var mapping:IMapping = builder.mapping;
+      var mapping:IMapping = builder.getFirstMapping();
       Assert.assertTrue( "maps correct class", mapping.type == Apple );
-      Assert.assertTrue( "provider of correct type", mapping.provider is BasicProvider );
+      Assert.assertTrue( "provider of correct type", 
+        mapping.provider is BasicProvider );
       
       var provider:BasicProvider = BasicProvider( mapping.provider );
       Assert.assertTrue( "provider for Car", provider.type == Car );
@@ -45,9 +49,10 @@ package uk.co.ziazoo.injector.impl
     {
       builder.to(Car).named("car tree?");
       
-      var mapping:IMapping = builder.mapping;
+      var mapping:IMapping = builder.getFirstMapping();
       Assert.assertTrue( "maps correct class", mapping.type == Apple );
-      Assert.assertTrue( "provider of correct type", mapping.provider is BasicProvider );
+      Assert.assertTrue( "provider of correct type", 
+        mapping.provider is BasicProvider );
       
       var provider:BasicProvider = BasicProvider( mapping.provider );
       Assert.assertTrue( "provider for Car", provider.type == Car );
@@ -56,12 +61,39 @@ package uk.co.ziazoo.injector.impl
     }
     
     [Test]
-    [Ignore(message="refactoring the scope classes")]
-    public function createSingletonMapping():void
+    public function testMultiMapping():void
     {
-      builder.to(Car).asSingleton();
-      var mapping:IMapping = builder.mapping;
-      Assert.assertTrue( "is SingletonScope", mapping.provider is SingletonScope )
+      builder.to(IRadio).and(LoudRadio);
+      
+      var mappings:Array = builder.mappings;
+      
+      Assert.assertTrue("two mappings", mappings.length == 2);
+      
+      var provider:IProvider = builder.getFirstMapping().provider;
+      
+      for each(var mapping:IMapping in mappings)
+      {
+        Assert.assertTrue("both mapped to same provider", 
+          provider == mapping.provider);
+      }
+    }
+    
+    [Test]
+    public function testMultiMappingScope():void
+    {
+      builder.to(IRadio).and(LoudRadio).asSingleton();
+      
+      var mappings:Array = builder.mappings;
+      
+      Assert.assertTrue("two mappings", mappings.length == 2);
+      
+      var provider:IProvider = builder.getFirstMapping().provider;
+      
+      for each(var mapping:IMapping in mappings)
+      {
+        Assert.assertTrue("both mapped to same singleton provider", 
+          provider == mapping.provider);
+      }
     }
   }
 }

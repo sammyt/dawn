@@ -1,54 +1,66 @@
 package uk.co.ziazoo.injector.impl
 {	
+  import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.IScope;
-  import uk.co.ziazoo.injector.IMapper;
   
   internal class MappingBuilder implements IMappingBuilder
   {
-    private var clazz:Class;
-    private var _mapping:IMapping;
     private var reflector:Reflector;
     private var mapper:IMapper;
+    private var _mappings:Array;
     
-    public function MappingBuilder( clazz:Class, reflector:Reflector, mapper:IMapper )
+    public function MappingBuilder(type:Class, reflector:Reflector, mapper:IMapper)
     {
-      this.clazz = clazz;
       this.reflector = reflector;
       this.mapper = mapper;
+      mappings.push(new Mapping(type));
     }
     
-    public function to( type:Class ):IMappingBuilder
+    public function to(type:Class):IMappingBuilder
     {
-      mapping.provider = new BasicProvider( type );	
+      setProvider(new BasicProvider(type));	
       return this;
     }
     
-    public function toFactory( factory:Class ):IMappingBuilder
+    public function and(type:Class):IMappingBuilder
     {
-      mapping.provider = new FactoryProvider( factory, reflector );
+      var builder:IMappingBuilder = mapper.map(type);
+      
+      var mapping:IMapping = builder.mapping;
+      mapping.name = getFirstMapping().name;
+      mapping.provider = getFirstProvider();
+      
+      mappings.push(mapping);
+      
       return this;
     }
     
-    public function toInstance( object:Object ):IMappingBuilder
+    public function toFactory(factory:Class):IMappingBuilder
     {
-      mapping.provider = new InstanceProvider( object );
+      setProvider(new FactoryProvider(factory, reflector));
+      return this;
+    }
+    
+    public function toInstance(object:Object):IMappingBuilder
+    {
+      setProvider(new InstanceProvider(object));
       asSingleton();
       return this;
     }
     
-    public function named( name:String ):IMappingBuilder
+    public function named(name:String):IMappingBuilder
     {
-      mapping.name = name;
+      setName(name);
       return this;
     }
     
     public function inScope(scope:IScope):void
     {
-      var provider:IProvider = mapping.provider;
-      mapping.provider = new ScopeWrapper( scope.wrap(provider), provider );
+      var provider:IProvider = getFirstProvider();
+      setProvider(new ScopeWrapper(scope.wrap(provider), provider));
     }
     
     public function asSingleton():void
@@ -56,19 +68,50 @@ package uk.co.ziazoo.injector.impl
       inScope(new SingletonScope());
     }
     
+    private function setName(name:String):void
+    {
+      for each(var mapping:IMapping in mappings)
+      {
+        mapping.name = name;
+      }
+    }
+    
+    private function setProvider(provider:IProvider):void
+    {
+      for each(var mapping:IMapping in mappings)
+      {
+        mapping.provider = provider;
+      }
+    }
+    
     public function asEagerSingleton():void
     {
       asSingleton();
-      mapper.addToEagerQueue(mapping)
+      mapper.addToEagerQueue(getFirstMapping());
+    }
+  
+    private function getFirstProvider():IProvider
+    {
+      return getFirstMapping().provider;
+    }
+    
+    internal function getFirstMapping():IMapping
+    {
+      return (mappings[0] as IMapping);
     }
     
     public function get mapping():IMapping
     {
-      if( !_mapping )
+      return getFirstMapping();
+    }
+    
+    internal function get mappings():Array
+    {
+      if(!_mappings)
       {
-        _mapping = new Mapping( clazz );
+        _mappings = [];
       }
-      return _mapping;
+      return _mappings;
     }
   }
 }

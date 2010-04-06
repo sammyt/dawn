@@ -4,6 +4,7 @@ package uk.co.ziazoo.injector
   {
     function inject( object:Object ):Object;
     function install( configuration:IConfiguration ):void;
+    function add( configuration:IConfiguration ):void;
     function map( clazz:Class ):IMappingBuilder;
   }
 }

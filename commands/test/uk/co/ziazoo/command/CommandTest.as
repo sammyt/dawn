@@ -1,7 +1,7 @@
 package uk.co.ziazoo.command
 {
-  import flexunit.framework.Assert;
-  
+  import org.flexunit.Assert;
+
   public class CommandTest
   {		
     [Test]

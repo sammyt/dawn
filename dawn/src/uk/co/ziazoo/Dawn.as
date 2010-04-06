@@ -6,23 +6,23 @@ package uk.co.ziazoo
   import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.impl.Injector;
-  import uk.co.ziazoo.notifier.INotificationBus;
-  import uk.co.ziazoo.notifier.NotificationBus;
+  import uk.co.ziazoo.notifier.INotifier;
+  import uk.co.ziazoo.notifier.Notifier;
   
-  public class Dawn implements IInjector
+  public class Dawn
   {
     private var injector:IInjector;
-    private var bus:INotificationBus;
+    private var bus:INotifier;
     private var commands:ICommandMap;
     
     public function Dawn()
     {
       injector = Injector.createInjector();
-      bus = new NotificationBus();
+      bus = new Notifier();
       commands = new CommandMap( injector, bus );
       
       map( IInjector ).toInstance( injector );
-      map( INotificationBus ).toInstance( bus );
+      map( INotifier ).toInstance( bus );
       map( ICommandMap ).toInstance( commands );
     }
     
