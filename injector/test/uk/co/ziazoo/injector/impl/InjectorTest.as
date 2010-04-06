@@ -6,7 +6,6 @@ package uk.co.ziazoo.injector.impl
   import org.flexunit.asserts.assertTrue;
   
   import some.otherthing.*;
-  
   import some.thing.Apple;
   import some.thing.Car;
   import some.thing.CarWithTwoRadios;
@@ -235,6 +234,73 @@ package uk.co.ziazoo.injector.impl
       injector.inject(PlantPot);
       
       Assert.assertTrue("EagerBunny was created", EagerBunny.createCount == 1 );
+    }
+    
+    [Test]
+    public function usingAndMapping():void
+    {
+      injector.map(IBikeEngine).and(SlowBikeEngine).to(SlowBikeEngine);
+      
+      var thing:ThingWithTwoEngines = 
+        ThingWithTwoEngines(injector.inject(ThingWithTwoEngines));
+      
+      
+      Assert.assertNotNull(thing.engine1);
+      Assert.assertNotNull(thing.engine2);
+      
+      Assert.assertTrue("both SlowBikeEngine", thing.engine1 is SlowBikeEngine);
+      Assert.assertTrue("both SlowBikeEngine", thing.engine2 is SlowBikeEngine);
+    }
+    
+    [Test]
+    public function usingAndMappingInSingletonScope():void
+    {
+      injector.map(IBikeEngine).and(SlowBikeEngine).to(
+        ReallySlowBikeEngine).asSingleton();
+      
+      var thing:ThingWithTwoEngines = 
+        ThingWithTwoEngines(injector.inject(ThingWithTwoEngines));
+      
+      
+      Assert.assertNotNull(thing.engine1);
+      Assert.assertNotNull(thing.engine2);
+      
+      Assert.assertTrue("both SlowBikeEngine", 
+        thing.engine1 is ReallySlowBikeEngine);
+      
+      Assert.assertTrue("both SlowBikeEngine", 
+        thing.engine2 is ReallySlowBikeEngine);
+      
+      Assert.assertTrue("same instance", thing.engine1 == thing.engine2);
+    }
+    
+    [Test]
+    public function usingManyAnds():void
+    {
+      injector.map(IBikeEngine).and(SlowBikeEngine).and(
+        ReallySlowBikeEngine).to(ReallySlowBikeEngine).asSingleton();
+      
+      var thing:ThingWithThreeEngines = 
+        ThingWithThreeEngines(injector.inject(ThingWithThreeEngines));
+      
+      Assert.assertTrue("is SlowBikeEngine", 
+        thing.engine1 is ReallySlowBikeEngine);
+      
+      Assert.assertTrue("is SlowBikeEngine", 
+        thing.engine2 is ReallySlowBikeEngine);
+      
+      Assert.assertTrue("is SlowBikeEngine", 
+        thing.engine3 is ReallySlowBikeEngine);
+      
+      Assert.assertNotNull(thing.engine1);
+      Assert.assertNotNull(thing.engine2);
+      Assert.assertNotNull(thing.engine3);
+      
+      Assert.assertTrue("same instance 1-2", thing.engine1 == 
+        thing.engine2);
+      
+      Assert.assertTrue("same instance 2-3", thing.engine2 == 
+        thing.engine3);
     }
   }
 }
