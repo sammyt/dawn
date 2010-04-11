@@ -302,6 +302,19 @@ package uk.co.ziazoo.injector.impl
       Assert.assertTrue("same instance 2-3", thing.engine2 == 
         thing.engine3);
     }
+    
+    [Test]
+    public function injectsProvidedInstance():void
+    {
+      var instance:Car = new Car();
+      
+      var obj:Object = injector.inject(instance);
+      
+      Assert.assertNotNull( obj );
+      Assert.assertTrue( "obj is an Car", obj is Car );
+      Assert.assertTrue( "obj is instance", obj == instance );
+      Assert.assertNotNull( "Car has an Engine", instance.engine ); 
+    }
   }
 }
 

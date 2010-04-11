@@ -54,11 +54,6 @@ package uk.co.ziazoo.injector.impl
       return mapper.map( clazz );
     }
     
-    public function add( configuration:IConfiguration ):void
-    {
-      install(configuration);
-    }
-    
     /**
      *	@inheritDoc
      */	
@@ -187,9 +182,17 @@ package uk.co.ziazoo.injector.impl
       injectEagerQueue();
     }
     
-    private function getMapping( object:Object, name:String = "" ):IMapping
+    private function getMapping(object:Object, name:String = ""):IMapping
     {
-      return mapper.getMapping( getClass( object ), name );
+      if(object is Class)
+      {
+        return mapper.getMapping( getClass( object ), name ); 
+      }
+      
+      var mapping:Mapping = new Mapping(getClass( object ), 
+        name, new InstanceProvider(object));
+      
+      return mapping;
     }
     
     private function getClass( object:Object ):Class
