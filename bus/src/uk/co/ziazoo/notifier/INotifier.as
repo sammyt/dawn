@@ -8,7 +8,7 @@ package uk.co.ziazoo.notifier
   { 
     function trigger(payload:Object):void;
     
-    function add(type:Class, callback:Function, 
+    function listen(type:Class, callback:Function, 
       polymorphic:Boolean = false):Function;
     
     function remove(type:Class, callback:Function):void;

@@ -31,7 +31,7 @@ package uk.co.ziazoo.notifier
           invokeCount++;
         };
 
-      var returned:Function = notifier.add(Object, callBack);
+      var returned:Function = notifier.listen(Object, callBack);
       
       Assert.assertTrue("got right listener back", callBack == returned);
       
@@ -51,7 +51,7 @@ package uk.co.ziazoo.notifier
           invokeCount++;
         };
       
-      var returned:Function = notifier.add(Object, callBack, true);
+      var returned:Function = notifier.listen(Object, callBack, true);
       Assert.assertTrue("got right listener back", callBack == returned);
       
       notifier.trigger(new Object());
@@ -73,7 +73,7 @@ package uk.co.ziazoo.notifier
           invokeCount++;
         };
       
-      notifier.add(Array, callBack);
+      notifier.listen(Array, callBack);
       
       notifier.trigger(new Object());
       Assert.assertTrue("not triggered", invokeCount == 0);
@@ -92,7 +92,7 @@ package uk.co.ziazoo.notifier
           invokeCount++;
         };
       
-      notifier.add(String, callBack);
+      notifier.listen(String, callBack);
       notifier.trigger("wibble");
       Assert.assertTrue("triggered", invokeCount == 1);
       
@@ -111,7 +111,7 @@ package uk.co.ziazoo.notifier
           invokeCount++;
         };
       
-      notifier.add(String, callBack, true);
+      notifier.listen(String, callBack, true);
       notifier.trigger("wibble");
       Assert.assertTrue("triggered", invokeCount == 1);
       

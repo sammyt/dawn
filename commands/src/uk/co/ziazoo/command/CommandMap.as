@@ -39,7 +39,7 @@ package uk.co.ziazoo.command
     {
       var details:Command = new Command( command );
       
-      notifier.add( details.triggerType, 
+      notifier.listen( details.triggerType, 
         function( note:Object ):void
         {
           invokeCommand( details, note );

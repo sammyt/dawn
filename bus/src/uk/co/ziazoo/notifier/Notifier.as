@@ -29,7 +29,7 @@ package uk.co.ziazoo.notifier
     /**
      *	@inheritDoc
      */		
-    public function add(type:Class, callback:Function, 
+    public function listen(type:Class, callback:Function, 
       polymorphic:Boolean=false):Function
     {
       var cb:Details = new Details(callback, type);
