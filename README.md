@@ -1,38 +1,23 @@
-# Dawn #
+## type safe, testable, but also fun ##
 
-## Actionscript library for type safe FUN ##
+Dawn has 3 core parts - an [injector](http://wiki.github.com/sammyt/dawn/dawninjections) with a full feature set, here is a taste:
 
-Dawn has 3 core parts [Injections](http://wiki.github.com/sammyt/dawn/dawninjections), [Notifications](http://wiki.github.com/sammyt/dawn/dawnnotifications) and [Commands](http://wiki.github.com/sammyt/dawn/dawncommands)
+*   constructor, method and property injection
+*   terse DRY configuration via actionscript DSL
+*   named, instance and factory providers for lots of flexibility
+*   built in and custom scopes
+*   eagerSingleton scope for early object creation
+*   post construction callbacks
 
-Checkout the some 0.8 [docs](http://wiki.github.com/sammyt/dawn "wiki")
-... and here are the [slides](http://www.slideshare.net/sammyt/dawn-actionscript-library-2563556) 
-form the [FLUG](http://www.meetup.com/flexlondon/calendar/11793506/?from=list&offset=0) presentation I gave
+A [notification](http://wiki.github.com/sammyt/dawn/dawnnotifications) system designed to leverage the inbuilt type system of the language and a [command](http://wiki.github.com/sammyt/dawn/dawncommands) library built on top of the injector and notifier for types safe injectable commands
 
-Check out the [forum](http://www.dawn-lib.org) if you have any questions or suggestions
+## more info ##
+ 
+Check out the [documentation](http://wiki.github.com/sammyt/dawn "wiki").  Then there is also the 
+[presentation](http://www.slideshare.net/sammyt/dawn-actionscript-library-2563556) I gave
+at [FLUG](http://www.meetup.com/flexlondon/calendar/11793506/?from=list&offset=0) and I churn out the odd [blog post](http://www.ziazoo.co.uk)
 
-## News ##
-
-### Blogged on mapping improvements ###
-Blogged on some [new features](http://www.ziazoo.co.uk/blog/2010/04/07/dawn-injectors-multi-mappings/) coming in the next version 
-
-### Check out the new forum and site ###
-[dawn-lib.org](http://www.dawn-lib.org)
-
-### Docs updated! ###
-I have now updated the [injector](http://wiki.github.com/sammyt/dawn/dawninjections) page to reflect the changes made in 0.8
-
-### Dawn 0.8 now in master branch! ###
-Just merged Dawn 0.8 into the master branch --  now to update the docs!
-
-### next version of Dawn code complete ###
-Feature development for Dawn 0.8 is now complete (phew).  You can check it out now, its in 
-the [refactor](http://github.com/sammyt/dawn/tree/refactor) branch (will hit master branch asap).
-
-I've worked hard to improve the code base for future features I have in the pipeline, but new wins
-in this release include constructor/method injection and a much improved DSL for configuration
-
-
-
+I've just created a [forum](http://www.dawn-lib.org) for Dawn.  There Isn't a lot there, but feel free to ask if you want any help or have some thoughts :)
 
 
 
