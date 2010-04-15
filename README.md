@@ -9,7 +9,7 @@ Dawn has 3 core parts - an [injector](http://wiki.github.com/sammyt/dawn/dawninj
 *   eager singleton scope for early object creation
 *   post construction callbacks
 
-A [notification](http://wiki.github.com/sammyt/dawn/dawnnotifications) system designed to leverage the in-built type system of the language and a [command](http://wiki.github.com/sammyt/dawn/dawncommands) library built on top of the injector and notifier for types safe injectable commands
+A [notification](http://wiki.github.com/sammyt/dawn/dawnnotifications) system designed to leverage the in-built type system of the language and a [command](http://wiki.github.com/sammyt/dawn/dawncommands) library built on top of the injector and notifier for type safe injectable commands
 
 ## more info ##
  
