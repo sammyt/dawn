@@ -1,11 +1,11 @@
 package uk.co.ziazoo.injector.impl
-{	
+{
   import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.IScope;
-  
+
   internal class MappingBuilder implements IMappingBuilder
   {
     private var reflector:Reflector;
@@ -17,6 +17,7 @@ package uk.co.ziazoo.injector.impl
       this.reflector = reflector;
       this.mapper = mapper;
       mappings.push(new Mapping(type));
+      to(type);
     }
     
     public function to(type:Class):IMappingBuilder

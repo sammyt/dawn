@@ -1,13 +1,10 @@
 package com.example.commands
 {
-	import com.example.model.CreateContact;
-	import com.example.model.GetContacts;
-	import com.example.model.IContactsService;
-	
-	import uk.co.ziazoo.notifier.AsyncCallback;
-	import uk.co.ziazoo.notifier.INotificationBus;
+  import com.example.model.CreateContact;
+  import com.example.model.GetContacts;
+  import com.example.model.IContactsService;
 
-	public class CreateContactCommand
+  public class CreateContactCommand
 	{
 		[Inject]
 		/**

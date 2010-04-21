@@ -9,19 +9,33 @@ package uk.co.ziazoo.injector
   {	
     /**
      * The class being mapped
+     *
+     * @return Class of this type
      */ 
     function get type():Class;
     
     /**
      * The instance of IProvider that creates the instance
+     *
+     * @return the <code>IProvider</code> for this mapping
      */ 
     function get provider():IProvider;
     function set provider(value:IProvider):void;
     
     /**
      * an optional name for the mapping
+     *
+     * @return the name of the mapping
+     * @default ""
      */ 
     function get name():String;
     function set name(value:String):void;
+
+    /**
+     * was this mapping created just-in-time
+     *
+     * @return true if mapping as not prvided by user
+     */
+    function isJustInTime():Boolean;
   }
 }

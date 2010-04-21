@@ -1,8 +1,9 @@
 package uk.co.ziazoo.injector.impl
-{	
-  import org.flexunit.Assert;
+{
   import flash.utils.Dictionary;
-  
+
+  import org.flexunit.Assert;
+
   public class MetadataReflectionTest
   {
     public var reflector:Reflector;

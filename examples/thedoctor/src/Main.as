@@ -1,18 +1,18 @@
 package
-{	
-	import flash.display.Sprite;
-	import flash.text.TextField;
-	
-	import com.timelord.TheDoctor;
-	import com.timelord.RoseTyler;
-	import com.timelord.Daleks;
-	import com.timelord.IMission;
-	import com.timelord.IAssistant;
-	
-	import uk.co.ziazoo.injector.impl.Injector;
-	import uk.co.ziazoo.injector.IInjector;
-	
-	public class Main extends Sprite
+{
+  import com.timelord.Daleks;
+  import com.timelord.IAssistant;
+  import com.timelord.IMission;
+  import com.timelord.RoseTyler;
+  import com.timelord.TheDoctor;
+
+  import flash.display.Sprite;
+  import flash.text.TextField;
+
+  import uk.co.ziazoo.injector.IInjector;
+  import uk.co.ziazoo.injector.impl.Injector;
+
+  public class Main extends Sprite
 	{
 		public function Main()
 		{

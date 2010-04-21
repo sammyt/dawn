@@ -1,12 +1,12 @@
 package
 {
-	import com.example.model.IContactsService;
-	import com.example.model.MockContactsService;
-	
-	import uk.co.ziazoo.injector.IConfiguration;
-	import uk.co.ziazoo.injector.IMapper;
-	
-	public class ContactAppConfig implements IConfiguration
+  import com.example.model.IContactsService;
+  import com.example.model.MockContactsService;
+
+  import uk.co.ziazoo.injector.IConfiguration;
+  import uk.co.ziazoo.injector.IMapper;
+
+  public class ContactAppConfig implements IConfiguration
 	{
 		private var _main:Main;
 		

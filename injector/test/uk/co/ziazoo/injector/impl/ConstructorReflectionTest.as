@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector.impl
-{	
+{
   import org.flexunit.Assert;
-  
+
   public class ConstructorReflectionTest
   {
     public var reflector:Reflector;

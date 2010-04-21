@@ -1,15 +1,15 @@
 package uk.co.ziazoo.injector.impl
-{	
+{
   import org.flexunit.Assert;
-  
+
   import some.thing.Apple;
   import some.thing.Car;
   import some.thing.IRadio;
   import some.thing.LoudRadio;
-  
+
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IProvider;
-  
+
   public class MappingBuilderTest
   {
     private var builder:MappingBuilder;

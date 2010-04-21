@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {
   import flash.utils.Dictionary;
   import flash.utils.describeType;
-  
+
   internal class Reflector
   {
     private var cache:Dictionary;

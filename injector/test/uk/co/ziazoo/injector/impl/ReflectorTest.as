@@ -1,8 +1,9 @@
 package uk.co.ziazoo.injector.impl 
 {
-  import some.thing.Tree;
   import org.flexunit.Assert;
-  
+
+  import some.thing.Tree;
+
   public class ReflectorTest
   {
     public function ReflectorTest()

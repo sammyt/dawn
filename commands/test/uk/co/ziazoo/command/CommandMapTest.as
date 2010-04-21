@@ -1,12 +1,12 @@
 package uk.co.ziazoo.command
 {
   import org.flexunit.Assert;
-  
+
   import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.injector.impl.Injector;
   import uk.co.ziazoo.notifier.INotifier;
   import uk.co.ziazoo.notifier.Notifier;
-  
+
   public class CommandMapTest
   {		
     private var commands:CommandMap;

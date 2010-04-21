@@ -1,8 +1,8 @@
 package com.example.view
 {
-	import flash.display.DisplayObject;
+  import flash.display.DisplayObject;
 
-	public interface IPresenter
+  public interface IPresenter
 	{
 		function get displayObject():DisplayObject;
 		function setup():void;

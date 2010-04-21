@@ -1,5 +1,5 @@
 package uk.co.ziazoo.notifier
-{ 
+{
   import flash.utils.Dictionary;
   import flash.utils.getDefinitionByName;
   import flash.utils.getQualifiedClassName;

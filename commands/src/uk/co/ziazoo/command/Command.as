@@ -2,7 +2,7 @@ package uk.co.ziazoo.command
 {
   import flash.utils.describeType;
   import flash.utils.getDefinitionByName;
-  
+
   /**
    * internal representation of a command.
    */ 

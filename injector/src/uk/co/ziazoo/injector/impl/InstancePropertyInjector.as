@@ -1,7 +1,5 @@
 package uk.co.ziazoo.injector.impl 
 {
-  import uk.co.ziazoo.injector.*;
-  
   internal class InstancePropertyInjector implements IInstanceInjector
   {
     private var childInstance:Object;

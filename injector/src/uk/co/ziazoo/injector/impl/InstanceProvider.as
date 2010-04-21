@@ -2,9 +2,9 @@ package uk.co.ziazoo.injector.impl
 {
   import flash.utils.getDefinitionByName;
   import flash.utils.getQualifiedClassName;
-  
+
   import uk.co.ziazoo.injector.IProvider;
-  
+
   internal class InstanceProvider implements IProvider
   {
     private var instance:Object;

@@ -5,10 +5,10 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-			
-			[Bindable]
-			public var contacts:ArrayCollection;
+    import mx.collections.ArrayCollection;
+
+    [Bindable]
+    public var contacts:ArrayCollection;
 		]]>
 	</mx:Script>
 	

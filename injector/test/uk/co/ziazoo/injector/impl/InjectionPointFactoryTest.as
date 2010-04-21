@@ -1,11 +1,9 @@
 package uk.co.ziazoo.injector.impl 
 {
   import org.flexunit.Assert;
-  
-  import some.thing.*;
-  
+
   import uk.co.ziazoo.injector.*;
-  
+
   public class InjectionPointFactoryTest
   {
     private var factory:InjectionPointFactory;

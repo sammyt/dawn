@@ -1,8 +1,6 @@
 package com.example.model
 {
-	import uk.co.ziazoo.notifier.IAsyncCallback;
-
-	public interface IContactsService
+  public interface IContactsService
 	{
 		/**
 		 * retrieves all the contacts from the server

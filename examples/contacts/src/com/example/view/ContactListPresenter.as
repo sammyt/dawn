@@ -1,15 +1,12 @@
 package com.example.view
 {
-	import com.example.model.GotContacts;
-	
-	import flash.display.DisplayObject;
-	
-	import mx.collections.ArrayCollection;
-	
-	import uk.co.ziazoo.notifier.IListenerRegistration;
-	import uk.co.ziazoo.notifier.INotificationBus;
+  import com.example.model.GotContacts;
 
-	public class ContactListPresenter implements IPresenter
+  import flash.display.DisplayObject;
+
+  import mx.collections.ArrayCollection;
+
+  public class ContactListPresenter implements IPresenter
 	{
 		/**
 		 * Used to send and recieve notifications

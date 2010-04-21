@@ -1,14 +1,11 @@
 package com.example.view
 {
-	import com.example.model.CreateContact;
-	
-	import flash.display.DisplayObject;
-	import flash.events.Event;
-	
-	import uk.co.ziazoo.notifier.IListenerRegistration;
-	import uk.co.ziazoo.notifier.INotificationBus;
+  import com.example.model.CreateContact;
 
-	public class CreateContactPresenter implements IPresenter
+  import flash.display.DisplayObject;
+  import flash.events.Event;
+
+  public class CreateContactPresenter implements IPresenter
 	{
 		private var _view:CreateContactView;
 		private var _listeners:Vector.<IListenerRegistration>;

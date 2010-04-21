@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector.impl 
 {
   import uk.co.ziazoo.injector.*;
-  
+
   internal class InstanceMethodInjector implements IInstanceInjector
   {
     private var methodName:String;

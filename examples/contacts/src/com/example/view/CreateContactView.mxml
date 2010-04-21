@@ -5,17 +5,17 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.example.model.Contact;
+    import com.example.model.Contact;
 
-			public function get newContact():Contact
-			{
-				return new Contact( nameInput.text );
-			}
+    public function get newContact():Contact
+    {
+      return new Contact(nameInput.text);
+    }
 
-			protected function onSubmit(event:MouseEvent):void
-			{
-				dispatchEvent( new Event( "addContact" ) );
-			}
+    protected function onSubmit(event:MouseEvent):void
+    {
+      dispatchEvent(new Event("addContact"));
+    }
 
 		]]>
 	</mx:Script>

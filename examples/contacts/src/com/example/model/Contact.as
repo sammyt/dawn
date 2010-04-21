@@ -1,8 +1,8 @@
 package com.example.model
 {
-	import mx.utils.UIDUtil;
+  import mx.utils.UIDUtil;
 
-	/**
+  /**
 	 * represents one contact in the application
 	 */ 
 	public class Contact

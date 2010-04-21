@@ -8,10 +8,9 @@
 package uk.co.ziazoo.examples 
 {
 
-	import flexunit.framework.TestCase;
-	import Main;
+  import flexunit.framework.TestCase;
 
-	public class TestApp extends TestCase 
+  public class TestApp extends TestCase
 	{
 
 		public function testNothing():void 

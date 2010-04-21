@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector.impl 
 {
   import uk.co.ziazoo.injector.*;
-  
+
   internal class InjectionPointFactory
   {
     private var dependencyFactory:DependencyFactory;
@@ -29,7 +29,7 @@ package uk.co.ziazoo.injector.impl
       var injectionPoint:PropertyInjectionPoint = 
         new PropertyInjectionPoint( property );
       
-      var mapping:IMapping = mapper.getMappingFromQName( 
+      var mapping:IMapping = mapper.getMappingForQName(
         property.type, getNameForProperty( property ) );
       
       injectionPoint.setDependency( 
@@ -55,7 +55,7 @@ package uk.co.ziazoo.injector.impl
       
       for each( var parameter:Parameter in method.params )
       {
-        var mapping:IMapping = mapper.getMappingFromQName( 
+        var mapping:IMapping = mapper.getMappingForQName(
           parameter.type, getNameForParam( method.metadatas, parameter ) );
         
         injectionPoint.addDependency( 
@@ -71,7 +71,7 @@ package uk.co.ziazoo.injector.impl
       
       for each( var parameter:Parameter in constructor.params )
       {
-        var mapping:IMapping = mapper.getMappingFromQName( 
+        var mapping:IMapping = mapper.getMappingForQName(
           parameter.type, getNameForParam( constructor.metadatas, parameter ) );
         
         injectionPoint.addDependency( 

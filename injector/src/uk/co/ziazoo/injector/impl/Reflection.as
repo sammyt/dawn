@@ -1,9 +1,6 @@
 package uk.co.ziazoo.injector.impl 
 {
-  import flash.utils.Dictionary;
-  import flash.utils.describeType;
-  
-  internal class Reflection 
+  internal class Reflection
   {
     public var type:Class;
     public var properties:Array;

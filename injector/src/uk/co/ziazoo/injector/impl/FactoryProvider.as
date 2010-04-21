@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector.impl
 {
   import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IProvider;
-  
+
   internal class FactoryProvider implements IProvider
   {
     private var factoryType:Class;

@@ -8,7 +8,7 @@ package uk.co.ziazoo
   import uk.co.ziazoo.injector.impl.Injector;
   import uk.co.ziazoo.notifier.INotifier;
   import uk.co.ziazoo.notifier.Notifier;
-  
+
   public class Dawn
   {
     private var injector:IInjector;

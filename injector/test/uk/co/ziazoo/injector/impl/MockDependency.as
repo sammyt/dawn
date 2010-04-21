@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector.impl
-{	
+{
   import uk.co.ziazoo.injector.*;
-  
+
   public class MockDependency implements IDependency
   {
     private var object:Object;

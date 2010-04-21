@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector.impl 
 {
   import uk.co.ziazoo.injector.*;
-  
+
   internal class MethodInjectionPoint implements IInjectionPoint
   {
     private var method:Method;

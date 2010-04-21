@@ -6,64 +6,63 @@
 	
 	<mx:Script>
 		<![CDATA[
-      import com.example.commands.CreateContactCommand;
-      import com.example.commands.GetContactsCommand;
-      import com.example.model.GetContacts;
-      import com.example.view.ContactListPresenter;
-      import com.example.view.CreateContactPresenter;
-      
-      import mx.events.FlexEvent;
-      
-      import uk.co.ziazoo.Dawn;
-      import uk.co.ziazoo.command.ICommandMap;
-      import uk.co.ziazoo.notifier.INotificationBus;
-			
-			[Inject]
-			/**
-			 * The <code>CommandMap</code> is where you can
-			 * register commands with Dawn.  A command is any
-			 * object which has a method with the [Execute] metadata
-			 */ 
-			public var commands:ICommandMap;
-			
-			[Inject]
-			/**
-			 * The presenter object for the contact list
-			 */ 
-			public var listPresenter:ContactListPresenter;
-			
-			[Inject]
-			/**
-			 * The presenter object for the creation form
-			 */ 
-			public var createPresenter:CreateContactPresenter;
-			
-			[Inject]
-			/**
-			 * The application wide notification bus
-			 */ 
-			public var bus:INotificationBus;
-			
-			protected function onCreationComplete(event:FlexEvent):void
-			{
-				// setup the Dawn builder
-        var dawn:Dawn = new Dawn();
-        dawn.install( new ContactAppConfig( this ) );
-				
-				// construct the application
-				dawn.inject( this );
-				
-				// register any commands
-				commands.addCommand( GetContactsCommand );
-				commands.addCommand( CreateContactCommand );
-				
-				// add the view objects to the display
-				addChild( listPresenter.displayObject );
-				addChild( createPresenter.displayObject );
-				
-				// get the contacts from the server
-				bus.trigger( new GetContacts() );
-			}
+    import com.example.commands.CreateContactCommand;
+    import com.example.commands.GetContactsCommand;
+    import com.example.model.GetContacts;
+    import com.example.view.ContactListPresenter;
+    import com.example.view.CreateContactPresenter;
+
+    import mx.events.FlexEvent;
+
+    import uk.co.ziazoo.Dawn;
+    import uk.co.ziazoo.command.ICommandMap;
+
+    [Inject]
+    /**
+     * The <code>CommandMap</code> is where you can
+     * register commands with Dawn.  A command is any
+     * object which has a method with the [Execute] metadata
+     */
+    public var commands:ICommandMap;
+
+    [Inject]
+    /**
+     * The presenter object for the contact list
+     */
+    public var listPresenter:ContactListPresenter;
+
+    [Inject]
+    /**
+     * The presenter object for the creation form
+     */
+    public var createPresenter:CreateContactPresenter;
+
+    [Inject]
+    /**
+     * The application wide notification bus
+     */
+    public var bus:INotificationBus;
+
+    protected function onCreationComplete(event:FlexEvent):void
+    {
+      // setup the Dawn builder
+      var dawn:Dawn = new Dawn();
+      dawn.install(new ContactAppConfig(this));
+
+      // construct the application
+      dawn.inject(this);
+
+      // register any commands
+      commands.addCommand(GetContactsCommand);
+      commands.addCommand(CreateContactCommand);
+
+      // add the view objects to the display
+      addChild(listPresenter.displayObject);
+      addChild(createPresenter.displayObject);
+
+      // get the contacts from the server
+      bus.trigger(new GetContacts());
+    }
 		]]>
 	</mx:Script>
 	

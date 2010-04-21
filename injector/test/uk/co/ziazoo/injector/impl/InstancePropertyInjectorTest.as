@@ -1,8 +1,9 @@
 package uk.co.ziazoo.injector.impl
-{	
+{
   import org.flexunit.*;
+
   import some.thing.*;
-  
+
   public class InstancePropertyInjectorTest
   {
     public function InstancePropertyInjectorTest()

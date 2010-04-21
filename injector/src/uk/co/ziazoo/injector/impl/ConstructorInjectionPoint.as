@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector.impl
-{	
+{
   import uk.co.ziazoo.injector.*;
-  
+
   internal class ConstructorInjectionPoint implements IInjectionPoint
   {
     private var constructor:Constructor;

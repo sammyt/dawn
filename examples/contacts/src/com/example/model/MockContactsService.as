@@ -1,10 +1,8 @@
 package com.example.model
 {
-	import flash.utils.setTimeout;
-	
-	import uk.co.ziazoo.notifier.IAsyncCallback;
-	
-	/**
+  import flash.utils.setTimeout;
+
+  /**
 	 * Dummy service object. 
 	 */ 
 	public class MockContactsService implements IContactsService

@@ -4,7 +4,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IInjectionPoint;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IProvider;
-  
+
   internal class Dependency implements IDependency
   {
     private var mapping:IMapping;

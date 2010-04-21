@@ -1,10 +1,8 @@
 package uk.co.ziazoo.injector.impl
 {
-  import flash.utils.getTimer;
-  
   import org.flexunit.Assert;
   import org.flexunit.asserts.assertTrue;
-  
+
   import some.otherthing.*;
   import some.thing.Apple;
   import some.thing.Car;
@@ -18,9 +16,9 @@ package uk.co.ziazoo.injector.impl
   import some.thing.QuietRadio;
   import some.thing.Table;
   import some.thing.Wibble;
-  
+
   import uk.co.ziazoo.injector.IMapper;
-  
+
   public class InjectorTest
   {
     private var mapper:IMapper;

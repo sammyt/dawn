@@ -1,8 +1,8 @@
 package uk.co.ziazoo.injector.impl
-{	
+{
   import flash.utils.getDefinitionByName;
   import flash.utils.getQualifiedClassName;
-  
+
   import uk.co.ziazoo.injector.IConfiguration;
   import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IInjectionPoint;
@@ -11,7 +11,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.IProvider;
-  
+
   public class Injector implements IInjector
   {
     private var mapper:IMapper;

@@ -2,7 +2,7 @@ package uk.co.ziazoo.command
 {
   import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.notifier.INotifier;
-  
+
   /**
    * Implements ICommandMap allowing users to register commands with
    * Dawn.
