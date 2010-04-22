@@ -120,6 +120,18 @@ package uk.co.ziazoo.injector.impl
     }
 
     [Test]
+    public function createJustInTimeMapping():void
+    {
+      mapper.justInTimeMap(Car).named("example");
+      Assert.assertTrue(mapper.hasMapping(Car, "example"));
+
+      var mapping:IMapping = mapper.getMapping(Car, "example");
+      Assert.assertNotNull(mapping);
+      Assert.assertTrue(mapping.isJustInTime);
+      Assert.assertNotNull(mapping.provider);
+    }
+
+    [Test]
     public function canGetEagers():void
     {
       var mapping:Mapping = new Mapping(Tree);

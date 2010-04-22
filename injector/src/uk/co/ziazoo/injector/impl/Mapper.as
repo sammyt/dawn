@@ -9,13 +9,24 @@ package uk.co.ziazoo.injector.impl
 
   internal class Mapper implements IMapper
   {
-    private var typesMap:Dictionary;
+    /**
+     * array of builders with mappings that have not yet
+     * been added to the typesMap
+     */
+    private var builders:Array;
+
+    /**
+     * map of mappings [Class][String]
+     */
+    private var mappings:Dictionary;
+    
     private var eagers:Array;
     private var reflector:Reflector;
-    
+
     public function Mapper(reflector:Reflector)
     {
-      typesMap = new Dictionary();
+      mappings = new Dictionary();
+      builders = [];
       this.reflector = reflector;
     }
 
@@ -25,56 +36,25 @@ package uk.co.ziazoo.injector.impl
     public function map(type:Class):IMappingBuilder
     {
       var builder:IMappingBuilder = new MappingBuilder(type, reflector, this);
-      addMapping(type, builder.mapping);
+      builders.push(builder);
       return builder;
     }
 
     /**
-     * Adds a mappings into the mappings dictionary
+     * @private
      *
-     * @param type Class whos mapping this is
-     * @param mapping to store
+     * adds any mappings in the builders array
      */
-    private function addMapping(type:Class, mapping:IMapping):void
+    internal function processBuilders():void
     {
-      var mappings:Array = getMappingsForType(type);
-      mappings.push(mapping);
-    }
-
-    /**
-     * Gets the array of mappings for the type provider
-     * 
-     * @param type who's mappings you want
-     * @return array of mappings for type
-     */
-    private function getMappingsForType(type:Class):Array
-    {
-      var mappings:Array = typesMap[type];
-      if(!mappings)
+      for each(var builder:IMappingBuilder in builders)
       {
-        mappings = typesMap[type] = [];
-      }
-      return mappings;
-    }
-
-    /**
-     * Finds a mapping with a given name within a list of mappings
-     *
-     * @param name for the mapping to find
-     * @param mappings array to search within
-     * @return the IMapping, else null
-     */
-    private function findMappingForName(
-      mappings:Array, name:String = ""):IMapping
-    {
-      for each(var mapping:IMapping in mappings)
-      {
-        if(mapping.name == name)
+        for each(var mapping:IMapping in builder.getMappings())
         {
-          return mapping;
+          add(mapping);
         }
       }
-      return null;
+      builders = [];
     }
 
     /**
@@ -82,7 +62,14 @@ package uk.co.ziazoo.injector.impl
      */
     public function getMapping(type:Class, name:String = ""):IMapping
     {
-      return findMappingForName(getMappingsForType(type), name);
+      processBuilders();
+
+      if(mappings[type])
+      {
+        var key:String = name == "" || !name ? "no_name" : name;
+        return mappings[type][key] as IMapping;
+      }
+      return null;
     }
 
     /**
@@ -100,7 +87,7 @@ package uk.co.ziazoo.injector.impl
      */
     public function addToEagerQueue(mapping:IMapping):void
     {
-      if(!eagers)
+      if (!eagers)
       {
         eagers = [];
       }
@@ -134,7 +121,12 @@ package uk.co.ziazoo.injector.impl
      */
     public function add(mapping:IMapping):void
     {
-      addMapping(mapping.type, mapping);
+        if(!mappings[mapping.type])
+        {
+          mappings[mapping.type] = new Dictionary();
+        }
+        var key:String = mapping.name == "" || !mapping.name ? "no_name" : mapping.name;
+        mappings[mapping.type][key] = mapping;
     }
 
     /**
@@ -150,20 +142,33 @@ package uk.co.ziazoo.injector.impl
      */
     public function removeFor(type:Class, name:String = ""):void
     {
-      var mappings:Array = getMappingsForType(type);
-      typesMap[type] = mappings.filter(
-        function(mapping:IMapping):Boolean
+      if(mappings[type])
+      {
+        var byName:Dictionary = mappings[type] as Dictionary;
+        if(byName[name])
         {
-          return mapping.name != name;
-        });
+          delete byName[name];
+        }
+      }
     }
 
     /**
      * @inheritDoc
      */
-    public function justInTimeMap(type:Class):IMappingBuilder
+    public function justInTimeMap(type:Class, name:String = ""):IMappingBuilder
     {
-      return null;
+      var builder:IMappingBuilder = map(type).named(name);
+      builder.baseMapping.isJustInTime = true;
+      builders.push(builder);
+      return builder;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder
+    {
+      return justInTimeMap(getDefinitionByName(qName) as Class, name);
     }
 
     /**

@@ -8,6 +8,7 @@ package uk.co.ziazoo.injector.impl
     private var _type:Class;
     private var _name:String;
     private var _provider:IProvider;
+    private var _isJustInTime:Boolean;
     
     public function Mapping( type:Class, name:String = "", 
       provider:IProvider = null )
@@ -16,12 +17,18 @@ package uk.co.ziazoo.injector.impl
       _name = name;
       _provider = provider;
     }
-    
+
+    /**
+     * @inheritDoc
+     */
     public function get type():Class
     {
       return _type;
     }
-    
+
+    /**
+     * @inheritDoc
+     */
     public function get provider():IProvider
     {
       return _provider;
@@ -32,6 +39,10 @@ package uk.co.ziazoo.injector.impl
       _provider = value;
     }
     
+
+    /**
+     * @inheritDoc
+     */
     public function get name():String
     {
       return _name;
@@ -42,9 +53,17 @@ package uk.co.ziazoo.injector.impl
       _name = value;
     }
 
-    public function isJustInTime():Boolean
+    /**
+     * @inheritDoc
+     */
+    public function get isJustInTime():Boolean
     {
-      return false;
+      return _isJustInTime;
+    }
+
+    public function set isJustInTime(value:Boolean):void
+    {
+      _isJustInTime = value;
     }
   }
 }

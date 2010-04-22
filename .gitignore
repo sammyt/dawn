@@ -12,4 +12,6 @@
 *.FlexUnitSettings
 *.flexProperties
 *.idea
-
+*injector_temp_flexunit_config.xml
+**.iml
+**target

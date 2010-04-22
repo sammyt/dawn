@@ -16,6 +16,7 @@
 				<version>3.5.0</version>
 				<extensions>true</extensions>
 				<configuration>
+				  <configurationReport>true</configurationReport>
 					<targetPlayer>10.0.0</targetPlayer>
 				</configuration>
 			</plugin>

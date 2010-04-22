@@ -18,6 +18,8 @@ package uk.co.ziazoo.injector
     
     function inScope(scope:IScope):void;
     
-    function get mapping():IMapping;
+    function getMappings():Array;
+
+    function get baseMapping():IMapping;
   }
 }

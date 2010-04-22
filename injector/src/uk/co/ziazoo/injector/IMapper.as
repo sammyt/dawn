@@ -6,7 +6,7 @@ package uk.co.ziazoo.injector
      * Start the DSL for mapping a type to its provider
      *
      * @param type the Class whos mapping is being created
-     * @return IMappingBuilder with relevant DSL methods 
+     * @return IMappingBuilder with relevant DSL methods
      */
     function map(type:Class):IMappingBuilder;
 
@@ -23,7 +23,7 @@ package uk.co.ziazoo.injector
     /**
      * When you don't have the Class for the type only the qualified name
      * (e.g. when reflecting).
-     * 
+     *
      * @param qName qualified name of the type com.example::Bacon
      * @param name optional name of mapping you want (blank by default)
      * @return IMapping where one is found, else null
@@ -66,9 +66,19 @@ package uk.co.ziazoo.injector
      * are created here
      *
      * @param type the type to map
+     * @param name for mapping
      * @return IMappingBuilder tp construct mapping
      */
-    function justInTimeMap(type:Class):IMappingBuilder;
+    function justInTimeMap(type:Class, name:String = ""):IMappingBuilder;
+
+    /**
+     * For creating just-in-time mappings using the qualified name
+     *
+     * @param qName qualified name of type
+     * @param name of mapping, blank by default
+     * @return IMappingBuilder for mapping
+     */
+    function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder;
 
     /**
      * Creates a IMappingBuilder which allows you to create a IMapping.  However
@@ -89,7 +99,7 @@ package uk.co.ziazoo.injector
 
     /**
      * Get the mappings for this mapper than need creating eagerly
-     * 
+     *
      * @return the current queue of mappings
      */
     function getEagerQueue():Array;

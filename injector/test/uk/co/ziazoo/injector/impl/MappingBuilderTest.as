@@ -65,11 +65,11 @@ package uk.co.ziazoo.injector.impl
     {
       builder.to(IRadio).and(LoudRadio);
       
-      var mappings:Array = builder.mappings;
+      var mappings:Array = builder.getMappings();
       
       Assert.assertTrue("two mappings", mappings.length == 2);
       
-      var provider:IProvider = builder.getFirstMapping().provider;
+      var provider:IProvider = builder.baseMapping.provider;
       
       for each(var mapping:IMapping in mappings)
       {
@@ -83,7 +83,7 @@ package uk.co.ziazoo.injector.impl
     {
       builder.to(IRadio).and(LoudRadio).asSingleton();
       
-      var mappings:Array = builder.mappings;
+      var mappings:Array = builder.getMappings();
       
       Assert.assertTrue("two mappings", mappings.length == 2);
       

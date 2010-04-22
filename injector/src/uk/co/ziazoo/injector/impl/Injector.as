@@ -18,192 +18,197 @@ package uk.co.ziazoo.injector.impl
     private var dependencyFactory:DependencyFactory;
     private var injectionPointFactory:InjectionPointFactory;
     private var reflector:Reflector;
-    
-    public function Injector( dependencyFactory:DependencyFactory, mapper:IMapper,
-      injectionPointFactory:InjectionPointFactory, reflector:Reflector )
+
+    public function Injector(dependencyFactory:DependencyFactory, mapper:IMapper,
+      injectionPointFactory:InjectionPointFactory, reflector:Reflector)
     {
       this.dependencyFactory = dependencyFactory;
       this.injectionPointFactory = injectionPointFactory;
       this.mapper = mapper;
       this.reflector = reflector;
     }
+
     public static function createInjector(
-      configuration:IConfiguration = null ):IInjector
+      configuration:IConfiguration = null):IInjector
     {
       var reflector:Reflector = new Reflector();
-      var mapper:IMapper = new Mapper( reflector );
+      var mapper:IMapper = new Mapper(reflector);
       var dependencyFactory:DependencyFactory = new DependencyFactory();
-      var injectionFactory:InjectionPointFactory = 
-        new InjectionPointFactory( dependencyFactory, mapper );
-      
-      if( configuration )
+      var injectionFactory:InjectionPointFactory =
+        new InjectionPointFactory(dependencyFactory, mapper);
+
+      if (configuration)
       {
-        configuration.configure( mapper );
+        configuration.configure(mapper);
       }
-      
-      var injector:Injector = new Injector( 
-        dependencyFactory, mapper, injectionFactory, reflector ); 
-      
+
+      var injector:Injector = new Injector(
+        dependencyFactory, mapper, injectionFactory, reflector);
+
       injector.injectEagerQueue();
-      
+
       return injector
     }
-    
-    public function map( clazz:Class ):IMappingBuilder
+
+    public function map(clazz:Class):IMappingBuilder
     {
-      return mapper.map( clazz );
+      return mapper.map(clazz);
     }
-    
+
     /**
-     *	@inheritDoc
-     */	
-    public function inject( object:Object ):Object
+     *  @inheritDoc
+     */
+    public function inject(object:Object):Object
     {
       injectEagerQueue();
-      
-      var mapping:IMapping = getMapping( object );
+
+      var mapping:IMapping = getMapping(object);
+      if (!mapping)
+      {
+        mapping = mapper.justInTimeMap(getClass(object)).baseMapping;
+      }
       return injectMapping(mapping);
     }
-    
+
     private function injectMapping(mapping:IMapping):Object
     {
-      var dependency:IDependency = dependencyFactory.forMapping( mapping );
-      
-      return create( dependency ).getObject();
+      var dependency:IDependency = dependencyFactory.forMapping(mapping);
+
+      return create(dependency).getObject();
     }
-    
-    private function create( dependency:IDependency ):IDependency
+
+    private function create(dependency:IDependency):IDependency
     {
       var provider:IProvider = dependency.getProvider();
-      if( !provider.requiresInjection )
+      if (!provider.requiresInjection)
       {
         return dependency;
       }
-      
-      if( !provider.instanceCreated )
+
+      if (!provider.instanceCreated)
       {
-        var reflection:Reflection = getReflection( dependency );
-        
-        if( reflection.constructor.hasParams() )
+        var reflection:Reflection = getReflection(dependency);
+
+        if (reflection.constructor.hasParams())
         {
-          var injectionPoint:IInjectionPoint = 
-            injectionPointFactory.forConstructor( reflection.constructor );
-          
-          for each( var child:IDependency in injectionPoint.getDependencies() )
+          var injectionPoint:IInjectionPoint =
+            injectionPointFactory.forConstructor(reflection.constructor);
+
+          for each(var child:IDependency in injectionPoint.getDependencies())
           {
-            create( child );
+            create(child);
           }
-          provider.withDependencies( injectionPoint.getDependencies() ); 
+          provider.withDependencies(injectionPoint.getDependencies());
         }
       }
-      
-      injectMethodDependencies( dependency );
-      injectPropertyDependencies( dependency );
-      invokeCompletionCallback( dependency );
-      
+
+      injectMethodDependencies(dependency);
+      injectPropertyDependencies(dependency);
+      invokeCompletionCallback(dependency);
+
       return dependency;
     }
-    
-    private function invokeCompletionCallback( dependency:IDependency ):void
+
+    private function invokeCompletionCallback(dependency:IDependency):void
     {
-      var reflection:Reflection = getReflection( dependency );
-      if( reflection.hasCompleteMethod() )
+      var reflection:Reflection = getReflection(dependency);
+      if (reflection.hasCompleteMethod())
       {
         var methodName:String = reflection.completeMethod.name;
-        
-        var invoker:MethodInvoker = 
-          new MethodInvoker( dependency.getObject(), methodName );
-        
+
+        var invoker:MethodInvoker =
+          new MethodInvoker(dependency.getObject(), methodName);
+
         invoker.invoke();
       }
     }
-    
-    private function injectPropertyDependencies( dependency:IDependency ):void
+
+    private function injectPropertyDependencies(dependency:IDependency):void
     {
-      var reflection:Reflection = getReflection( dependency );
-      
-      var injectionPoints:Array = injectionPointFactory.forProperties( 
-        reflection.properties );
-      
-      for each( var injectionPoint:PropertyInjectionPoint in injectionPoints )
+      var reflection:Reflection = getReflection(dependency);
+
+      var injectionPoints:Array = injectionPointFactory.forProperties(
+        reflection.properties);
+
+      for each(var injectionPoint:PropertyInjectionPoint in injectionPoints)
       {
-        for each( var child:IDependency in injectionPoint.getDependencies() )
+        for each(var child:IDependency in injectionPoint.getDependencies())
         {
           var injector:InstancePropertyInjector = new InstancePropertyInjector(
-            injectionPoint.getPropertyName(), create( child ).getObject() );
-          
-          injector.inject( dependency.getObject() );
+            injectionPoint.getPropertyName(), create(child).getObject());
+
+          injector.inject(dependency.getObject());
         }
       }
     }
-    
-    private function injectMethodDependencies( dependency:IDependency ):void
+
+    private function injectMethodDependencies(dependency:IDependency):void
     {
-      var reflection:Reflection = getReflection( dependency );
-      
-      var injectionPoints:Array = injectionPointFactory.forMethods( 
-        reflection.methods );
-      
-      for each( var injectionPoint:MethodInjectionPoint in injectionPoints )
+      var reflection:Reflection = getReflection(dependency);
+
+      var injectionPoints:Array = injectionPointFactory.forMethods(
+        reflection.methods);
+
+      for each(var injectionPoint:MethodInjectionPoint in injectionPoints)
       {
-        for each( var child:IDependency in injectionPoint.getDependencies() )
+        for each(var child:IDependency in injectionPoint.getDependencies())
         {
-          create( child );
+          create(child);
         }
-        
+
         var injector:InstanceMethodInjector = new InstanceMethodInjector(
-          injectionPoint.getMethodName(), injectionPoint.getDependencies() );
-        
-        injector.inject( dependency.getObject() );
+          injectionPoint.getMethodName(), injectionPoint.getDependencies());
+
+        injector.inject(dependency.getObject());
       }
     }
-    
-    private function getReflection( dependency:IDependency ):Reflection
+
+    private function getReflection(dependency:IDependency):Reflection
     {
       var type:Class = dependency.getProvider().type;
-      return reflector.getReflection( type ); 
+      return reflector.getReflection(type);
     }
-    
+
     internal function injectEagerQueue():void
     {
-      for each( var mapping:IMapping in mapper.getEagerQueue() )
+      for each(var mapping:IMapping in mapper.getEagerQueue())
       {
         injectMapping(mapping);
       }
     }
-    
+
     /**
-     *	@inheritDoc
-     */	
-    public function install( configuration:IConfiguration ):void
+     *  @inheritDoc
+     */
+    public function install(configuration:IConfiguration):void
     {
-      configuration.configure( mapper );
-      
+      configuration.configure(mapper);
+
       injectEagerQueue();
     }
-    
+
     private function getMapping(object:Object, name:String = ""):IMapping
     {
-      if(object is Class)
+      if (object is Class)
       {
-        return mapper.getMapping( getClass( object ), name ); 
+        return mapper.getMapping(getClass(object), name);
       }
-      
-      var mapping:Mapping = new Mapping(getClass( object ), 
+
+      var mapping:Mapping = new Mapping(getClass(object),
         name, new InstanceProvider(object));
-      
+
       return mapping;
     }
-    
-    private function getClass( object:Object ):Class
+
+    private function getClass(object:Object):Class
     {
-      if( object is Class )
+      if (object is Class)
       {
         return object as Class;
       }
       else
       {
-        return getDefinitionByName( getQualifiedClassName( object ) ) as Class;
+        return getDefinitionByName(getQualifiedClassName(object)) as Class;
       }
     }
   }

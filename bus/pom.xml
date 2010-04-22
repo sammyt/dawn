@@ -24,6 +24,7 @@
 				<version>${mojoversion}</version>
 				<extensions>true</extensions>
 				<configuration>
+				  <configurationReport>true</configurationReport>
 					<keepAs3Metadatas>
 						<keepAs3Metadata>InjectHandler</keepAs3Metadata>
 					</keepAs3Metadatas>

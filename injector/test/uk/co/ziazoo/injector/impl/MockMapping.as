@@ -38,9 +38,13 @@ package uk.co.ziazoo.injector.impl
       _name = name;
     }
 
-    public function isJustInTime():Boolean
+    public function get isJustInTime():Boolean
     {
       return false;
+    }
+
+    public function set isJustInTime(value:Boolean):void
+    {
     }
   }
 }

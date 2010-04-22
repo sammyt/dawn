@@ -34,8 +34,9 @@ package uk.co.ziazoo.injector
     /**
      * was this mapping created just-in-time
      *
-     * @return true if mapping as not prvided by user
+     * @return true if mapping as not provided by user
      */
-    function isJustInTime():Boolean;
+    function get isJustInTime():Boolean;
+    function set isJustInTime(value:Boolean):void;
   }
 }

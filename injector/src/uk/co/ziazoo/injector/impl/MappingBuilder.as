@@ -10,65 +10,63 @@ package uk.co.ziazoo.injector.impl
   {
     private var reflector:Reflector;
     private var mapper:IMapper;
-    private var _mappings:Array;
-    
+    private var mappings:Array;
+
     public function MappingBuilder(type:Class, reflector:Reflector, mapper:IMapper)
     {
       this.reflector = reflector;
       this.mapper = mapper;
-      mappings.push(new Mapping(type));
+      getMappings().push(new Mapping(type));
       to(type);
     }
-    
+
     public function to(type:Class):IMappingBuilder
     {
-      setProvider(new BasicProvider(type));	
+      setProvider(new BasicProvider(type));
       return this;
     }
-    
+
     public function and(type:Class):IMappingBuilder
     {
-      var builder:IMappingBuilder = mapper.map(type);
-      
-      var mapping:IMapping = builder.mapping;
+      var mapping:IMapping = new Mapping(type);
       mapping.name = getFirstMapping().name;
       mapping.provider = getFirstProvider();
-      
+
       mappings.push(mapping);
-      
+
       return this;
     }
-    
+
     public function toFactory(factory:Class):IMappingBuilder
     {
       setProvider(new FactoryProvider(factory, reflector));
       return this;
     }
-    
+
     public function toInstance(object:Object):IMappingBuilder
     {
       setProvider(new InstanceProvider(object));
       asSingleton();
       return this;
     }
-    
+
     public function named(name:String):IMappingBuilder
     {
       setName(name);
       return this;
     }
-    
+
     public function inScope(scope:IScope):void
     {
       var provider:IProvider = getFirstProvider();
       setProvider(new ScopeWrapper(scope.wrap(provider), provider));
     }
-    
+
     public function asSingleton():void
     {
       inScope(new SingletonScope());
     }
-    
+
     private function setName(name:String):void
     {
       for each(var mapping:IMapping in mappings)
@@ -76,7 +74,7 @@ package uk.co.ziazoo.injector.impl
         mapping.name = name;
       }
     }
-    
+
     private function setProvider(provider:IProvider):void
     {
       for each(var mapping:IMapping in mappings)
@@ -84,35 +82,35 @@ package uk.co.ziazoo.injector.impl
         mapping.provider = provider;
       }
     }
-    
+
     public function asEagerSingleton():void
     {
       asSingleton();
       mapper.addToEagerQueue(getFirstMapping());
     }
-  
+
     private function getFirstProvider():IProvider
     {
       return getFirstMapping().provider;
     }
-    
+
     internal function getFirstMapping():IMapping
     {
       return (mappings[0] as IMapping);
     }
-    
-    public function get mapping():IMapping
+
+    public function getMappings():Array
+    {
+      if (!mappings)
+      {
+        mappings = [];
+      }
+      return mappings;
+    }
+
+    public function get baseMapping():IMapping
     {
       return getFirstMapping();
-    }
-    
-    internal function get mappings():Array
-    {
-      if(!_mappings)
-      {
-        _mappings = [];
-      }
-      return _mappings;
     }
   }
 }
