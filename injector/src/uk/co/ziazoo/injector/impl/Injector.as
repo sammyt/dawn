@@ -50,9 +50,13 @@ package uk.co.ziazoo.injector.impl
       return injector
     }
 
-    public function map(clazz:Class):IMappingBuilder
+
+    /**
+     * @inheritDoc
+     */
+    public function map(type:Class):IMappingBuilder
     {
-      return mapper.map(clazz);
+      return mapper.map(type);
     }
 
     /**
@@ -187,17 +191,21 @@ package uk.co.ziazoo.injector.impl
       injectEagerQueue();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function createChildInjector():IInjector
+    {
+      return null;
+    }
+
     private function getMapping(object:Object, name:String = ""):IMapping
     {
       if (object is Class)
       {
         return mapper.getMapping(getClass(object), name);
       }
-
-      var mapping:Mapping = new Mapping(getClass(object),
-        name, new InstanceProvider(object));
-
-      return mapping;
+      return new Mapping(getClass(object), name, new InstanceProvider(object));
     }
 
     private function getClass(object:Object):Class

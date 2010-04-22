@@ -6,7 +6,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.IScope;
 
-  internal class MappingBuilder implements IMappingBuilder
+  class MappingBuilder implements IMappingBuilder
   {
     private var reflector:Reflector;
     private var mapper:IMapper;
