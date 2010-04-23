@@ -7,8 +7,10 @@ package uk.co.ziazoo.injector.impl
   {
     private var _type:Class;
     private var _name:String;
+    private var _provider:IProvider;
+    private var _justInTime:Boolean;
     
-    public function MockMapping(type:Class, name:String = "")
+    public function MockMapping(type:Class = null, name:String = "")
     {
       _type = type;
       _name = name;
@@ -21,11 +23,12 @@ package uk.co.ziazoo.injector.impl
 
     public function get provider():IProvider
     {
-      return null;
+      return _provider;
     }
 
     public function set provider(value:IProvider):void
     {
+      _provider = value;
     }
 
     public function get name():String
@@ -35,16 +38,17 @@ package uk.co.ziazoo.injector.impl
 
     public function set name(value:String):void
     {
-      _name = name;
+      _name = value;
     }
 
     public function get isJustInTime():Boolean
     {
-      return false;
+      return _justInTime;
     }
 
     public function set isJustInTime(value:Boolean):void
     {
+      _justInTime = value;
     }
   }
 }

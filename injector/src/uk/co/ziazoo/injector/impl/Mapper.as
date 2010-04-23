@@ -6,6 +6,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
+  import uk.co.ziazoo.injector.IMappingBuilderFactory;
 
   internal class Mapper implements IMapper
   {
@@ -20,14 +21,14 @@ package uk.co.ziazoo.injector.impl
      */
     private var mappings:Dictionary;
     
-    private var eagers:Array;
-    private var reflector:Reflector;
+    private var builderFactory:IMappingBuilderFactory;
 
-    public function Mapper(reflector:Reflector)
+    public function Mapper(builderFactory:IMappingBuilderFactory)
     {
+      this.builderFactory = builderFactory;
+
       mappings = new Dictionary();
       builders = [];
-      this.reflector = reflector;
     }
 
     /**
@@ -35,7 +36,7 @@ package uk.co.ziazoo.injector.impl
      */
     public function map(type:Class):IMappingBuilder
     {
-      var builder:IMappingBuilder = new MappingBuilder(type, reflector, this);
+      var builder:IMappingBuilder = builderFactory.forType(type);
       builders.push(builder);
       return builder;
     }
@@ -82,32 +83,7 @@ package uk.co.ziazoo.injector.impl
       return getMapping(type, name);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function addToEagerQueue(mapping:IMapping):void
-    {
-      if (!eagers)
-      {
-        eagers = [];
-      }
-      eagers.push(mapping);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getEagerQueue():Array
-    {
-      var queue:Array = [];
-      for each(var mapping:IMapping in eagers)
-      {
-        queue.push(mapping);
-      }
-      eagers = [];
-      return queue;
-    }
-
+ 
     /**
      * @inheritDoc
      */
@@ -169,14 +145,6 @@ package uk.co.ziazoo.injector.impl
     public function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder
     {
       return justInTimeMap(getDefinitionByName(qName) as Class, name);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function newBuilder(type:Class):IMappingBuilder
-    {
-      return new MappingBuilder(type, reflector, this);
     }
   }
 }

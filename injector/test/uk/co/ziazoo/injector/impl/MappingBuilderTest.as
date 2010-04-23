@@ -21,8 +21,7 @@ package uk.co.ziazoo.injector.impl
     [Before]
     public function setUp():void
     {
-      builder = new MappingBuilder(Apple, new Reflector(), 
-        new Mapper(new Reflector()));
+      builder = new MappingBuilder(Apple, new Reflector(), new EagerQueue());
     }
     
     [After]

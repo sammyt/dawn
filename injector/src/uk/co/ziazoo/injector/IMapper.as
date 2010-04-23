@@ -79,29 +79,5 @@ package uk.co.ziazoo.injector
      * @return IMappingBuilder for mapping
      */
     function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder;
-
-    /**
-     * Creates a IMappingBuilder which allows you to create a IMapping.  However
-     * mappings created with this builder will NOT automatically be added to
-     * this IMapper
-     *
-     * @param type you want to map
-     * @return and unattached IMappingBuilder
-     */
-    function newBuilder(type:Class):IMappingBuilder;
-
-    /**
-     * Adds a mapping to the eager queue of this IMapper
-     *
-     * @param mapper
-     */
-    function addToEagerQueue(mapper:IMapping):void;
-
-    /**
-     * Get the mappings for this mapper than need creating eagerly
-     *
-     * @return the current queue of mappings
-     */
-    function getEagerQueue():Array;
   }
 }

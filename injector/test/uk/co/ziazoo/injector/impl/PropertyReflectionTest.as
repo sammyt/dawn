@@ -44,7 +44,7 @@ package uk.co.ziazoo.injector.impl
       var accessor:XML = <accessor name="radio" access="writeonly" 
         type="some.thing::IRadio" declaredBy="some.thing::Tree">
         <metadata name="Inject"/>
-      </accessor>
+      </accessor>;
       
       var prop:Property = reflector.parseProperty( accessor );
       

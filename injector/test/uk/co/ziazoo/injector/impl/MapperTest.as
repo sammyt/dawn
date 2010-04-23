@@ -17,7 +17,7 @@ package uk.co.ziazoo.injector.impl
     [Before]
     public function setUp():void
     {
-      mapper = new Mapper(null);
+      mapper = new Mapper(new MappingBuilderFactory(null, null));
     }
 
     [After]
@@ -129,16 +129,6 @@ package uk.co.ziazoo.injector.impl
       Assert.assertNotNull(mapping);
       Assert.assertTrue(mapping.isJustInTime);
       Assert.assertNotNull(mapping.provider);
-    }
-
-    [Test]
-    public function canGetEagers():void
-    {
-      var mapping:Mapping = new Mapping(Tree);
-      mapper.addToEagerQueue(mapping);
-
-      Assert.assertTrue("one item in queue", mapper.getEagerQueue().length == 1);
-      Assert.assertTrue("queue cleared", mapper.getEagerQueue().length == 0);
     }
   }
 }

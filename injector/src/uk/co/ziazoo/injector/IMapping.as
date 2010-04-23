@@ -1,6 +1,5 @@
 package uk.co.ziazoo.injector
 {	
-  
   /**
    *  Maps a <code>Class</code> to a <code>IProvider</code> with
    *  a optional name

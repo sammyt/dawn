@@ -28,6 +28,9 @@ package uk.co.ziazoo.injector.impl
       return IMapping(items.pop());
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get length():uint
     {
       return items.length;

@@ -1,21 +1,23 @@
 package uk.co.ziazoo.injector.impl
 {
+  import uk.co.ziazoo.injector.IEagerQueue;
   import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.IScope;
 
-  class MappingBuilder implements IMappingBuilder
+  public class MappingBuilder implements IMappingBuilder
   {
     private var reflector:Reflector;
-    private var mapper:IMapper;
     private var mappings:Array;
+    private var eagerQueue:IEagerQueue;
 
-    public function MappingBuilder(type:Class, reflector:Reflector, mapper:IMapper)
+    public function MappingBuilder(
+      type:Class, reflector:Reflector, eagerQueue:IEagerQueue)
     {
       this.reflector = reflector;
-      this.mapper = mapper;
+      this.eagerQueue = eagerQueue;
       getMappings().push(new Mapping(type));
       to(type);
     }
@@ -86,7 +88,7 @@ package uk.co.ziazoo.injector.impl
     public function asEagerSingleton():void
     {
       asSingleton();
-      mapper.addToEagerQueue(getFirstMapping());
+      eagerQueue.push(getFirstMapping());
     }
 
     private function getFirstProvider():IProvider

@@ -17,6 +17,7 @@ package uk.co.ziazoo.injector.impl
   import some.thing.Table;
   import some.thing.Wibble;
 
+  import uk.co.ziazoo.injector.IEagerQueue;
   import uk.co.ziazoo.injector.IMapper;
 
   public class InjectorTest
@@ -32,13 +33,17 @@ package uk.co.ziazoo.injector.impl
     public function setUp():void
     {
       var reflector:Reflector = new Reflector();
-      mapper = new Mapper(reflector);
+      var eagerQueue:IEagerQueue = new EagerQueue();
+
+      mapper = new Mapper(new MappingBuilderFactory(
+        reflector, eagerQueue));
+      
       var dependencyFactory:DependencyFactory = new DependencyFactory();
       var injectionFactory:InjectionPointFactory =
         new InjectionPointFactory(dependencyFactory, mapper);
 
-      injector = new Injector(
-        dependencyFactory, mapper, injectionFactory, reflector);
+      injector = new Injector( dependencyFactory, mapper, 
+        injectionFactory, reflector, eagerQueue);
     }
 
     [After]
@@ -226,7 +231,6 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function createEagerSingletons():void
     {
-      var createdCount:int = 0;
       injector.map(EagerBunny).asEagerSingleton();
 
       injector.inject(PlantPot);

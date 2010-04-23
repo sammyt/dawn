@@ -5,6 +5,7 @@ package uk.co.ziazoo.injector.impl
 
   import uk.co.ziazoo.injector.IConfiguration;
   import uk.co.ziazoo.injector.IDependency;
+  import uk.co.ziazoo.injector.IEagerQueue;
   import uk.co.ziazoo.injector.IInjectionPoint;
   import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.injector.IMapper;
@@ -18,21 +19,27 @@ package uk.co.ziazoo.injector.impl
     private var dependencyFactory:DependencyFactory;
     private var injectionPointFactory:InjectionPointFactory;
     private var reflector:Reflector;
+    private var eagerQueue:IEagerQueue;
 
     public function Injector(dependencyFactory:DependencyFactory, mapper:IMapper,
-      injectionPointFactory:InjectionPointFactory, reflector:Reflector)
+      injectionPointFactory:InjectionPointFactory,
+      reflector:Reflector, eagerQueue:IEagerQueue)
     {
       this.dependencyFactory = dependencyFactory;
       this.injectionPointFactory = injectionPointFactory;
       this.mapper = mapper;
       this.reflector = reflector;
+      this.eagerQueue = eagerQueue;
     }
 
     public static function createInjector(
       configuration:IConfiguration = null):IInjector
     {
       var reflector:Reflector = new Reflector();
-      var mapper:IMapper = new Mapper(reflector);
+      var eagerQueue:IEagerQueue = new EagerQueue();
+      var mapper:IMapper = new Mapper(
+        new MappingBuilderFactory(reflector, eagerQueue));
+
       var dependencyFactory:DependencyFactory = new DependencyFactory();
       var injectionFactory:InjectionPointFactory =
         new InjectionPointFactory(dependencyFactory, mapper);
@@ -42,8 +49,8 @@ package uk.co.ziazoo.injector.impl
         configuration.configure(mapper);
       }
 
-      var injector:Injector = new Injector(
-        dependencyFactory, mapper, injectionFactory, reflector);
+      var injector:Injector = new Injector(dependencyFactory, mapper,
+        injectionFactory, reflector, eagerQueue);
 
       injector.injectEagerQueue();
 
@@ -175,9 +182,9 @@ package uk.co.ziazoo.injector.impl
 
     internal function injectEagerQueue():void
     {
-      for each(var mapping:IMapping in mapper.getEagerQueue())
+      while(eagerQueue.length > 0)
       {
-        injectMapping(mapping);
+        injectMapping(eagerQueue.pop());
       }
     }
 
