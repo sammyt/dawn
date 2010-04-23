@@ -6,31 +6,31 @@ package uk.co.ziazoo.injector.impl
   {
     private var constructor:Constructor;
     private var dependencies:Array;
-    
-    public function ConstructorInjectionPoint( constructor:Constructor )
+
+    public function ConstructorInjectionPoint(constructor:Constructor)
     {
       this.constructor = constructor;
       dependencies = [];
     }
-    
+
     public function getDependencies():Array
     {
       return dependencies;
     }
-    
+
     public function isOptional():Boolean
     {
       return false;
     }
-    
-    public function addObserver( observer:IInjectionObserver ):void
+
+    public function addObserver(observer:IInjectionObserver):void
     {
-      
+
     }
-    
-    internal function addDependency( dependency:IDependency ):void
+
+    internal function addDependency(dependency:IDependency):void
     {
-      dependencies.push( dependency );
+      dependencies.push(dependency);
     }
   }
 }

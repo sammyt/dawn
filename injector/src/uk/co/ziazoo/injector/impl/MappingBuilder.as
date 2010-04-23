@@ -1,7 +1,6 @@
 package uk.co.ziazoo.injector.impl
 {
   import uk.co.ziazoo.injector.IEagerQueue;
-  import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.IProvider;

@@ -182,7 +182,7 @@ package uk.co.ziazoo.injector.impl
 
     internal function injectEagerQueue():void
     {
-      while(eagerQueue.length > 0)
+      while (eagerQueue.length > 0)
       {
         injectMapping(eagerQueue.pop());
       }

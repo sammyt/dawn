@@ -1,4 +1,4 @@
-package uk.co.ziazoo.injector.impl 
+package uk.co.ziazoo.injector.impl
 {
   import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IInjectionPoint;
@@ -11,48 +11,48 @@ package uk.co.ziazoo.injector.impl
     private var injectionPoint:IInjectionPoint;
     private var _parameterIndex:int;
     private var instance:Object;
-    
-    public function Dependency( mapping:IMapping,
-      injectionPoint:IInjectionPoint = null )
+
+    public function Dependency(mapping:IMapping,
+      injectionPoint:IInjectionPoint = null)
     {
       this.mapping = mapping;
       _parameterIndex = 0;
-      if( injectionPoint )
+      if (injectionPoint)
       {
         this.injectionPoint = injectionPoint;
       }
     }
-    
+
     public function getObject():Object
     {
-      if( !instance )
+      if (!instance)
       {
         instance = getProvider().getObject();
       }
-      return instance; 
+      return instance;
     }
-    
+
     public function getMapping():IMapping
     {
       return mapping;
     }
-    
+
     public function getProvider():IProvider
     {
       return mapping.provider;
     }
-    
+
     public function getParent():IInjectionPoint
     {
       return injectionPoint;
     }
-    
+
     public function get parameterIndex():int
     {
       return _parameterIndex;
     }
-    
-    public function set parameterIndex(value:int):void 
+
+    public function set parameterIndex(value:int):void
     {
       _parameterIndex = value;
     }

@@ -13,84 +13,84 @@ package uk.co.ziazoo.injector.impl
   public class MappingBuilderTest
   {
     private var builder:MappingBuilder;
-    
+
     public function MappingBuilderTest()
     {
     }
-    
+
     [Before]
     public function setUp():void
     {
       builder = new MappingBuilder(Apple, new Reflector(), new EagerQueue());
     }
-    
+
     [After]
     public function tearDown():void
     {
       builder = null;
     }
-    
+
     [Test]
     public function createMapping():void
     {
       builder.to(Car);
       var mapping:IMapping = builder.getFirstMapping();
-      Assert.assertTrue( "maps correct class", mapping.type == Apple );
-      Assert.assertTrue( "provider of correct type", 
-        mapping.provider is BasicProvider );
-      
-      var provider:BasicProvider = BasicProvider( mapping.provider );
-      Assert.assertTrue( "provider for Car", provider.type == Car );
+      Assert.assertTrue("maps correct class", mapping.type == Apple);
+      Assert.assertTrue("provider of correct type",
+        mapping.provider is BasicProvider);
+
+      var provider:BasicProvider = BasicProvider(mapping.provider);
+      Assert.assertTrue("provider for Car", provider.type == Car);
     }
-    
+
     [Test]
     public function createMappingWithName():void
     {
       builder.to(Car).named("car tree?");
-      
+
       var mapping:IMapping = builder.getFirstMapping();
-      Assert.assertTrue( "maps correct class", mapping.type == Apple );
-      Assert.assertTrue( "provider of correct type", 
-        mapping.provider is BasicProvider );
-      
-      var provider:BasicProvider = BasicProvider( mapping.provider );
-      Assert.assertTrue( "provider for Car", provider.type == Car );
-      
-      Assert.assertTrue( "gets the name right", mapping.name == "car tree?" );
+      Assert.assertTrue("maps correct class", mapping.type == Apple);
+      Assert.assertTrue("provider of correct type",
+        mapping.provider is BasicProvider);
+
+      var provider:BasicProvider = BasicProvider(mapping.provider);
+      Assert.assertTrue("provider for Car", provider.type == Car);
+
+      Assert.assertTrue("gets the name right", mapping.name == "car tree?");
     }
-    
+
     [Test]
     public function testMultiMapping():void
     {
       builder.to(IRadio).and(LoudRadio);
-      
+
       var mappings:Array = builder.getMappings();
-      
+
       Assert.assertTrue("two mappings", mappings.length == 2);
-      
+
       var provider:IProvider = builder.baseMapping.provider;
-      
+
       for each(var mapping:IMapping in mappings)
       {
-        Assert.assertTrue("both mapped to same provider", 
+        Assert.assertTrue("both mapped to same provider",
           provider == mapping.provider);
       }
     }
-    
+
     [Test]
     public function testMultiMappingScope():void
     {
       builder.to(IRadio).and(LoudRadio).asSingleton();
-      
+
       var mappings:Array = builder.getMappings();
-      
+
       Assert.assertTrue("two mappings", mappings.length == 2);
-      
+
       var provider:IProvider = builder.getFirstMapping().provider;
-      
+
       for each(var mapping:IMapping in mappings)
       {
-        Assert.assertTrue("both mapped to same singleton provider", 
+        Assert.assertTrue("both mapped to same singleton provider",
           provider == mapping.provider);
       }
     }

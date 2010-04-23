@@ -1,6 +1,8 @@
 package uk.co.ziazoo.injector.impl
 {
-  import uk.co.ziazoo.injector.*;
+  import uk.co.ziazoo.injector.IInjectionPoint;
+  import uk.co.ziazoo.injector.IMapper;
+  import uk.co.ziazoo.injector.IMapping;
 
   internal class InjectionPointFactory
   {
@@ -38,7 +40,7 @@ package uk.co.ziazoo.injector.impl
       {
         mapping = mapper.justInTimeMapByQName(qName, name).baseMapping;
       }
-      
+
       injectionPoint.setDependency(
         dependencyFactory.forMapping(mapping, injectionPoint));
 

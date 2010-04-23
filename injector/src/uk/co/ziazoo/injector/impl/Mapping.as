@@ -1,4 +1,4 @@
-package uk.co.ziazoo.injector.impl 
+package uk.co.ziazoo.injector.impl
 {
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IProvider;
@@ -9,9 +9,9 @@ package uk.co.ziazoo.injector.impl
     private var _name:String;
     private var _provider:IProvider;
     private var _isJustInTime:Boolean;
-    
-    public function Mapping( type:Class, name:String = "", 
-      provider:IProvider = null )
+
+    public function Mapping(type:Class, name:String = "",
+      provider:IProvider = null)
     {
       _type = type;
       _name = name;
@@ -33,12 +33,12 @@ package uk.co.ziazoo.injector.impl
     {
       return _provider;
     }
-    
-    public function set provider(value:IProvider):void 
+
+    public function set provider(value:IProvider):void
     {
       _provider = value;
     }
-    
+
 
     /**
      * @inheritDoc
@@ -47,8 +47,8 @@ package uk.co.ziazoo.injector.impl
     {
       return _name;
     }
-    
-    public function set name(value:String):void 
+
+    public function set name(value:String):void
     {
       _name = value;
     }

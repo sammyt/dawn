@@ -6,14 +6,14 @@ package uk.co.ziazoo.injector.impl
   {
     public var name:String;
     public var properties:Dictionary;
-    
+
     public function Metadata()
     {
     }
-    
-    public function addProperty( name:String, value:String ):void
+
+    public function addProperty(name:String, value:String):void
     {
-      if( !properties )
+      if (!properties)
       {
         properties = new Dictionary();
       }

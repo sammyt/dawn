@@ -20,7 +20,7 @@ package uk.co.ziazoo.injector.impl
      * map of mappings [Class][String]
      */
     private var mappings:Dictionary;
-    
+
     private var builderFactory:IMappingBuilderFactory;
 
     public function Mapper(builderFactory:IMappingBuilderFactory)
@@ -65,7 +65,7 @@ package uk.co.ziazoo.injector.impl
     {
       processBuilders();
 
-      if(mappings[type])
+      if (mappings[type])
       {
         var key:String = name == "" || !name ? "no_name" : name;
         return mappings[type][key] as IMapping;
@@ -83,7 +83,7 @@ package uk.co.ziazoo.injector.impl
       return getMapping(type, name);
     }
 
- 
+
     /**
      * @inheritDoc
      */
@@ -97,12 +97,12 @@ package uk.co.ziazoo.injector.impl
      */
     public function add(mapping:IMapping):void
     {
-        if(!mappings[mapping.type])
-        {
-          mappings[mapping.type] = new Dictionary();
-        }
-        var key:String = mapping.name == "" || !mapping.name ? "no_name" : mapping.name;
-        mappings[mapping.type][key] = mapping;
+      if (!mappings[mapping.type])
+      {
+        mappings[mapping.type] = new Dictionary();
+      }
+      var key:String = mapping.name == "" || !mapping.name ? "no_name" : mapping.name;
+      mappings[mapping.type][key] = mapping;
     }
 
     /**
@@ -118,10 +118,10 @@ package uk.co.ziazoo.injector.impl
      */
     public function removeFor(type:Class, name:String = ""):void
     {
-      if(mappings[type])
+      if (mappings[type])
       {
         var byName:Dictionary = mappings[type] as Dictionary;
-        if(byName[name])
+        if (byName[name])
         {
           delete byName[name];
         }

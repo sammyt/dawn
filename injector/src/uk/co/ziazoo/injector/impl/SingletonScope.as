@@ -1,4 +1,4 @@
-package uk.co.ziazoo.injector.impl 
+package uk.co.ziazoo.injector.impl
 {
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.IScope;
@@ -7,20 +7,20 @@ package uk.co.ziazoo.injector.impl
   {
     private var provider:IProvider;
     private var instance:Object;
-    
+
     public function SingletonScope()
     {
     }
-    
+
     public function wrap(provider:IProvider):IScope
     {
       this.provider = provider;
       return this;
     }
-    
+
     public function get requiresInjection():Boolean
     {
-      if( instance )
+      if (instance)
       {
         return false;
       }
@@ -29,15 +29,15 @@ package uk.co.ziazoo.injector.impl
         return provider.requiresInjection;
       }
     }
-    
+
     public function get instanceCreated():Boolean
     {
       return provider.instanceCreated;
     }
-    
+
     public function getObject():Object
     {
-      if( !instance )
+      if (!instance)
       {
         instance = provider.getObject();
       }

@@ -6,28 +6,28 @@ package uk.co.ziazoo.injector.impl
   {
     private var dependencies:Array;
     private var property:Property;
-    
-    public function PropertyInjectionPoint( property:Property )
+
+    public function PropertyInjectionPoint(property:Property)
     {
       this.property = property;
     }
-    
+
     public function getPropertyName():String
     {
-      return property.name;  
+      return property.name;
     }
-    
+
     public function getDependencies():Array
     {
       return dependencies;
     }
-    
+
     public function isOptional():Boolean
     {
       return false;
     }
-    
-    public function setDependency( dependency:IDependency ):void
+
+    public function setDependency(dependency:IDependency):void
     {
       dependencies = [ dependency ];
     }

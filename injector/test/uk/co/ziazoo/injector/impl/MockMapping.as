@@ -9,7 +9,7 @@ package uk.co.ziazoo.injector.impl
     private var _name:String;
     private var _provider:IProvider;
     private var _justInTime:Boolean;
-    
+
     public function MockMapping(type:Class = null, name:String = "")
     {
       _type = type;

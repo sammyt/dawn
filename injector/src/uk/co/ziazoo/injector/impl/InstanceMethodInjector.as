@@ -1,4 +1,4 @@
-package uk.co.ziazoo.injector.impl 
+package uk.co.ziazoo.injector.impl
 {
   import uk.co.ziazoo.injector.*;
 
@@ -6,41 +6,41 @@ package uk.co.ziazoo.injector.impl
   {
     private var methodName:String;
     private var dependencies:Array;
-    
-    public function InstanceMethodInjector( methodName:String, dependencies:Array )
+
+    public function InstanceMethodInjector(methodName:String, dependencies:Array)
     {
       this.methodName = methodName;
       this.dependencies = dependencies;
     }
-    
-    public function inject( instance:Object ):void
+
+    public function inject(instance:Object):void
     {
       sortDependencies();
-      
+
       var args:Array = [];
-      
-      for each( var dependency:IDependency in dependencies ) 
+
+      for each(var dependency:IDependency in dependencies)
       {
-        args.push( dependency.getObject() );
+        args.push(dependency.getObject());
       }
-      
+
       var fnt:Function = instance[ methodName ] as Function;
-      
-      fnt.apply( instance, args );
+
+      fnt.apply(instance, args);
     }
-    
+
     internal function sortDependencies():void
     {
-      dependencies.sort( sortOnIndex );
+      dependencies.sort(sortOnIndex);
     }
-    
-    private function sortOnIndex( a:IDependency, b:IDependency ):Number
+
+    private function sortOnIndex(a:IDependency, b:IDependency):Number
     {
-      if( a.parameterIndex > b.parameterIndex )
+      if (a.parameterIndex > b.parameterIndex)
       {
         return 1;
       }
-      else if( a.parameterIndex < b.parameterIndex )
+      else if (a.parameterIndex < b.parameterIndex)
       {
         return -1;
       }

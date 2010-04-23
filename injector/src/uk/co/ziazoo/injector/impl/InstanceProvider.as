@@ -9,37 +9,37 @@ package uk.co.ziazoo.injector.impl
   {
     private var instance:Object;
     private var _type:Class;
-    
-    public function InstanceProvider( instance:Object )
+
+    public function InstanceProvider(instance:Object)
     {
       this.instance = instance;
     }
-    
+
     public function get type():Class
     {
-      if( !_type )
+      if (!_type)
       {
-        _type = Class( getDefinitionByName( getQualifiedClassName( instance ) ) );
+        _type = Class(getDefinitionByName(getQualifiedClassName(instance)));
       }
       return _type;
     }
-    
+
     public function getObject():Object
     {
       return instance;
     }
-    
+
     public function get requiresInjection():Boolean
     {
       return true;
     }
-    
+
     public function get instanceCreated():Boolean
     {
       return true;
     }
-    
-    public function withDependencies( dependencies:Array ):void
+
+    public function withDependencies(dependencies:Array):void
     {
     }
   }

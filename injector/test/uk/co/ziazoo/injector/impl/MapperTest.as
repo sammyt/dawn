@@ -80,7 +80,7 @@ package uk.co.ziazoo.injector.impl
       mapper.add(car);
       mapper.add(tree);
 
-      Assert.assertTrue(mapper.hasMapping(Tree, "pine")) ;
+      Assert.assertTrue(mapper.hasMapping(Tree, "pine"));
       Assert.assertTrue(mapper.hasMapping(Tree, "apple"));
       Assert.assertTrue(mapper.hasMapping(Tree));
       Assert.assertTrue(mapper.hasMapping(Car));
@@ -88,7 +88,7 @@ package uk.co.ziazoo.injector.impl
       mapper.remove(pine);
 
       Assert.assertFalse(mapper.hasMapping(Tree, "pine"));
-      Assert.assertTrue(mapper.hasMapping(Tree, "apple")); 
+      Assert.assertTrue(mapper.hasMapping(Tree, "apple"));
       Assert.assertTrue(mapper.hasMapping(Tree));
       Assert.assertTrue(mapper.hasMapping(Car));
     }
@@ -111,7 +111,7 @@ package uk.co.ziazoo.injector.impl
       Assert.assertTrue(mapper.hasMapping(Tree));
       Assert.assertTrue(mapper.hasMapping(Car));
 
-      mapper.removeFor(Tree,"pine");
+      mapper.removeFor(Tree, "pine");
 
       Assert.assertFalse(mapper.hasMapping(Tree, "pine"));
       Assert.assertTrue(mapper.hasMapping(Tree, "apple"));
