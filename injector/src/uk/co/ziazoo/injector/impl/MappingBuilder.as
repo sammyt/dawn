@@ -95,7 +95,7 @@ package uk.co.ziazoo.injector.impl
       return getFirstMapping().provider;
     }
 
-    internal function getFirstMapping():IMapping
+    private function getFirstMapping():IMapping
     {
       return (mappings[0] as IMapping);
     }

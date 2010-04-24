@@ -21,6 +21,9 @@ package uk.co.ziazoo.injector.impl
      */
     private var mappings:Dictionary;
 
+    /**
+     * used to create the mappings with the mapping DSL
+     */
     private var builderFactory:IMappingBuilderFactory;
 
     public function Mapper(builderFactory:IMappingBuilderFactory)
@@ -67,7 +70,7 @@ package uk.co.ziazoo.injector.impl
 
       if (mappings[type])
       {
-        var key:String = name == "" || !name ? "no_name" : name;
+        var key:String = emptyNameCheck(name);
         return mappings[type][key] as IMapping;
       }
       return null;
@@ -101,8 +104,13 @@ package uk.co.ziazoo.injector.impl
       {
         mappings[mapping.type] = new Dictionary();
       }
-      var key:String = mapping.name == "" || !mapping.name ? "no_name" : mapping.name;
+      var key:String = emptyNameCheck(mapping.name);
       mappings[mapping.type][key] = mapping;
+    }
+
+    private function emptyNameCheck(name:String):String
+    {
+      return name == "" || !name ? "no_name" : name;
     }
 
     /**
