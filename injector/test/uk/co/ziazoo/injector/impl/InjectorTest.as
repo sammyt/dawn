@@ -18,7 +18,9 @@ package uk.co.ziazoo.injector.impl
   import some.thing.Wibble;
 
   import uk.co.ziazoo.injector.IEagerQueue;
+  import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.injector.IMapper;
+  import uk.co.ziazoo.injector.IMapping;
 
   public class InjectorTest
   {
@@ -37,10 +39,6 @@ package uk.co.ziazoo.injector.impl
 
       mapper = new Mapper(new MappingBuilderFactory(
         reflector, eagerQueue));
-
-      var dependencyFactory:DependencyFactory = new DependencyFactory();
-      var injectionFactory:InjectionPointFactory =
-        new InjectionPointFactory(dependencyFactory, mapper);
 
       injector = new Injector(mapper, eagerQueue, reflector);
     }
@@ -315,6 +313,51 @@ package uk.co.ziazoo.injector.impl
       Assert.assertTrue("obj is an Car", obj is Car);
       Assert.assertTrue("obj is instance", obj == instance);
       Assert.assertNotNull("Car has an Engine", instance.engine);
+    }
+
+    [Test]
+    public function childInjectorCreation():void
+    {
+      var child:IInjector = injector.createChildInjector();
+      Assert.assertNotNull(child);
+      Assert.assertNotNull(child.parent);
+      Assert.assertTrue(child.parent == injector);
+      Assert.assertTrue(child != injector);
+    }
+
+    [Test]
+    public function mappingFilterDown():void
+    {
+      injector.map(IDial).to(DigitalDial);
+      injector.map(IDial).named("analog").to(AnalogDial);
+      injector.map(String).named("bike name").toInstance("my bike");
+
+      var child:IInjector = injector.createChildInjector();
+
+      Assert.assertNotNull(child.getMapping(IDial));
+
+      var fromParent:IMapping = injector.getMapping(IDial, "analog");
+      var fromChild:IMapping = child.getMapping(IDial, "analog");
+
+      Assert.assertTrue(fromChild == fromParent);
+    }
+
+
+    [Test]
+    public function childMappingArePrivateFromParent():void
+    {
+      var child:IInjector = injector.createChildInjector();
+
+      child.map(IDial).named("analog").to(AnalogDial);
+
+      var fromParent:IMapping = injector.getMapping(IDial, "analog");
+      var fromChild:IMapping = child.getMapping(IDial, "analog");
+
+      Assert.assertNotNull(fromChild);
+      Assert.assertNotNull(fromParent);
+      Assert.assertFalse(fromChild == fromParent);
+      Assert.assertTrue(fromParent.isJustInTime);
+      Assert.assertFalse(fromChild.isJustInTime);
     }
   }
 }

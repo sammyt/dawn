@@ -23,7 +23,7 @@ package uk.co.ziazoo.injector.impl
     private var reflector:Reflector;
     private var mapper:IMapper;
     private var eagerQueue:IEagerQueue;
-    private var parent:IInjector;
+    private var _parent:IInjector;
 
     public function Injector(mapper:IMapper, eagerQueue:IEagerQueue,
       reflector:Reflector, parent:IInjector = null)
@@ -31,7 +31,7 @@ package uk.co.ziazoo.injector.impl
       this.reflector = reflector;
       this.eagerQueue = eagerQueue;
       this.mapper = mapper;
-      this.parent = parent;
+      _parent = parent;
     }
 
     public static function createInjector(
@@ -216,10 +216,10 @@ package uk.co.ziazoo.injector.impl
     public function createChildInjector():IInjector
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
-      var mapper:IMapper = new Mapper(
+      var childMapper:IMapper = new Mapper(
         new MappingBuilderFactory(reflector, eagerQueue));
 
-      return new Injector(mapper, eagerQueue, reflector, this);
+      return new Injector(childMapper, eagerQueue, reflector, this);
     }
 
     /**
@@ -308,6 +308,14 @@ package uk.co.ziazoo.injector.impl
     public function set injectionPointFactory(value:InjectionPointFactory):void
     {
       _injectionPointFactory = value;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get parent():IInjector
+    {
+      return _parent;
     }
   }
 }

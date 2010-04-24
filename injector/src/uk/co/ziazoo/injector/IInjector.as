@@ -32,7 +32,7 @@ package uk.co.ziazoo.injector
      * will only be used when special exposed mappings are requested
      *
      * @param configuration the private configuration to install
-     * @param private configurations create child injectors under the hood, you
+     * @return private configurations create child injectors under the hood, you
      * do not need to keep a reference to them if you do not want to as the
      * mappings will be accessable to this (parent) injector through the
      */
@@ -77,5 +77,12 @@ package uk.co.ziazoo.injector
      * @return IMappingBuilder tp construct mapping
      */
     function justInTimeMap(type:Class, name:String):IMapping
+
+    /**
+     * If this child was created as a child of another injector this
+     * points to the parent
+     * @return parent injector this one was created from, else null
+     */
+    function get parent():IInjector;
   }
 }
