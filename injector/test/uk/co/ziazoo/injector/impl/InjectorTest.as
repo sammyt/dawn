@@ -42,8 +42,7 @@ package uk.co.ziazoo.injector.impl
       var injectionFactory:InjectionPointFactory =
         new InjectionPointFactory(dependencyFactory, mapper);
 
-      injector = new Injector(dependencyFactory, mapper,
-        injectionFactory, reflector, eagerQueue);
+      injector = new Injector(mapper, eagerQueue, reflector);
     }
 
     [After]

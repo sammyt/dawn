@@ -34,7 +34,7 @@ package uk.co.ziazoo.injector.impl
     public function createMapping():void
     {
       builder.to(Car);
-      var mapping:IMapping = builder.getFirstMapping();
+      var mapping:IMapping = builder.baseMapping;
       Assert.assertTrue("maps correct class", mapping.type == Apple);
       Assert.assertTrue("provider of correct type",
         mapping.provider is BasicProvider);
@@ -48,7 +48,7 @@ package uk.co.ziazoo.injector.impl
     {
       builder.to(Car).named("car tree?");
 
-      var mapping:IMapping = builder.getFirstMapping();
+      var mapping:IMapping = builder.baseMapping;
       Assert.assertTrue("maps correct class", mapping.type == Apple);
       Assert.assertTrue("provider of correct type",
         mapping.provider is BasicProvider);
@@ -86,7 +86,7 @@ package uk.co.ziazoo.injector.impl
 
       Assert.assertTrue("two mappings", mappings.length == 2);
 
-      var provider:IProvider = builder.getFirstMapping().provider;
+      var provider:IProvider = builder.baseMapping.provider;
 
       for each(var mapping:IMapping in mappings)
       {

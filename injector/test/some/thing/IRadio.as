@@ -1,8 +1,8 @@
-package some.thing 
+package some.thing
 {
   public interface IRadio
   {
-    
+
   }
 }
 

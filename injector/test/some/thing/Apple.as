@@ -1,4 +1,4 @@
-package some.thing 
+package some.thing
 {
   public class Apple
   {

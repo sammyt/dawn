@@ -5,7 +5,7 @@ package some.thing
     public function PlantPotFactory()
     {
     }
-    
+
     [Provider]
     public function getPlantPot():PlantPot
     {
