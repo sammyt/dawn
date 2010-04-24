@@ -359,6 +359,27 @@ package uk.co.ziazoo.injector.impl
       Assert.assertTrue(fromParent.isJustInTime);
       Assert.assertFalse(fromChild.isJustInTime);
     }
+
+    [Test]
+    public function mappingFilterDownManyLayers():void
+    {
+      injector.map(IDial).to(DigitalDial);
+      injector.map(IDial).named("analog").to(AnalogDial);
+      injector.map(String).named("bike name").toInstance("my bike");
+
+      var child:IInjector = injector.createChildInjector();
+      var grandChild:IInjector = child.createChildInjector();
+
+      Assert.assertNotNull(child.getMapping(IDial));
+      Assert.assertNotNull(grandChild.getMapping(IDial));
+
+      var fromParent:IMapping = injector.getMapping(IDial, "analog");
+      var fromChild:IMapping = child.getMapping(IDial, "analog");
+      var fromGrandChild:IMapping = grandChild.getMapping(IDial, "analog");
+
+      Assert.assertTrue(fromChild == fromParent);
+      Assert.assertTrue(fromChild == fromGrandChild);
+    }
   }
 }
 
