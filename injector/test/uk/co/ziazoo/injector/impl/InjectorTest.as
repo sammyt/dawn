@@ -5,11 +5,13 @@ package uk.co.ziazoo.injector.impl
 
   import some.otherthing.*;
   import some.thing.Apple;
+  import some.thing.BigEngine;
   import some.thing.Car;
   import some.thing.CarWithTwoRadios;
   import some.thing.EagerBunny;
   import some.thing.Ground;
   import some.thing.IRadio;
+  import some.thing.LittleEngine;
   import some.thing.LoudRadio;
   import some.thing.PlantPot;
   import some.thing.PlantPotFactory;
@@ -380,8 +382,56 @@ package uk.co.ziazoo.injector.impl
       Assert.assertTrue(fromChild == fromParent);
       Assert.assertTrue(fromChild == fromGrandChild);
     }
+
+    [Test]
+    public function usingPrivateConfig():void
+    {
+      injector.installPrivate(new BigCarConfig());
+      injector.installPrivate(new LittleCarConfig());
+
+      var car:Car = Car(injector.inject(Car));
+      Assert.assertNotNull(car);
+
+      var bigCar:Car = Car(injector.inject(Car, "Big"));
+      Assert.assertNotNull(bigCar);
+      Assert.assertNotNull(bigCar.engine);
+      Assert.assertTrue(bigCar.engine is BigEngine);
+
+      var littleCar:Car = Car(injector.inject(Car, "Little"));
+      Assert.assertNotNull(littleCar);
+      Assert.assertNotNull(littleCar.engine);
+      Assert.assertTrue(littleCar.engine is LittleEngine);
+
+      var littleEngine:LittleEngine = LittleEngine(littleCar.engine);
+
+      Assert.assertTrue(littleEngine.cylinders == 4);
+    }
   }
 }
 
+import some.thing.BigEngine;
+import some.thing.Car;
+import some.thing.Engine;
+import some.thing.LittleEngine;
 
+import uk.co.ziazoo.injector.IPrivateConfiguration;
+import uk.co.ziazoo.injector.IPrivateMapper;
 
+class BigCarConfig implements IPrivateConfiguration
+{
+  public function configure(mapper:IPrivateMapper):void
+  {
+    mapper.map(Engine).to(BigEngine);
+    mapper.expose(Car, "Big");
+  }
+}
+
+class LittleCarConfig implements IPrivateConfiguration
+{
+  public function configure(mapper:IPrivateMapper):void
+  {
+    mapper.map(Engine).to(LittleEngine);
+    mapper.map(int).named("cylinder count").toInstance(4);
+    mapper.expose(Car, "Little");
+  }
+}
