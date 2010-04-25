@@ -150,7 +150,8 @@ package uk.co.ziazoo.injector.impl
     /**
      * @inheritDoc
      */
-    public function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder
+    public function justInTimeMapByQName(
+      qName:String, name:String = ""):IMappingBuilder
     {
       return justInTimeMap(getDefinitionByName(qName) as Class, name);
     }

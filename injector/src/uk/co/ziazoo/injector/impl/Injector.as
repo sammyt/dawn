@@ -21,7 +21,7 @@ package uk.co.ziazoo.injector.impl
     private var _injectionPointFactory:InjectionPointFactory;
 
     private var reflector:Reflector;
-    private var mapper:IMapper;
+    private var mapper:IMapperList;
     private var eagerQueue:IEagerQueue;
     private var _parent:IInjector;
 
@@ -30,7 +30,7 @@ package uk.co.ziazoo.injector.impl
     {
       this.reflector = reflector;
       this.eagerQueue = eagerQueue;
-      this.mapper = mapper;
+      this.mapper = new MapperList(mapper);
       _parent = parent;
     }
 
@@ -66,16 +66,19 @@ package uk.co.ziazoo.injector.impl
     /**
      *  @inheritDoc
      */
-    public function inject(object:Object):Object
+    public function inject(object:Object, name:String = ""):Object
     {
       injectEagerQueue();
 
-      var mapping:IMapping = findMapping(object);
+      var mapping:IMapping = findMapping(object, name);
       if (!mapping)
       {
         mapping = mapper.justInTimeMap(getClass(object)).baseMapping;
       }
-      return injectMapping(mapping);
+
+      var result:Object = injectMapping(mapping);
+      mapper.injectionComplete();
+      return result;
     }
 
     private function injectMapping(mapping:IMapping):Object
@@ -204,7 +207,9 @@ package uk.co.ziazoo.injector.impl
       var eagerQueue:IEagerQueue = new EagerQueue();
 
       var privateMapper:IPrivateMapper = new PrivateMapper(
-        new MappingBuilderFactory(reflector, eagerQueue));
+        new MappingBuilderFactory(reflector, eagerQueue), mapper);
+
+      configuration.configure(privateMapper);
 
       return new Injector(privateMapper, eagerQueue, reflector, this);
     }

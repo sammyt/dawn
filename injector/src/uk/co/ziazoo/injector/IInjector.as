@@ -14,7 +14,7 @@ package uk.co.ziazoo.injector
      * @param object can be a class of and instance
      * @return the injected onject
      */
-    function inject(object:Object):Object;
+    function inject(object:Object, name:String = ""):Object;
 
     /**
      * Dawn knows how to provide dependencies for injection
