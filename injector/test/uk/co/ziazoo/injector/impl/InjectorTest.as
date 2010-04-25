@@ -164,7 +164,8 @@ package uk.co.ziazoo.injector.impl
       Assert.assertNotNull(obj);
       Assert.assertTrue("obj is an Apple", obj is Apple);
 
-      Assert.assertTrue("same instance returned", obj == injector.inject(Apple));
+      Assert.assertTrue("same instance returned", obj ==
+        injector.inject(Apple));
     }
 
     [Test]
@@ -216,7 +217,8 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function doesPostConstructGetCalled():void
     {
-      var engine:SlowBikeEngine = SlowBikeEngine(injector.inject(SlowBikeEngine));
+      var engine:SlowBikeEngine = SlowBikeEngine(
+        injector.inject(SlowBikeEngine));
       Assert.assertTrue("PostConstruct method called", engine.invokeCount == 1);
     }
 
@@ -224,7 +226,8 @@ package uk.co.ziazoo.injector.impl
     public function doesDependenciesInjectedGetCalled():void
     {
       var dial:DigitalDial = DigitalDial(injector.inject(DigitalDial));
-      Assert.assertTrue("DependenciesInjected method called", dial.invokeCount == 1);
+      Assert.assertTrue("DependenciesInjected method called",
+        dial.invokeCount == 1);
     }
 
     [Test]
@@ -390,14 +393,15 @@ package uk.co.ziazoo.injector.impl
       injector.installPrivate(new LittleCarConfig());
 
       var car:Car = Car(injector.inject(Car));
+      var bigCar:Car = Car(injector.inject(Car, "Big"));
+      var littleCar:Car = Car(injector.inject(Car, "Little"));
+
       Assert.assertNotNull(car);
 
-      var bigCar:Car = Car(injector.inject(Car, "Big"));
       Assert.assertNotNull(bigCar);
       Assert.assertNotNull(bigCar.engine);
       Assert.assertTrue(bigCar.engine is BigEngine);
 
-      var littleCar:Car = Car(injector.inject(Car, "Little"));
       Assert.assertNotNull(littleCar);
       Assert.assertNotNull(littleCar.engine);
       Assert.assertTrue(littleCar.engine is LittleEngine);
