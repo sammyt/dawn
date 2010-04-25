@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application 
-	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	layout="horizontal" minWidth="1024" minHeight="768"
-	creationComplete="onCreationComplete(event)">
-	
-	<mx:Script>
+<mx:Application
+  xmlns:mx="http://www.adobe.com/2006/mxml"
+  layout="horizontal" minWidth="1024" minHeight="768"
+  creationComplete="onCreationComplete(event)">
+
+  <mx:Script>
 		<![CDATA[
     import com.example.commands.CreateContactCommand;
     import com.example.commands.GetContactsCommand;
@@ -14,8 +14,12 @@
 
     import mx.events.FlexEvent;
 
-    import uk.co.ziazoo.Dawn;
+    import uk.co.ziazoo.command.CommandMap;
     import uk.co.ziazoo.command.ICommandMap;
+    import uk.co.ziazoo.injector.IInjector;
+    import uk.co.ziazoo.injector.impl.Injector;
+    import uk.co.ziazoo.notifier.INotifier;
+    import uk.co.ziazoo.notifier.Notifier;
 
     [Inject]
     /**
@@ -41,20 +45,24 @@
     /**
      * The application wide notification bus
      */
-    public var bus:INotificationBus;
+    public var bus:INotifier;
 
     protected function onCreationComplete(event:FlexEvent):void
     {
-      // setup the Dawn builder
-      var dawn:Dawn = new Dawn();
-      dawn.install(new ContactAppConfig(this));
+      var injector:IInjector = Injector.createInjector();
+
+      injector.map(ICommandMap).to(CommandMap);
+      injector.map(INotifier).to(Notifier);
+      injector.map(IInjector).to(injector);
+
+      injector.install(new ContactAppConfig(this));
 
       // construct the application
-      dawn.inject(this);
+      injector.inject(this);
 
       // register any commands
-      commands.addCommand(GetContactsCommand);
-      commands.addCommand(CreateContactCommand);
+      commands.add(GetContactsCommand);
+      commands.add(CreateContactCommand);
 
       // add the view objects to the display
       addChild(listPresenter.displayObject);
@@ -65,5 +73,5 @@
     }
 		]]>
 	</mx:Script>
-	
+
 </mx:Application>
