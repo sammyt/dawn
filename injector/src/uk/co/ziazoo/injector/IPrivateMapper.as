@@ -11,7 +11,5 @@ package uk.co.ziazoo.injector
      * @param name to expose with
      */
     function expose(type:Class, name:String):void;
-
-    // function isExposed(type:Class, name:String):Boolean;
   }
 }
