@@ -410,6 +410,12 @@ package uk.co.ziazoo.injector.impl
 
       Assert.assertTrue(littleEngine.cylinders == 4);
     }
+
+    [Test]
+    public function throwsNoMappingError():void
+    {
+      injector.inject(Wibble);
+    }
   }
 }
 
