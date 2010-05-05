@@ -9,10 +9,11 @@ package uk.co.ziazoo.injector
      * Injects the object of class provided
      *
      * e.g.
-     * inject(IService) or inject(myServiceObj)
+     * inject(IService), inject(myServiceObj) or inject(IThing, "foo")
      *
      * @param object can be a class of and instance
-     * @return the injected onject
+     * @param name an optional name where a specific mapping is required
+     * @return the injected object
      */
     function inject(object:Object, name:String = ""):Object;
 
@@ -34,7 +35,7 @@ package uk.co.ziazoo.injector
      * @param configuration the private configuration to install
      * @return private configurations create child injectors under the hood, you
      * do not need to keep a reference to them if you do not want to as the
-     * mappings will be accessable to this (parent) injector through the
+     * mappings will be accessible to this (parent) injector through the
      */
     function installPrivate(configuration:IPrivateConfiguration):IInjector;
 
