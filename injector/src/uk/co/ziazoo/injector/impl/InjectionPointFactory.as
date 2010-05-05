@@ -91,6 +91,8 @@ package uk.co.ziazoo.injector.impl
         var name:String = getNameForParam(constructor.metadatas, parameter);
         var mapping:IMapping = mapper.getMappingForQName(qName, name);
 
+        // TODO: if there is no mapping, check if IP is optional
+
         if (!mapping)
         {
           mapping = mapper.justInTimeMapByQName(qName, name).baseMapping;
