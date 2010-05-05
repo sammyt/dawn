@@ -1,18 +1,27 @@
 package uk.co.ziazoo.injector
 {
+  import uk.co.ziazoo.fussy.TypeDescription;
+
   public interface IDependency
   {
-    function getMapping():IMapping;
+    /**
+     * Provider used to create object
+     * @return IProvider for this dependency
+     */
+    function get provider():IProvider;
 
-    function getProvider():IProvider;
-
-    function getParent():IInjectionPoint;
-
+    /**
+     * Gets the object from the provider
+     * @return object from dependency
+     */
     function getObject():Object;
 
-    function get parameterIndex():int;
-
-    function set parameterIndex(value:int):void;
+    /**
+     * Returns the ITypeInjectionDetails instance for this
+     * dependencies type.  Used to get things like the injectable methods
+     * @return a ITypeInjectionDetails object
+     */
+    function get injectionDetails():ITypeInjectionDetails;
   }
 }
 

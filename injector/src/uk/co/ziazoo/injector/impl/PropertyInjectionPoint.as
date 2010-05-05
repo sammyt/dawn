@@ -1,20 +1,22 @@
 package uk.co.ziazoo.injector.impl
 {
-  import uk.co.ziazoo.injector.*;
+  import uk.co.ziazoo.fussy.model.Property;
+  import uk.co.ziazoo.injector.IDependency;
+  import uk.co.ziazoo.injector.IInjectionPoint;
 
   internal class PropertyInjectionPoint implements IInjectionPoint
   {
     private var dependencies:Array;
-    private var property:Property;
+    private var _property:Property;
 
     public function PropertyInjectionPoint(property:Property)
     {
-      this.property = property;
+      _property = property;
     }
 
-    public function getPropertyName():String
+    public function get property():Property
     {
-      return property.name;
+      return _property;
     }
 
     public function getDependencies():Array

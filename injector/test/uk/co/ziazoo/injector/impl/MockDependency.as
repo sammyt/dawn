@@ -5,32 +5,10 @@ package uk.co.ziazoo.injector.impl
   public class MockDependency implements IDependency
   {
     private var object:Object;
-    private var _parameterIndex:int = 0;
 
-    public function MockDependency(object:Object, index:int = 0)
+    public function MockDependency(object:Object)
     {
       this.object = object;
-      parameterIndex = index;
-    }
-
-    public function getMapping():IMapping
-    {
-      return null;
-    }
-
-    public function getParent():IInjectionPoint
-    {
-      return null;
-    }
-
-    public function getProvider():IProvider
-    {
-      return null;
-    }
-
-    public function getInjectionPoints():Array
-    {
-      return null
     }
 
     public function getObject():Object
@@ -38,14 +16,14 @@ package uk.co.ziazoo.injector.impl
       return object;
     }
 
-    public function get parameterIndex():int
+    public function get provider():IProvider
     {
-      return _parameterIndex;
+      return null;
     }
 
-    public function set parameterIndex(value:int):void
+    public function get injectionDetails():ITypeInjectionDetails
     {
-      _parameterIndex = value;
+      return null;
     }
   }
 }

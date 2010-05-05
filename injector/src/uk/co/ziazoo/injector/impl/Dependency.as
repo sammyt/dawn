@@ -1,49 +1,39 @@
 package uk.co.ziazoo.injector.impl
 {
+  import uk.co.ziazoo.fussy.query.ITypeQuery;
   import uk.co.ziazoo.injector.IDependency;
-  import uk.co.ziazoo.injector.IInjectionPoint;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IProvider;
+  import uk.co.ziazoo.injector.ITypeInjectionDetails;
   import uk.co.ziazoo.injector.InjectorError;
 
   internal class Dependency implements IDependency
   {
-    private var mapping:IMapping;
-    private var injectionPoint:IInjectionPoint;
-    private var _parameterIndex:int;
     private var instance:Object;
+    private var _provider:IProvider;
+    private var _injectionDetails:ITypeInjectionDetails;
 
-    public function Dependency(mapping:IMapping,
-      injectionPoint:IInjectionPoint = null)
+    public function Dependency(provider:IProvider,
+      injectionDetails:ITypeInjectionDetails)
     {
-      this.mapping = mapping;
-      _parameterIndex = 0;
-      if (injectionPoint)
-      {
-        this.injectionPoint = injectionPoint;
-      }
+      _provider = provider;
+      _injectionDetails = injectionDetails;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getObject():Object
     {
       if (!instance)
       {
         try
         {
-          instance = getProvider().getObject();
+          instance = provider.getObject();
         }
         catch(error:VerifyError)
         {
-          /*
-           TODO: Meaningful error message
-
-           If the mapping is just-in-time explain that the mapping was dawns
-           attempt to auto map or {type} and {name}
-
-           If its not a just-in-time mapping they must
-           have mapped it incorrectly
-           */
-
+          // TODO: Meaningful error message
           var injectorError:InjectorError = new InjectorError();
           throw injectorError;
         }
@@ -51,29 +41,20 @@ package uk.co.ziazoo.injector.impl
       return instance;
     }
 
-    public function getMapping():IMapping
+    /**
+     * @inheritDoc
+     */
+    public function get provider():IProvider
     {
-      return mapping;
+      return _provider;
     }
 
-    public function getProvider():IProvider
+    /**
+     * @inheritDoc
+     */
+    public function get injectionDetails():ITypeInjectionDetails
     {
-      return mapping.provider;
-    }
-
-    public function getParent():IInjectionPoint
-    {
-      return injectionPoint;
-    }
-
-    public function get parameterIndex():int
-    {
-      return _parameterIndex;
-    }
-
-    public function set parameterIndex(value:int):void
-    {
-      _parameterIndex = value;
+      return _injectionDetails;
     }
   }
 }

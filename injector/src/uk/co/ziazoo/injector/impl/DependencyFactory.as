@@ -1,17 +1,21 @@
 package uk.co.ziazoo.injector.impl
 {
-  import uk.co.ziazoo.injector.*;
+  import uk.co.ziazoo.injector.IDependency;
+  import uk.co.ziazoo.injector.IProvider;
+  import uk.co.ziazoo.injector.ITypeInjectionDetailsFactory;
 
   internal class DependencyFactory
   {
-    public function DependencyFactory()
+    private var factory:ITypeInjectionDetailsFactory;
+
+    public function DependencyFactory(factory:ITypeInjectionDetailsFactory)
     {
+      this.factory = factory;
     }
 
-    public function forMapping(mapping:IMapping,
-      injectionPoint:IInjectionPoint = null):IDependency
+    public function forProvider(provider:IProvider):IDependency
     {
-      return new Dependency(mapping, injectionPoint);
+      return new Dependency(provider, factory.forType(provider.type));
     }
   }
 }

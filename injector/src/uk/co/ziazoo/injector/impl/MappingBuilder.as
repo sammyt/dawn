@@ -5,18 +5,19 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IMappingBuilder;
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.IScope;
+  import uk.co.ziazoo.injector.ITypeInjectionDetailsFactory;
 
   public class MappingBuilder implements IMappingBuilder
   {
-    private var reflector:Reflector;
     private var mappings:Array;
     private var eagerQueue:IEagerQueue;
+    private var detailsFactory:ITypeInjectionDetailsFactory;
 
-    public function MappingBuilder(
-      type:Class, reflector:Reflector, eagerQueue:IEagerQueue)
+    public function MappingBuilder(type:Class, eagerQueue:IEagerQueue,
+      detailsFactory:ITypeInjectionDetailsFactory)
     {
-      this.reflector = reflector;
       this.eagerQueue = eagerQueue;
+      this.detailsFactory = detailsFactory;
       getMappings().push(new Mapping(type));
       to(type);
     }
@@ -40,7 +41,7 @@ package uk.co.ziazoo.injector.impl
 
     public function toFactory(factory:Class):IMappingBuilder
     {
-      setProvider(new FactoryProvider(factory, reflector));
+      setProvider(new FactoryProvider(factory, detailsFactory.forType(factory)));
       return this;
     }
 

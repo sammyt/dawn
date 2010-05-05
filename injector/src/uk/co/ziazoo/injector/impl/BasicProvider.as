@@ -1,5 +1,6 @@
 package uk.co.ziazoo.injector.impl
 {
+  import uk.co.ziazoo.fussy.InstanceCreator;
   import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IProvider;
 

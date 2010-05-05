@@ -1,6 +1,8 @@
 package uk.co.ziazoo.injector.impl
 {
-  import uk.co.ziazoo.injector.*;
+  import uk.co.ziazoo.fussy.model.Constructor;
+  import uk.co.ziazoo.injector.IDependency;
+  import uk.co.ziazoo.injector.IInjectionPoint;
 
   internal class ConstructorInjectionPoint implements IInjectionPoint
   {

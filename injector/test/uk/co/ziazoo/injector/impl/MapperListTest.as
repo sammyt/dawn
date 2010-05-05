@@ -36,8 +36,7 @@ package uk.co.ziazoo.injector.impl
 
     private function createMapper():IMapper
     {
-      return new Mapper(new MappingBuilderFactory(
-        new Reflector(), new EagerQueue()));
+      return new Mapper(new MappingBuilderFactory(new EagerQueue(), null));
     }
 
     [Test]

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>injector</artifactId>
   <packaging>swc</packaging>
   <name>IOC library</name>
+
   <parent>
     <groupId>uk.co.ziazoo</groupId>
     <artifactId>dawn</artifactId>
@@ -44,6 +47,12 @@
     </plugins>
   </build>
   <dependencies>
+    <dependency>
+      <groupId>uk.co.ziazoo</groupId>
+      <artifactId>fussy</artifactId>
+      <version>0.1-SNAPSHOT</version>
+      <type>swc</type>
+    </dependency>
     <dependency>
       <groupId>com.adobe.flex.framework</groupId>
       <artifactId>flex-framework</artifactId>

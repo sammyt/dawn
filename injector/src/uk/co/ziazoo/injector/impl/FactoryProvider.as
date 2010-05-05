@@ -1,20 +1,22 @@
 package uk.co.ziazoo.injector.impl
 {
+  import uk.co.ziazoo.fussy.InstanceCreator;
   import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IProvider;
+  import uk.co.ziazoo.injector.ITypeInjectionDetails;
 
   internal class FactoryProvider implements IProvider
   {
     private var factoryType:Class;
     private var params:Array;
     private var factory:Object;
-    private var reflector:Reflector;
-    private var methodName:String;
+    private var details:ITypeInjectionDetails;
 
-    public function FactoryProvider(factoryType:Class, reflector:Reflector)
+    public function FactoryProvider(factoryType:Class,
+      details:ITypeInjectionDetails)
     {
-      this.reflector = reflector;
       this.factoryType = factoryType;
+      this.details = details;
     }
 
     public function get type():Class
@@ -58,16 +60,7 @@ package uk.co.ziazoo.injector.impl
 
     private function getMethodName():String
     {
-      if (!methodName)
-      {
-        var reflection:Reflection = reflector.getReflection(factoryType);
-
-        if (reflection.hasProviderMethod())
-        {
-          methodName = reflection.providerMethod.name;
-        }
-      }
-      return methodName;
+      return details.providerMethod.name;
     }
   }
 }

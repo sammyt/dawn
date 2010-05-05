@@ -1,21 +1,23 @@
 package uk.co.ziazoo.injector.impl
 {
-  import uk.co.ziazoo.injector.*;
+  import uk.co.ziazoo.fussy.model.Method;
+  import uk.co.ziazoo.injector.IDependency;
+  import uk.co.ziazoo.injector.IInjectionPoint;
 
   internal class MethodInjectionPoint implements IInjectionPoint
   {
-    private var method:Method;
+    private var _method:Method;
     private var dependencies:Array;
 
     public function MethodInjectionPoint(method:Method)
     {
-      this.method = method;
+      _method = method;
       dependencies = [];
     }
 
-    public function getMethodName():String
+    public function get method():Method
     {
-      return method.name;
+      return _method;
     }
 
     public function getDependencies():Array

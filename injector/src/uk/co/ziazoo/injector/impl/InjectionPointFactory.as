@@ -1,8 +1,14 @@
 package uk.co.ziazoo.injector.impl
 {
+  import uk.co.ziazoo.fussy.model.Constructor;
+  import uk.co.ziazoo.fussy.model.Metadata;
+  import uk.co.ziazoo.fussy.model.Method;
+  import uk.co.ziazoo.fussy.model.Parameter;
+  import uk.co.ziazoo.fussy.model.Property;
   import uk.co.ziazoo.injector.IInjectionPoint;
   import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
+  import uk.co.ziazoo.injector.ITypeInjectionDetails;
 
   internal class InjectionPointFactory
   {
@@ -16,17 +22,17 @@ package uk.co.ziazoo.injector.impl
       this.mapper = mapper;
     }
 
-    public function forProperties(properties:Array):Array
+    public function forProperties(details:ITypeInjectionDetails):Array
     {
       var injectionPoints:Array = [];
-      for each(var property:Property in properties)
+      for each(var property:Property in details.properties)
       {
         injectionPoints.push(forProperty(property));
       }
       return injectionPoints;
     }
 
-    public function forProperty(property:Property):IInjectionPoint
+    internal function forProperty(property:Property):IInjectionPoint
     {
       var injectionPoint:PropertyInjectionPoint =
         new PropertyInjectionPoint(property);
@@ -41,31 +47,30 @@ package uk.co.ziazoo.injector.impl
         mapping = mapper.justInTimeMapByQName(qName, name).baseMapping;
       }
 
-      injectionPoint.setDependency(
-        dependencyFactory.forMapping(mapping, injectionPoint));
+      injectionPoint.setDependency(dependencyFactory.forProvider(mapping.provider));
 
       return injectionPoint;
     }
 
-    public function forMethods(methods:Array):Array
+    public function forMethods(details:ITypeInjectionDetails):Array
     {
       var injectionPoints:Array = [];
-      for each(var method:Method in methods)
+      for each(var method:Method in details.methods)
       {
         injectionPoints.push(forMethod(method));
       }
       return injectionPoints;
     }
 
-    public function forMethod(method:Method):IInjectionPoint
+    internal function forMethod(method:Method):IInjectionPoint
     {
       var injectionPoint:MethodInjectionPoint =
         new MethodInjectionPoint(method);
 
-      for each(var parameter:Parameter in method.params)
+      for each(var parameter:Parameter in method.parameters)
       {
         var qName:String = parameter.type;
-        var name:String = getNameForParam(method.metadatas, parameter);
+        var name:String = getNameForParam(method.metadata, parameter);
 
         var mapping:IMapping = mapper.getMappingForQName(qName, name);
 
@@ -74,32 +79,30 @@ package uk.co.ziazoo.injector.impl
           mapping = mapper.justInTimeMapByQName(qName, name).baseMapping;
         }
 
-        injectionPoint.addDependency(
-          dependencyFactory.forMapping(mapping, injectionPoint));
+        injectionPoint.addDependency(dependencyFactory.forProvider(mapping.provider));
       }
       return injectionPoint;
     }
 
-    public function forConstructor(constructor:Constructor):IInjectionPoint
+    public function forConstructor(details:ITypeInjectionDetails):IInjectionPoint
     {
+      var constructor:Constructor = details.constructor;
       var injectionPoint:ConstructorInjectionPoint =
         new ConstructorInjectionPoint(constructor);
 
-      for each(var parameter:Parameter in constructor.params)
+      for each(var parameter:Parameter in constructor.parameters)
       {
         var qName:String = parameter.type;
-        var name:String = getNameForParam(constructor.metadatas, parameter);
-        var mapping:IMapping = mapper.getMappingForQName(qName, name);
+        var name:String = getNameForParam(details.metadata, parameter);
 
-        // TODO: if there is no mapping, check if IP is optional
+        var mapping:IMapping = mapper.getMappingForQName(qName, name);
 
         if (!mapping)
         {
           mapping = mapper.justInTimeMapByQName(qName, name).baseMapping;
         }
 
-        injectionPoint.addDependency(
-          dependencyFactory.forMapping(mapping, injectionPoint));
+        injectionPoint.addDependency(dependencyFactory.forProvider(mapping.provider));
       }
       return injectionPoint;
     }
@@ -123,7 +126,7 @@ package uk.co.ziazoo.injector.impl
     internal function getNameForProperty(property:Property):String
     {
       var fromInject:String;
-      for each(var metadata:Metadata in property.metadatas)
+      for each(var metadata:Metadata in property.metadata)
       {
         if (metadata.name == "Inject")
         {
