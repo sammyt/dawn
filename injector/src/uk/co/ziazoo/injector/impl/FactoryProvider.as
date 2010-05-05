@@ -5,13 +5,28 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.ITypeInjectionDetails;
 
+  /**
+   * FactoryProvider's use custom user code to create objects.  The factorys
+   * can have dependencies of their own
+   */
   internal class FactoryProvider implements IProvider
   {
+    /**
+     * @private
+     * the factory object used to create instances
+     */
+    internal var factory:Object;
+
     private var factoryType:Class;
-    private var params:Array;
-    private var factory:Object;
+    private var parameters:Array;
     private var details:ITypeInjectionDetails;
 
+    /**
+     * Creates a FactoryProvider for a custom user class
+     * @param factoryType the class used to create instance of the type that
+     * is injected
+     * @param details the ITypeInjectionDetails for the factoryType class
+     */
     public function FactoryProvider(factoryType:Class,
       details:ITypeInjectionDetails)
     {
@@ -19,36 +34,51 @@ package uk.co.ziazoo.injector.impl
       this.details = details;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get type():Class
     {
       return factoryType;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getObject():Object
     {
       if (!factory)
       {
-        factory = InstanceCreator.create(factoryType, params);
+        factory = InstanceCreator.create(factoryType, parameters);
       }
       return invokeFactoryMethod();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get requiresInjection():Boolean
     {
       return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get instanceCreated():Boolean
     {
       return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setDependencies(dependencies:Array):void
     {
-      params = [];
+      parameters = [];
       for each(var dependency:IDependency in dependencies)
       {
-        params.push(dependency.getObject());
+        parameters.push(dependency.getObject());
       }
     }
 

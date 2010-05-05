@@ -224,15 +224,6 @@ package uk.co.ziazoo.injector.impl
     }
 
     [Test]
-    [Ignore]
-    public function doesDependenciesInjectedGetCalled():void
-    {
-      var dial:DigitalDial = DigitalDial(injector.inject(DigitalDial));
-      Assert.assertTrue("DependenciesInjected method called",
-        dial.invokeCount == 1);
-    }
-
-    [Test]
     public function createEagerSingletons():void
     {
       injector.map(EagerBunny).asEagerSingleton();
