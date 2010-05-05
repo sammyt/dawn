@@ -4,6 +4,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.injector.IInjectionPoint;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IProvider;
+  import uk.co.ziazoo.injector.InjectorError;
 
   internal class Dependency implements IDependency
   {
@@ -27,7 +28,25 @@ package uk.co.ziazoo.injector.impl
     {
       if (!instance)
       {
-        instance = getProvider().getObject();
+        try
+        {
+          instance = getProvider().getObject();
+        }
+        catch(error:VerifyError)
+        {
+          /*
+           TODO: Meaningful error message
+
+           If the mapping is just-in-time explain that the mapping was dawns
+           attempt to auto map or {type} and {name}
+
+           If its not a just-in-time mapping they must
+           have mapped it incorrectly
+           */
+
+          var injectorError:InjectorError = new InjectorError();
+          throw injectorError;
+        }
       }
       return instance;
     }
