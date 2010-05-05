@@ -130,7 +130,7 @@ package uk.co.ziazoo.injector.impl
           {
             create(child);
           }
-          provider.withDependencies(injectionPoint.getDependencies());
+          provider.setDependencies(injectionPoint.getDependencies());
         }
       }
 

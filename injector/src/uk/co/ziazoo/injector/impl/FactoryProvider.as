@@ -43,7 +43,7 @@ package uk.co.ziazoo.injector.impl
       return true;
     }
 
-    public function withDependencies(dependencies:Array):void
+    public function setDependencies(dependencies:Array):void
     {
       params = [];
       for each(var dependency:IDependency in dependencies)

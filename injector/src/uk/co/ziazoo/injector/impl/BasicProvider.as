@@ -20,7 +20,7 @@ package uk.co.ziazoo.injector.impl
       return InstanceCreator.create(_type, params);
     }
 
-    public function withDependencies(dependencies:Array):void
+    public function setDependencies(dependencies:Array):void
     {
       params = [];
       for each(var dependency:IDependency in dependencies)

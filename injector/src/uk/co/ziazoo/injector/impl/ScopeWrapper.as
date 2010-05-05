@@ -19,9 +19,9 @@ package uk.co.ziazoo.injector.impl
       return provider.type;
     }
 
-    public function withDependencies(dependencies:Array):void
+    public function setDependencies(dependencies:Array):void
     {
-      provider.withDependencies(dependencies);
+      provider.setDependencies(dependencies);
     }
 
     public function get requiresInjection():Boolean

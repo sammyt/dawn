@@ -29,7 +29,7 @@ package uk.co.ziazoo.injector.impl
     {
       var provider:BasicProvider = new BasicProvider(MoterBike);
       var dep:IDependency = new MockDependency(new SlowBikeEngine());
-      provider.withDependencies([dep]);
+      provider.setDependencies([dep]);
       var bike:MoterBike = provider.getObject() as MoterBike;
       Assert.assertNotNull(bike);
     }
