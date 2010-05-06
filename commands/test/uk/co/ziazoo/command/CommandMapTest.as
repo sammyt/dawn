@@ -84,5 +84,36 @@ package uk.co.ziazoo.command
       injector.map(MockCommandTooManyParams).toInstance(command);
       commands.add(MockCommandTooManyParams);
     }
+
+    [Test]
+    public function createByInjector():void
+    {
+      var injector = Injector.createInjector();
+
+      var query:IQuery = new Fussy().query().findMethods()
+        .withMetadata("Execute").withArgsLengthOf(1);
+
+      injector.map(IInjector).toInstance(injector);
+      injector.map(IQuery).named("execute query").toInstance(query);
+      injector.map(INotifier).to(Notifier).asSingleton();
+      injector.map(ICommandMap).to(CommandMap);
+
+      var commandMap:ICommandMap = injector.inject(ICommandMap) as ICommandMap;
+
+      Assert.assertNotNull(commandMap);
+
+      var command:MockCommand = new MockCommand();
+
+      injector.map(MockCommand).toInstance(command);
+
+      commandMap.add(MockCommand);
+
+      var notifier:INotifier = INotifier(injector.inject(INotifier));
+      notifier.trigger("object of same type as execute method param");
+
+      Assert.assertNotNull("can create command", injector.inject(MockCommand));
+      Assert.assertTrue("same instance", injector.inject(MockCommand) == command);
+      Assert.assertEquals("command has executed", 1, command.invokeCount);
+    }
   }
 }

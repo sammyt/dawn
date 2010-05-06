@@ -9,6 +9,11 @@ package uk.co.ziazoo.command
   import uk.co.ziazoo.notifier.INotifier;
 
   /**
+   * Name the executeQuery parameter
+   */
+  [Named(index="3", name="execute query")]
+
+  /**
    * Implements ICommandMap allowing users to register commands with
    * Dawn.
    */
