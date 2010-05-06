@@ -5,7 +5,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.fussy.model.Method;
   import uk.co.ziazoo.fussy.query.IQuery;
   import uk.co.ziazoo.fussy.query.ITypeQuery;
-  import uk.co.ziazoo.fussy.query.Query;
+  import uk.co.ziazoo.fussy.query.QueryBuilder;
   import uk.co.ziazoo.injector.ITypeInjectionDetails;
   import uk.co.ziazoo.injector.ITypeInjectionDetailsFactory;
 
@@ -16,7 +16,7 @@ package uk.co.ziazoo.injector.impl
   public class FussyTypeDetailsFactory implements ITypeInjectionDetailsFactory
   {
     private var cache:Dictionary;
-    private var query:Query;
+    private var query:QueryBuilder;
     private var methodsQuery:IQuery;
     private var propertiesQuery:IQuery;
     private var postConstructQuery:IQuery;
@@ -27,7 +27,7 @@ package uk.co.ziazoo.injector.impl
      * Create instance of FussyTypeDetailsFactory
      * @param query created by fussy used to query types
      */
-    public function FussyTypeDetailsFactory(query:Query)
+    public function FussyTypeDetailsFactory(query:QueryBuilder)
     {
       this.query = query;
 
