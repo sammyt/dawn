@@ -33,7 +33,6 @@ package uk.co.ziazoo.injector.impl
         }
         catch(error:VerifyError)
         {
-          // TODO: Meaningful error message
           var injectorError:InjectorError = new InjectorError();
           throw injectorError;
         }

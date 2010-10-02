@@ -20,11 +20,6 @@ package uk.co.ziazoo.injector.impl
       return dependencies;
     }
 
-    public function isOptional():Boolean
-    {
-      return false;
-    }
-
     internal function addDependency(dependency:IDependency):void
     {
       dependencies.push(dependency);

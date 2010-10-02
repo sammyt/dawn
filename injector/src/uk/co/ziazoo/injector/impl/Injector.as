@@ -302,7 +302,8 @@ package uk.co.ziazoo.injector.impl
     {
       if (!_injectionPointFactory)
       {
-        _injectionPointFactory = new InjectionPointFactory(dependencyFactory, mapper);
+        _injectionPointFactory =
+          new InjectionPointFactory(dependencyFactory, mapper);
       }
       return _injectionPointFactory;
     }

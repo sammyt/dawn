@@ -24,11 +24,6 @@ package uk.co.ziazoo.injector.impl
       return dependencies;
     }
 
-    public function isOptional():Boolean
-    {
-      return false;
-    }
-
     public function setDependency(dependency:IDependency):void
     {
       dependencies = [ dependency ];

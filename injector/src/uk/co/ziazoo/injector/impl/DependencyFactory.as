@@ -1,10 +1,11 @@
 package uk.co.ziazoo.injector.impl
 {
   import uk.co.ziazoo.injector.IDependency;
+  import uk.co.ziazoo.injector.IDependencyFactory;
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.ITypeInjectionDetailsFactory;
 
-  internal class DependencyFactory
+  internal class DependencyFactory implements IDependencyFactory
   {
     private var factory:ITypeInjectionDetailsFactory;
 

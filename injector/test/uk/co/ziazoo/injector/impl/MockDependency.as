@@ -25,5 +25,15 @@ package uk.co.ziazoo.injector.impl
     {
       return null;
     }
+
+    public function get isOptional():Boolean
+    {
+      return false;
+    }
+
+    public function get optedOut():Boolean
+    {
+      return false;
+    }
   }
 }

@@ -187,7 +187,7 @@ package uk.co.ziazoo.injector.impl
     }
 
     [Test]
-    public function injectNamedInInjectSystax():void
+    public function injectNamedInInjectSyntax():void
     {
       mapper.map(IRadio).to(QuietRadio);
       mapper.map(IRadio).to(LoudRadio).named("loud");
