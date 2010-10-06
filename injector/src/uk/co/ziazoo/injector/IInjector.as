@@ -60,6 +60,23 @@ package uk.co.ziazoo.injector
     function getMapping(type:Class, name:String = ""):IMapping;
 
     /**
+     * Tests is this IMapper has a mapping for the type and name supplied
+     *
+     * @param type of object who's mapping you are searching for
+     * @param name optional name of the mapping
+     * @return true if a mapping exists in this IMapper, else false
+     */
+    function hasMapping(type:Class, name:String = ""):Boolean;
+
+    /**
+     * Remove with the type and name the mapping is created for
+     *
+     * @param type of mapping to remove
+     * @param name of mapping to remove
+     */
+    function removeMapping(type:Class, name:String = ""):void;
+
+    /**
      * Creates a child injector of this instance.  A child injector inherits
      * all the mappings of this injector, and can define its own that
      * are not shared back up the tree
@@ -85,5 +102,11 @@ package uk.co.ziazoo.injector
      * @return parent injector this one was created from, else null
      */
     function get parent():IInjector;
+
+    /**
+     * The <code>IMapper</code> instance for this injector
+     * @return injectors mapper instance
+     */
+    function get mapper():IMapper;
   }
 }

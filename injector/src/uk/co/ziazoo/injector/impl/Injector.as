@@ -24,7 +24,7 @@ package uk.co.ziazoo.injector.impl
     private var _dependencyFactory:DependencyFactory;
     private var _injectionPointFactory:InjectionPointFactory;
 
-    private var mapper:IMapperList;
+    private var _mapper:IMapperList;
     private var eagerQueue:IEagerQueue;
     private var detailsFactory:ITypeInjectionDetailsFactory;
     private var _parent:IInjector;
@@ -39,11 +39,11 @@ package uk.co.ziazoo.injector.impl
      * @param parent injector if this is a child instance
      */
     public function Injector(mapper:IMapper, eagerQueue:IEagerQueue,
-      detailsFactory:ITypeInjectionDetailsFactory, parent:IInjector = null)
+            detailsFactory:ITypeInjectionDetailsFactory, parent:IInjector = null)
     {
       this.eagerQueue = eagerQueue;
-      this.mapper = new MapperList(mapper);
       this.detailsFactory = detailsFactory;
+      _mapper = new MapperList(mapper);
       _parent = parent;
     }
 
@@ -53,20 +53,19 @@ package uk.co.ziazoo.injector.impl
      * @return new injector instance
      */
     public static function createInjector(
-      configuration:IConfiguration = null):IInjector
+            configuration:IConfiguration = null):IInjector
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
 
       var detailsFactory:ITypeInjectionDetailsFactory =
-        new FussyTypeDetailsFactory(new Fussy().query());
+              new FussyTypeDetailsFactory(new Fussy().query());
 
       var mapper:IMapper = new Mapper(
-        new MappingBuilderFactory(eagerQueue, detailsFactory));
+              new MappingBuilderFactory(eagerQueue, detailsFactory));
 
       var injector:Injector = new Injector(mapper, eagerQueue, detailsFactory);
 
-      if (configuration)
-      {
+      if (configuration) {
         injector.install(configuration);
       }
 
@@ -91,20 +90,19 @@ package uk.co.ziazoo.injector.impl
       injectEagerQueue();
 
       var mapping:IMapping = findMapping(object, name);
-      if (!mapping)
-      {
+      if (!mapping) {
         mapping = mapper.justInTimeMap(getClass(object)).baseMapping;
       }
 
       var result:Object = injectMapping(mapping);
-      mapper.injectionComplete();
+      _mapper.injectionComplete();
       return result;
     }
 
     private function injectMapping(mapping:IMapping):Object
     {
       var dependency:IDependency =
-        dependencyFactory.forProvider(mapping.provider);
+              dependencyFactory.forProvider(mapping.provider);
 
       return create(dependency).getObject();
     }
@@ -112,22 +110,18 @@ package uk.co.ziazoo.injector.impl
     private function create(dependency:IDependency):IDependency
     {
       var provider:IProvider = dependency.provider;
-      if (!provider.requiresInjection)
-      {
+      if (!provider.requiresInjection) {
         return dependency;
       }
 
-      if (!provider.instanceCreated)
-      {
+      if (!provider.instanceCreated) {
         var constructor:Constructor = dependency.injectionDetails.constructor;
 
-        if (constructor.parameters.length)
-        {
+        if (constructor.parameters.length) {
           var injectionPoint:IInjectionPoint =
-            injectionPointFactory.forConstructor(dependency.injectionDetails);
+                  injectionPointFactory.forConstructor(dependency.injectionDetails);
 
-          for each(var child:IDependency in injectionPoint.getDependencies())
-          {
+          for each(var child:IDependency in injectionPoint.getDependencies()) {
             create(child);
           }
           provider.setDependencies(injectionPoint.getDependencies());
@@ -145,8 +139,7 @@ package uk.co.ziazoo.injector.impl
     {
       var method:Method = dependency.injectionDetails.postConstructMethod;
 
-      if (method)
-      {
+      if (method) {
         method.invoke(dependency.getObject());
       }
     }
@@ -154,12 +147,10 @@ package uk.co.ziazoo.injector.impl
     private function injectPropertyDependencies(dependency:IDependency):void
     {
       var injectionPoints:Array =
-        injectionPointFactory.forProperties(dependency.injectionDetails);
+              injectionPointFactory.forProperties(dependency.injectionDetails);
 
-      for each(var injectionPoint:PropertyInjectionPoint in injectionPoints)
-      {
-        for each(var child:IDependency in injectionPoint.getDependencies())
-        {
+      for each(var injectionPoint:PropertyInjectionPoint in injectionPoints) {
+        for each(var child:IDependency in injectionPoint.getDependencies()) {
           var instance:Object = dependency.getObject();
           injectionPoint.property.setter(instance, create(child).getObject());
         }
@@ -169,13 +160,11 @@ package uk.co.ziazoo.injector.impl
     private function injectMethodDependencies(dependency:IDependency):void
     {
       var injectionPoints:Array =
-        injectionPointFactory.forMethods(dependency.injectionDetails);
+              injectionPointFactory.forMethods(dependency.injectionDetails);
 
-      for each(var injectionPoint:MethodInjectionPoint in injectionPoints)
-      {
+      for each(var injectionPoint:MethodInjectionPoint in injectionPoints) {
         var args:Array = [];
-        for each(var child:IDependency in injectionPoint.getDependencies())
-        {
+        for each(var child:IDependency in injectionPoint.getDependencies()) {
           args.push(create(child).getObject());
         }
         injectionPoint.method.invoke(dependency.getObject(), args);
@@ -184,8 +173,7 @@ package uk.co.ziazoo.injector.impl
 
     internal function injectEagerQueue():void
     {
-      while (eagerQueue.length > 0)
-      {
+      while (eagerQueue.length > 0) {
         injectMapping(eagerQueue.pop());
       }
     }
@@ -204,12 +192,12 @@ package uk.co.ziazoo.injector.impl
      * @inheritDoc
      */
     public function installPrivate(
-      configuration:IPrivateConfiguration):IInjector
+            configuration:IPrivateConfiguration):IInjector
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
 
       var privateMapper:IPrivateMapper = new PrivateMapper(
-        new MappingBuilderFactory(eagerQueue, detailsFactory), mapper);
+              new MappingBuilderFactory(eagerQueue, detailsFactory), _mapper);
 
       configuration.configure(privateMapper);
 
@@ -224,7 +212,7 @@ package uk.co.ziazoo.injector.impl
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
       var childMapper:IMapper = new Mapper(
-        new MappingBuilderFactory(eagerQueue, detailsFactory));
+              new MappingBuilderFactory(eagerQueue, detailsFactory));
 
       return new Injector(childMapper, eagerQueue, detailsFactory, this);
     }
@@ -235,10 +223,8 @@ package uk.co.ziazoo.injector.impl
     public function getMapping(type:Class, name:String = ""):IMapping
     {
       var mapping:IMapping = findMapping(type, name);
-      if (!mapping)
-      {
-        if (parent)
-        {
+      if (!mapping) {
+        if (parent) {
           return parent.getMapping(type, name);
         }
         return justInTimeMap(type, name);
@@ -264,8 +250,7 @@ package uk.co.ziazoo.injector.impl
      */
     private function findMapping(object:Object, name:String = ""):IMapping
     {
-      if (object is Class)
-      {
+      if (object is Class) {
         return mapper.getMapping(getClass(object), name);
       }
       return new Mapping(getClass(object), name, new InstanceProvider(object));
@@ -273,12 +258,10 @@ package uk.co.ziazoo.injector.impl
 
     private function getClass(object:Object):Class
     {
-      if (object is Class)
-      {
+      if (object is Class) {
         return object as Class;
       }
-      else
-      {
+      else {
         return getDefinitionByName(getQualifiedClassName(object)) as Class;
       }
     }
@@ -288,8 +271,7 @@ package uk.co.ziazoo.injector.impl
      */
     public function get dependencyFactory():DependencyFactory
     {
-      if (!_dependencyFactory)
-      {
+      if (!_dependencyFactory) {
         _dependencyFactory = new DependencyFactory(detailsFactory);
       }
       return _dependencyFactory;
@@ -300,10 +282,9 @@ package uk.co.ziazoo.injector.impl
      */
     public function get injectionPointFactory():InjectionPointFactory
     {
-      if (!_injectionPointFactory)
-      {
+      if (!_injectionPointFactory) {
         _injectionPointFactory =
-          new InjectionPointFactory(dependencyFactory, mapper);
+                new InjectionPointFactory(dependencyFactory, mapper);
       }
       return _injectionPointFactory;
     }
@@ -314,6 +295,30 @@ package uk.co.ziazoo.injector.impl
     public function get parent():IInjector
     {
       return _parent;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasMapping(type:Class, name:String = ""):Boolean
+    {
+      return mapper.hasMapping(type, name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function removeMapping(type:Class, name:String = ""):void
+    {
+      mapper.removeFor(type, name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get mapper():IMapper
+    {
+      return _mapper;
     }
   }
 }
