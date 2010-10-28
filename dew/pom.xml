@@ -46,16 +46,19 @@
             <groupId>uk.co.ziazoo</groupId>
             <artifactId>injector</artifactId>
             <version>0.8.5-SNAPSHOT</version>
+            <type>swc</type>
         </dependency>
         <dependency>
             <groupId>uk.co.ziazoo</groupId>
             <artifactId>bus</artifactId>
             <version>0.8.5-SNAPSHOT</version>
+            <type>swc</type>
         </dependency>
         <dependency>
             <groupId>uk.co.ziazoo</groupId>
             <artifactId>commands</artifactId>
             <version>0.8.5-SNAPSHOT</version>
+            <type>swc</type>
         </dependency>
         <dependency>
             <groupId>com.adobe.flex.framework</groupId>
