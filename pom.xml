@@ -17,23 +17,37 @@
         <module>bus</module>
         <module>injector</module>
         <module>commands</module>
-        <module>dawn</module>
         <module>dew</module>
+        <module>dawn</module>
         <module>examples/cars</module>
         <!--<module>examples/contacts</module>-->
         <module>examples/thedoctor</module>
+        <!--<module>examples/mail</module>-->
+
     </modules>
 
     <repositories>
         <repository>
             <id>flexmojos-repository</id>
             <url>http://repository.sonatype.org/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>flexmojos-repository</id>
             <url>http://repository.sonatype.org/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </pluginRepository>
     </pluginRepositories>
 

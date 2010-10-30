@@ -16,9 +16,6 @@
                 <artifactId>flexmojos-maven-plugin</artifactId>
                 <version>3.5.0</version>
                 <extensions>true</extensions>
-                <configuration>
-                    <configurationReport>true</configurationReport>
-                </configuration>
             </plugin>
         </plugins>
     </build>

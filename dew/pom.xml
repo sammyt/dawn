@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>dew</artifactId>
     <packaging>swc</packaging>
-    <name>Framework peices</name>
+    <name>Framework pieces</name>
 
     <parent>
         <groupId>uk.co.ziazoo</groupId>
@@ -27,9 +27,6 @@
                 <artifactId>flexmojos-maven-plugin</artifactId>
                 <version>${mojoversion}</version>
                 <extensions>true</extensions>
-                <configuration>
-                    <configurationReport>true</configurationReport>
-                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>com.adobe.flex</groupId>
