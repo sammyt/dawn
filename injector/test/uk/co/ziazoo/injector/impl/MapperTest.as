@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
+
   import org.flexunit.*;
 
   import some.thing.*;
@@ -17,7 +19,8 @@ package uk.co.ziazoo.injector.impl
     [Before]
     public function setUp():void
     {
-      mapper = new Mapper(new MappingBuilderFactory(null, null));
+      mapper = new Mapper(new MappingBuilderFactory(
+              null, null, ApplicationDomain.currentDomain), ApplicationDomain.currentDomain);
     }
 
     [After]
@@ -116,6 +119,14 @@ package uk.co.ziazoo.injector.impl
       Assert.assertFalse(mapper.hasMapping(Tree, "pine"));
       Assert.assertTrue(mapper.hasMapping(Tree, "apple"));
       Assert.assertTrue(mapper.hasMapping(Tree));
+      Assert.assertTrue(mapper.hasMapping(Car));
+
+
+      mapper.removeFor(Tree);
+
+      Assert.assertFalse(mapper.hasMapping(Tree, "pine"));
+      Assert.assertTrue(mapper.hasMapping(Tree, "apple"));
+      Assert.assertFalse(mapper.hasMapping(Tree));
       Assert.assertTrue(mapper.hasMapping(Car));
     }
 

@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector
 {
+  import flash.system.ApplicationDomain;
+
   public interface IMapper
   {
     /**
@@ -79,5 +81,7 @@ package uk.co.ziazoo.injector
      * @return IMappingBuilder for mapping
      */
     function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder;
+
+    function get applicationDomain():ApplicationDomain;
   }
 }

@@ -1,6 +1,6 @@
 package uk.co.ziazoo.injector.impl
 {
-  import flash.utils.getDefinitionByName;
+  import flash.system.ApplicationDomain;
 
   import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
@@ -43,21 +43,17 @@ package uk.co.ziazoo.injector.impl
     {
       checkUsage(type, name);
       var mapping:IMapping;
-      for each(var exposedMapper:ExposedMapper in children)
-      {
-        if (exposedMapper.inUse)
-        {
+      for each(var exposedMapper:ExposedMapper in children) {
+        if (exposedMapper.inUse) {
           // does it make sense to just use the first mapper
           // which has a mapping for this key?
           mapping = exposedMapper.mapper.getMapping(type, name);
-          if (mapping)
-          {
+          if (mapping) {
             break;
           }
         }
       }
-      if (!mapping)
-      {
+      if (!mapping) {
         mapping = mapper.getMapping(type, name);
       }
       return mapping;
@@ -65,7 +61,7 @@ package uk.co.ziazoo.injector.impl
 
     public function getMappingForQName(qName:String, name:String = ""):IMapping
     {
-      var type:Class = getDefinitionByName(qName) as Class;
+      var type:Class = mapper.applicationDomain.getDefinition(qName) as Class;
       return getMapping(type, name);
     }
 
@@ -73,15 +69,12 @@ package uk.co.ziazoo.injector.impl
     {
       checkUsage(type, name);
 
-      for each(var exposedMapper:ExposedMapper in children)
-      {
-        if (exposedMapper.inUse)
-        {
+      for each(var exposedMapper:ExposedMapper in children) {
+        if (exposedMapper.inUse) {
           // does it make sense to just use the first mapper
           // which has a mapping for this key?
           var answer:Boolean = exposedMapper.mapper.hasMapping(type, name);
-          if (answer)
-          {
+          if (answer) {
             return true;
           }
         }
@@ -91,10 +84,8 @@ package uk.co.ziazoo.injector.impl
 
     private function checkUsage(type:Class, name:String):void
     {
-      for each(var exposedMapper:ExposedMapper in children)
-      {
-        if (exposedMapper.exposedBy(type, name))
-        {
+      for each(var exposedMapper:ExposedMapper in children) {
+        if (exposedMapper.exposedBy(type, name)) {
           exposedMapper.inUse = true;
         }
       }
@@ -120,18 +111,21 @@ package uk.co.ziazoo.injector.impl
       return mapper.justInTimeMap(type, name);
     }
 
-    public function justInTimeMapByQName(
-      qName:String, name:String = ""):IMappingBuilder
+    public function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder
     {
       return mapper.justInTimeMapByQName(qName, name);
     }
 
     public function injectionComplete():void
     {
-      for each(var exposedMapper:ExposedMapper in children)
-      {
+      for each(var exposedMapper:ExposedMapper in children) {
         exposedMapper.inUse = false;
       }
+    }
+
+    public function get applicationDomain():ApplicationDomain
+    {
+      return mapper.applicationDomain;
     }
   }
 }

@@ -1,6 +1,6 @@
 package uk.co.ziazoo.injector.impl
 {
-  import flash.utils.getDefinitionByName;
+  import flash.system.ApplicationDomain;
   import flash.utils.getQualifiedClassName;
 
   import uk.co.ziazoo.fussy.Fussy;
@@ -28,6 +28,7 @@ package uk.co.ziazoo.injector.impl
     private var eagerQueue:IEagerQueue;
     private var detailsFactory:ITypeInjectionDetailsFactory;
     private var _parent:IInjector;
+    private var _applicationDomain:ApplicationDomain;
 
     /**
      * Creates in instance of the Injector, the default implementation of
@@ -38,13 +39,13 @@ package uk.co.ziazoo.injector.impl
      * @param detailsFactory provides ITypeInjectionDetails
      * @param parent injector if this is a child instance
      */
-    public function Injector(mapper:IMapper, eagerQueue:IEagerQueue,
-            detailsFactory:ITypeInjectionDetailsFactory, parent:IInjector = null)
+    public function Injector(mapper:IMapper, eagerQueue:IEagerQueue, detailsFactory:ITypeInjectionDetailsFactory, parent:IInjector = null, applicationDomain:ApplicationDomain = null)
     {
       this.eagerQueue = eagerQueue;
       this.detailsFactory = detailsFactory;
       _mapper = new MapperList(mapper);
       _parent = parent;
+      _applicationDomain = applicationDomain;
     }
 
     /**
@@ -52,8 +53,7 @@ package uk.co.ziazoo.injector.impl
      * @param configuration to be installed into new injector (optional)
      * @return new injector instance
      */
-    public static function createInjector(
-            configuration:IConfiguration = null):IInjector
+    public static function createInjector(configuration:IConfiguration = null):IInjector
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
 
@@ -61,7 +61,8 @@ package uk.co.ziazoo.injector.impl
               new FussyTypeDetailsFactory(new Fussy().query());
 
       var mapper:IMapper = new Mapper(
-              new MappingBuilderFactory(eagerQueue, detailsFactory));
+              new MappingBuilderFactory(eagerQueue, detailsFactory, ApplicationDomain.currentDomain),
+              ApplicationDomain.currentDomain);
 
       var injector:Injector = new Injector(mapper, eagerQueue, detailsFactory);
 
@@ -191,13 +192,12 @@ package uk.co.ziazoo.injector.impl
     /**
      * @inheritDoc
      */
-    public function installPrivate(
-            configuration:IPrivateConfiguration):IInjector
+    public function installPrivate(configuration:IPrivateConfiguration):IInjector
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
 
       var privateMapper:IPrivateMapper = new PrivateMapper(
-              new MappingBuilderFactory(eagerQueue, detailsFactory), _mapper);
+              new MappingBuilderFactory(eagerQueue, detailsFactory, applicationDomain), _mapper, applicationDomain);
 
       configuration.configure(privateMapper);
 
@@ -208,13 +208,13 @@ package uk.co.ziazoo.injector.impl
     /**
      * @inheritDoc
      */
-    public function createChildInjector():IInjector
+    public function createChildInjector(applicationDomain:ApplicationDomain = null):IInjector
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
-      var childMapper:IMapper = new Mapper(
-              new MappingBuilderFactory(eagerQueue, detailsFactory));
+      var childMapper:IMapper = new Mapper(new MappingBuilderFactory(
+              eagerQueue, detailsFactory, applicationDomain), applicationDomain);
 
-      return new Injector(childMapper, eagerQueue, detailsFactory, this);
+      return new Injector(childMapper, eagerQueue, detailsFactory, this, applicationDomain);
     }
 
     /**
@@ -253,7 +253,7 @@ package uk.co.ziazoo.injector.impl
       if (object is Class) {
         return mapper.getMapping(getClass(object), name);
       }
-      return new Mapping(getClass(object), name, new InstanceProvider(object));
+      return new Mapping(getClass(object), name, new InstanceProvider(object, applicationDomain));
     }
 
     private function getClass(object:Object):Class
@@ -262,7 +262,7 @@ package uk.co.ziazoo.injector.impl
         return object as Class;
       }
       else {
-        return getDefinitionByName(getQualifiedClassName(object)) as Class;
+        return applicationDomain.getDefinition(getQualifiedClassName(object)) as Class;
       }
     }
 
@@ -319,6 +319,11 @@ package uk.co.ziazoo.injector.impl
     public function get mapper():IMapper
     {
       return _mapper;
+    }
+
+    public function get applicationDomain():ApplicationDomain
+    {
+      return _applicationDomain || ApplicationDomain.currentDomain;
     }
   }
 }

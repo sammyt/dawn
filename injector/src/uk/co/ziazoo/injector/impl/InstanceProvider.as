@@ -1,6 +1,6 @@
 package uk.co.ziazoo.injector.impl
 {
-  import flash.utils.getDefinitionByName;
+  import flash.system.ApplicationDomain;
   import flash.utils.getQualifiedClassName;
 
   import uk.co.ziazoo.injector.IProvider;
@@ -9,17 +9,18 @@ package uk.co.ziazoo.injector.impl
   {
     private var instance:Object;
     private var _type:Class;
+    private var applicationDomain:ApplicationDomain;
 
-    public function InstanceProvider(instance:Object)
+    public function InstanceProvider(instance:Object, applicationDomain:ApplicationDomain)
     {
       this.instance = instance;
+      this.applicationDomain = applicationDomain;
     }
 
     public function get type():Class
     {
-      if (!_type)
-      {
-        _type = Class(getDefinitionByName(getQualifiedClassName(instance)));
+      if (!_type) {
+        _type = Class(applicationDomain.getDefinition(getQualifiedClassName(instance)));
       }
       return _type;
     }

@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
+
   import org.flexunit.Assert;
 
   import some.thing.BigEngine;
@@ -36,7 +38,9 @@ package uk.co.ziazoo.injector.impl
 
     private function createMapper():IMapper
     {
-      return new Mapper(new MappingBuilderFactory(new EagerQueue(), null));
+      return new Mapper(new MappingBuilderFactory(
+              new EagerQueue(), null, ApplicationDomain.currentDomain),
+              ApplicationDomain.currentDomain);
     }
 
     [Test]

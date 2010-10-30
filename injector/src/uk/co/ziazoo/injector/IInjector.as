@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector
 {
+  import flash.system.ApplicationDomain;
+
   /**
    * The core interface to Dawns injection capabilities
    */
@@ -83,7 +85,7 @@ package uk.co.ziazoo.injector
      *
      * @return the new child IInjector
      */
-    function createChildInjector():IInjector;
+    function createChildInjector(applicationDomain:ApplicationDomain = null):IInjector;
 
     /**
      * Some mappings are created automatically by Dawn when no user mapping
@@ -108,5 +110,7 @@ package uk.co.ziazoo.injector
      * @return injectors mapper instance
      */
     function get mapper():IMapper;
+
+    function get applicationDomain():ApplicationDomain;
   }
 }

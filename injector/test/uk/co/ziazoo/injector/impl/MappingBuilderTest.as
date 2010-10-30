@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
+
   import org.flexunit.Assert;
 
   import some.thing.Apple;
@@ -21,7 +23,8 @@ package uk.co.ziazoo.injector.impl
     [Before]
     public function setUp():void
     {
-      builder = new MappingBuilder(Apple, new EagerQueue(), null);
+      builder = new MappingBuilder(Apple, new EagerQueue(),
+              null, ApplicationDomain.currentDomain);
     }
 
     [After]
@@ -37,7 +40,7 @@ package uk.co.ziazoo.injector.impl
       var mapping:IMapping = builder.baseMapping;
       Assert.assertTrue("maps correct class", mapping.type == Apple);
       Assert.assertTrue("provider of correct type",
-        mapping.provider is BasicProvider);
+              mapping.provider is BasicProvider);
 
       var provider:BasicProvider = BasicProvider(mapping.provider);
       Assert.assertTrue("provider for Car", provider.type == Car);
@@ -51,7 +54,7 @@ package uk.co.ziazoo.injector.impl
       var mapping:IMapping = builder.baseMapping;
       Assert.assertTrue("maps correct class", mapping.type == Apple);
       Assert.assertTrue("provider of correct type",
-        mapping.provider is BasicProvider);
+              mapping.provider is BasicProvider);
 
       var provider:BasicProvider = BasicProvider(mapping.provider);
       Assert.assertTrue("provider for Car", provider.type == Car);
@@ -70,10 +73,9 @@ package uk.co.ziazoo.injector.impl
 
       var provider:IProvider = builder.baseMapping.provider;
 
-      for each(var mapping:IMapping in mappings)
-      {
+      for each(var mapping:IMapping in mappings) {
         Assert.assertTrue("both mapped to same provider",
-          provider == mapping.provider);
+                provider == mapping.provider);
       }
     }
 
@@ -88,10 +90,9 @@ package uk.co.ziazoo.injector.impl
 
       var provider:IProvider = builder.baseMapping.provider;
 
-      for each(var mapping:IMapping in mappings)
-      {
+      for each(var mapping:IMapping in mappings) {
         Assert.assertTrue("both mapped to same singleton provider",
-          provider == mapping.provider);
+                provider == mapping.provider);
       }
     }
   }

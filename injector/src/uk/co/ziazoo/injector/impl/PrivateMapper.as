@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
+
   import uk.co.ziazoo.injector.IMappingBuilderFactory;
   import uk.co.ziazoo.injector.IPrivateMapper;
 
@@ -13,10 +15,9 @@ package uk.co.ziazoo.injector.impl
      *
      * @param builderFactory used to create mappings
      */
-    public function PrivateMapper(builderFactory:IMappingBuilderFactory,
-      parent:IMapperList)
+    public function PrivateMapper(builderFactory:IMappingBuilderFactory, parent:IMapperList, applicationDomain:ApplicationDomain)
     {
-      super(builderFactory);
+      super(builderFactory, applicationDomain);
 
       this.parent = parent;
     }

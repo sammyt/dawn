@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
+
   import org.flexunit.Assert;
   import org.flexunit.asserts.assertTrue;
 
@@ -40,8 +42,10 @@ package uk.co.ziazoo.injector.impl
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
       var detailsFactory:ITypeInjectionDetailsFactory =
-        new FussyTypeDetailsFactory(new Fussy().query());
-      mapper = new Mapper(new MappingBuilderFactory(eagerQueue, detailsFactory));
+              new FussyTypeDetailsFactory(new Fussy().query());
+      mapper = new Mapper(new MappingBuilderFactory(
+              eagerQueue, detailsFactory, ApplicationDomain.currentDomain),
+              ApplicationDomain.currentDomain);
 
       injector = new Injector(mapper, eagerQueue, detailsFactory);
     }
@@ -166,7 +170,7 @@ package uk.co.ziazoo.injector.impl
       Assert.assertTrue("obj is an Apple", obj is Apple);
 
       Assert.assertTrue("same instance returned", obj ==
-        injector.inject(Apple));
+              injector.inject(Apple));
     }
 
     [Test]
@@ -219,7 +223,7 @@ package uk.co.ziazoo.injector.impl
     public function doesPostConstructGetCalled():void
     {
       var engine:SlowBikeEngine = SlowBikeEngine(
-        injector.inject(SlowBikeEngine));
+              injector.inject(SlowBikeEngine));
       Assert.assertTrue("PostConstruct method called", engine.invokeCount == 1);
     }
 
@@ -239,7 +243,7 @@ package uk.co.ziazoo.injector.impl
       injector.map(IBikeEngine).and(SlowBikeEngine).to(SlowBikeEngine);
 
       var thing:ThingWithTwoEngines =
-        ThingWithTwoEngines(injector.inject(ThingWithTwoEngines));
+              ThingWithTwoEngines(injector.inject(ThingWithTwoEngines));
 
 
       Assert.assertNotNull(thing.engine1);
@@ -253,20 +257,20 @@ package uk.co.ziazoo.injector.impl
     public function usingAndMappingInSingletonScope():void
     {
       injector.map(IBikeEngine).and(SlowBikeEngine).to(
-        ReallySlowBikeEngine).asSingleton();
+              ReallySlowBikeEngine).asSingleton();
 
       var thing:ThingWithTwoEngines =
-        ThingWithTwoEngines(injector.inject(ThingWithTwoEngines));
+              ThingWithTwoEngines(injector.inject(ThingWithTwoEngines));
 
 
       Assert.assertNotNull(thing.engine1);
       Assert.assertNotNull(thing.engine2);
 
       Assert.assertTrue("both SlowBikeEngine",
-        thing.engine1 is ReallySlowBikeEngine);
+              thing.engine1 is ReallySlowBikeEngine);
 
       Assert.assertTrue("both SlowBikeEngine",
-        thing.engine2 is ReallySlowBikeEngine);
+              thing.engine2 is ReallySlowBikeEngine);
 
       Assert.assertTrue("same instance", thing.engine1 == thing.engine2);
     }
@@ -275,29 +279,29 @@ package uk.co.ziazoo.injector.impl
     public function usingManyAnds():void
     {
       injector.map(IBikeEngine).and(SlowBikeEngine).and(
-        ReallySlowBikeEngine).to(ReallySlowBikeEngine).asSingleton();
+              ReallySlowBikeEngine).to(ReallySlowBikeEngine).asSingleton();
 
       var thing:ThingWithThreeEngines =
-        ThingWithThreeEngines(injector.inject(ThingWithThreeEngines));
+              ThingWithThreeEngines(injector.inject(ThingWithThreeEngines));
 
       Assert.assertTrue("is SlowBikeEngine",
-        thing.engine1 is ReallySlowBikeEngine);
+              thing.engine1 is ReallySlowBikeEngine);
 
       Assert.assertTrue("is SlowBikeEngine",
-        thing.engine2 is ReallySlowBikeEngine);
+              thing.engine2 is ReallySlowBikeEngine);
 
       Assert.assertTrue("is SlowBikeEngine",
-        thing.engine3 is ReallySlowBikeEngine);
+              thing.engine3 is ReallySlowBikeEngine);
 
       Assert.assertNotNull(thing.engine1);
       Assert.assertNotNull(thing.engine2);
       Assert.assertNotNull(thing.engine3);
 
       Assert.assertTrue("same instance 1-2", thing.engine1 ==
-        thing.engine2);
+              thing.engine2);
 
       Assert.assertTrue("same instance 2-3", thing.engine2 ==
-        thing.engine3);
+              thing.engine3);
     }
 
     [Test]

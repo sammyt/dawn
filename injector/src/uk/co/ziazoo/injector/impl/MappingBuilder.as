@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
+
   import uk.co.ziazoo.injector.IEagerQueue;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
@@ -12,12 +14,13 @@ package uk.co.ziazoo.injector.impl
     private var mappings:Array;
     private var eagerQueue:IEagerQueue;
     private var detailsFactory:ITypeInjectionDetailsFactory;
+    private var applicationDomain:ApplicationDomain;
 
-    public function MappingBuilder(type:Class, eagerQueue:IEagerQueue,
-      detailsFactory:ITypeInjectionDetailsFactory)
+    public function MappingBuilder(type:Class, eagerQueue:IEagerQueue, detailsFactory:ITypeInjectionDetailsFactory, applicationDomain:ApplicationDomain)
     {
       this.eagerQueue = eagerQueue;
       this.detailsFactory = detailsFactory;
+      this.applicationDomain = applicationDomain;
       getMappings().push(new Mapping(type));
       to(type);
     }
@@ -47,7 +50,7 @@ package uk.co.ziazoo.injector.impl
 
     public function toInstance(object:Object):IMappingBuilder
     {
-      setProvider(new InstanceProvider(object));
+      setProvider(new InstanceProvider(object, applicationDomain));
       asSingleton();
       return this;
     }
@@ -71,16 +74,14 @@ package uk.co.ziazoo.injector.impl
 
     private function setName(name:String):void
     {
-      for each(var mapping:IMapping in mappings)
-      {
+      for each(var mapping:IMapping in mappings) {
         mapping.name = name;
       }
     }
 
     private function setProvider(provider:IProvider):void
     {
-      for each(var mapping:IMapping in mappings)
-      {
+      for each(var mapping:IMapping in mappings) {
         mapping.provider = provider;
       }
     }
@@ -103,8 +104,7 @@ package uk.co.ziazoo.injector.impl
 
     public function getMappings():Array
     {
-      if (!mappings)
-      {
+      if (!mappings) {
         mappings = [];
       }
       return mappings;

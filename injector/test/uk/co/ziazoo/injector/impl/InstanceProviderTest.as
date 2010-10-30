@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
+
   import org.flexunit.Assert;
 
   import some.thing.Ground;
@@ -15,7 +17,7 @@ package uk.co.ziazoo.injector.impl
     public function givesCorrectInstance():void
     {
       var tree:Tree = new Tree(new Ground());
-      var provider:InstanceProvider = new InstanceProvider(tree);
+      var provider:InstanceProvider = new InstanceProvider(tree, ApplicationDomain.currentDomain);
 
       var obj:Tree = provider.getObject() as Tree;
 

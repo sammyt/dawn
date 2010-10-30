@@ -1,7 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
   import flash.utils.Dictionary;
-  import flash.utils.getDefinitionByName;
 
   import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
@@ -25,11 +25,12 @@ package uk.co.ziazoo.injector.impl
      * used to create the mappings with the mapping DSL
      */
     private var builderFactory:IMappingBuilderFactory;
+    private var _applicationDomain:ApplicationDomain;
 
-    public function Mapper(builderFactory:IMappingBuilderFactory)
+    public function Mapper(builderFactory:IMappingBuilderFactory, applicationDomain:ApplicationDomain)
     {
       this.builderFactory = builderFactory;
-
+      _applicationDomain = applicationDomain;
       mappings = new Dictionary();
       builders = [];
     }
@@ -51,10 +52,8 @@ package uk.co.ziazoo.injector.impl
      */
     internal function processBuilders():void
     {
-      for each(var builder:IMappingBuilder in builders)
-      {
-        for each(var mapping:IMapping in builder.getMappings())
-        {
+      for each(var builder:IMappingBuilder in builders) {
+        for each(var mapping:IMapping in builder.getMappings()) {
           add(mapping);
         }
       }
@@ -68,8 +67,7 @@ package uk.co.ziazoo.injector.impl
     {
       processBuilders();
 
-      if (mappings[type])
-      {
+      if (mappings[type]) {
         var key:String = emptyNameCheck(name);
         return mappings[type][key] as IMapping;
       }
@@ -79,10 +77,9 @@ package uk.co.ziazoo.injector.impl
     /**
      * @inheritDoc
      */
-    public function getMappingForQName(
-      qName:String, name:String = ""):IMapping
+    public function getMappingForQName(qName:String, name:String = ""):IMapping
     {
-      var type:Class = getDefinitionByName(qName) as Class;
+      var type:Class = applicationDomain.getDefinition(qName) as Class;
       return getMapping(type, name);
     }
 
@@ -100,8 +97,7 @@ package uk.co.ziazoo.injector.impl
      */
     public function add(mapping:IMapping):void
     {
-      if (!mappings[mapping.type])
-      {
+      if (!mappings[mapping.type]) {
         mappings[mapping.type] = new Dictionary();
       }
       var key:String = emptyNameCheck(mapping.name);
@@ -126,12 +122,11 @@ package uk.co.ziazoo.injector.impl
      */
     public function removeFor(type:Class, name:String = ""):void
     {
-      if (mappings[type])
-      {
+      if (mappings[type]) {
         var byName:Dictionary = mappings[type] as Dictionary;
-        if (byName[name])
-        {
-          delete byName[name];
+        var key:String = emptyNameCheck(name);
+        if (byName[key]) {
+          delete byName[key];
         }
       }
     }
@@ -150,10 +145,14 @@ package uk.co.ziazoo.injector.impl
     /**
      * @inheritDoc
      */
-    public function justInTimeMapByQName(
-      qName:String, name:String = ""):IMappingBuilder
+    public function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder
     {
-      return justInTimeMap(getDefinitionByName(qName) as Class, name);
+      return justInTimeMap(applicationDomain.getDefinition(qName) as Class, name);
+    }
+
+    public function get applicationDomain():ApplicationDomain
+    {
+      return _applicationDomain;
     }
   }
 }

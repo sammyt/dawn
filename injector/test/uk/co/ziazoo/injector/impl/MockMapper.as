@@ -1,5 +1,7 @@
 package uk.co.ziazoo.injector.impl
 {
+  import flash.system.ApplicationDomain;
+
   import uk.co.ziazoo.injector.IMapper;
   import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IMappingBuilder;
@@ -48,6 +50,11 @@ package uk.co.ziazoo.injector.impl
     }
 
     public function justInTimeMapByQName(qName:String, name:String = ""):IMappingBuilder
+    {
+      return null;
+    }
+
+    public function get applicationDomain():ApplicationDomain
     {
       return null;
     }
