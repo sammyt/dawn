@@ -5,9 +5,14 @@ package uk.co.ziazoo.dew
 {
   import flash.display.DisplayObjectContainer;
 
+  import uk.co.ziazoo.command.CommandMap;
   import uk.co.ziazoo.command.ICommandMap;
+  import uk.co.ziazoo.fussy.Fussy;
+  import uk.co.ziazoo.fussy.query.IQuery;
   import uk.co.ziazoo.injector.IInjector;
+  import uk.co.ziazoo.injector.impl.Injector;
   import uk.co.ziazoo.notifier.INotifier;
+  import uk.co.ziazoo.notifier.Notifier;
 
   public class Zone implements IZone
   {
@@ -52,6 +57,10 @@ package uk.co.ziazoo.dew
      */
     public function get injector():IInjector
     {
+      if (!_injector) {
+        _injector = Injector.createInjector();
+
+      }
       return _injector;
     }
 
@@ -65,6 +74,9 @@ package uk.co.ziazoo.dew
      */
     public function get notifier():INotifier
     {
+      if (!_notifier) {
+        _notifier = new Notifier();
+      }
       return _notifier;
     }
 
@@ -91,6 +103,15 @@ package uk.co.ziazoo.dew
      */
     public function get commandMap():ICommandMap
     {
+      if (!_commandMap) {
+        var query:IQuery = new Fussy()
+                .query()
+                .findMethods()
+                .withMetadata("Execute")
+                .withArgsLengthOf(1);
+
+        commandMap = new CommandMap(injector, notifier, query);
+      }
       return _commandMap;
     }
 
