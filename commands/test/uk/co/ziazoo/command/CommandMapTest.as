@@ -3,7 +3,7 @@ package uk.co.ziazoo.command
   import org.flexunit.Assert;
 
   import uk.co.ziazoo.fussy.Fussy;
-  import uk.co.ziazoo.fussy.query.IQuery;
+  import uk.co.ziazoo.fussy.query.IQueryBuilder;
   import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.injector.impl.Injector;
   import uk.co.ziazoo.notifier.INotifier;
@@ -24,10 +24,7 @@ package uk.co.ziazoo.command
     {
       injector = Injector.createInjector();
       bus = new Notifier();
-      var query:IQuery = new Fussy().query().findMethods()
-        .withMetadata("Execute").withArgsLengthOf(1);
-
-      commands = new CommandMap(injector, bus, query);
+      commands = new CommandMap(injector, bus, new Fussy().query());
     }
 
     [After]
@@ -90,11 +87,8 @@ package uk.co.ziazoo.command
     {
       var injector = Injector.createInjector();
 
-      var query:IQuery = new Fussy().query().findMethods()
-        .withMetadata("Execute").withArgsLengthOf(1);
-
       injector.map(IInjector).toInstance(injector);
-      injector.map(IQuery).named("execute query").toInstance(query);
+      injector.map(IQueryBuilder).toInstance(new Fussy().query());
       injector.map(INotifier).to(Notifier).asSingleton();
       injector.map(ICommandMap).to(CommandMap);
 

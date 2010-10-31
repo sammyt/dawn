@@ -39,7 +39,9 @@ package uk.co.ziazoo.injector.impl
      * @param detailsFactory provides ITypeInjectionDetails
      * @param parent injector if this is a child instance
      */
-    public function Injector(mapper:IMapper, eagerQueue:IEagerQueue, detailsFactory:ITypeInjectionDetailsFactory, parent:IInjector = null, applicationDomain:ApplicationDomain = null)
+    public function Injector(mapper:IMapper, eagerQueue:IEagerQueue, 
+      detailsFactory:ITypeInjectionDetailsFactory, parent:IInjector = null, 
+      applicationDomain:ApplicationDomain = null)
     {
       this.eagerQueue = eagerQueue;
       this.detailsFactory = detailsFactory;
@@ -61,7 +63,8 @@ package uk.co.ziazoo.injector.impl
               new FussyTypeDetailsFactory(new Fussy().query());
 
       var mapper:IMapper = new Mapper(
-              new MappingBuilderFactory(eagerQueue, detailsFactory, ApplicationDomain.currentDomain),
+              new MappingBuilderFactory(eagerQueue, 
+                detailsFactory, ApplicationDomain.currentDomain),
               ApplicationDomain.currentDomain);
 
       var injector:Injector = new Injector(mapper, eagerQueue, detailsFactory);
@@ -197,7 +200,8 @@ package uk.co.ziazoo.injector.impl
       var eagerQueue:IEagerQueue = new EagerQueue();
 
       var privateMapper:IPrivateMapper = new PrivateMapper(
-              new MappingBuilderFactory(eagerQueue, detailsFactory, applicationDomain), _mapper, applicationDomain);
+              new MappingBuilderFactory(eagerQueue, detailsFactory, applicationDomain), 
+              _mapper, applicationDomain);
 
       configuration.configure(privateMapper);
 
@@ -253,7 +257,8 @@ package uk.co.ziazoo.injector.impl
       if (object is Class) {
         return mapper.getMapping(getClass(object), name);
       }
-      return new Mapping(getClass(object), name, new InstanceProvider(object, applicationDomain));
+      return new Mapping(getClass(object), name, 
+        new InstanceProvider(object, applicationDomain));
     }
 
     private function getClass(object:Object):Class

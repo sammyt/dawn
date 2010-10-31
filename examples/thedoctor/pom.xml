@@ -16,6 +16,14 @@
                 <artifactId>flexmojos-maven-plugin</artifactId>
                 <version>3.5.0</version>
                 <extensions>true</extensions>
+                <dependencies>
+                  <dependency>
+                    <groupId>com.adobe.flex</groupId>
+                    <artifactId>compiler</artifactId>
+                    <version>3.5.0.12683</version>
+                    <type>pom</type>
+                  </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

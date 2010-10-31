@@ -5,13 +5,9 @@ package uk.co.ziazoo.command
   import uk.co.ziazoo.fussy.model.Method;
   import uk.co.ziazoo.fussy.model.Parameter;
   import uk.co.ziazoo.fussy.query.IQuery;
+  import uk.co.ziazoo.fussy.query.IQueryBuilder;
   import uk.co.ziazoo.injector.IInjector;
   import uk.co.ziazoo.notifier.INotifier;
-
-  /**
-   * Name the executeQuery parameter
-   */
-  [Named(index="3", name="execute query")]
 
   /**
    * Implements ICommandMap allowing users to register commands with
@@ -24,11 +20,14 @@ package uk.co.ziazoo.command
     private var executeQuery:IQuery;
 
     public function CommandMap(injector:IInjector, notifier:INotifier,
-      executeQuery:IQuery)
+      queryBuilder:IQueryBuilder)
     {
       this.injector = injector;
       this.notifier = notifier;
-      this.executeQuery = executeQuery;
+      this.executeQuery = queryBuilder
+        .findMethods()
+        .withMetadata("Execute")
+        .withArgsLengthOf(1);
     }
 
     /**

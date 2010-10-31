@@ -103,14 +103,9 @@ package uk.co.ziazoo.dew
      */
     public function get commandMap():ICommandMap
     {
-      if (!_commandMap) {
-        var query:IQuery = new Fussy()
-                .query()
-                .findMethods()
-                .withMetadata("Execute")
-                .withArgsLengthOf(1);
-
-        commandMap = new CommandMap(injector, notifier, query);
+      if (!_commandMap) 
+      {
+        commandMap = new CommandMap(injector, notifier, new Fussy().query());
       }
       return _commandMap;
     }
