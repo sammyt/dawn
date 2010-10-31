@@ -1,5 +1,6 @@
 package uk.co.ziazoo.command
 {
+  import flash.system.ApplicationDomain;
   import flash.utils.getDefinitionByName;
 
   import uk.co.ziazoo.fussy.model.Method;
@@ -18,9 +19,10 @@ package uk.co.ziazoo.command
     private var notifier:INotifier;
     private var injector:IInjector;
     private var executeQuery:IQuery;
-
+    private var applicationDomain:ApplicationDomain;
+    
     public function CommandMap(injector:IInjector, notifier:INotifier,
-      queryBuilder:IQueryBuilder)
+      queryBuilder:IQueryBuilder, applicationDomain:ApplicationDomain = null)
     {
       this.injector = injector;
       this.notifier = notifier;
@@ -28,6 +30,7 @@ package uk.co.ziazoo.command
         .findMethods()
         .withMetadata("Execute")
         .withArgsLengthOf(1);
+      this.applicationDomain = applicationDomain || ApplicationDomain.currentDomain;
     }
 
     /**

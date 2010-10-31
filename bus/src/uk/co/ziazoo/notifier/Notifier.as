@@ -1,7 +1,7 @@
 package uk.co.ziazoo.notifier
 {
+  import flash.system.ApplicationDomain;
   import flash.utils.Dictionary;
-  import flash.utils.getDefinitionByName;
   import flash.utils.getQualifiedClassName;
 
   public class Notifier implements INotifier
@@ -19,9 +19,12 @@ package uk.co.ziazoo.notifier
      * stores the callbacks who require polymorphic inspection
      */
     internal var callbackList:Array;
+    
+    private var applicationDomain:ApplicationDomain;
 
-    public function Notifier()
+    public function Notifier(applicationDomain:ApplicationDomain = null)
     {
+      this.applicationDomain = applicationDomain || ApplicationDomain.currentDomain;
       callbackMap = new Dictionary();
       callbackList = [];
     }
@@ -154,7 +157,7 @@ package uk.co.ziazoo.notifier
 
     private function getType(object:Object):Class
     {
-      return getDefinitionByName(getQualifiedClassName(object)) as Class;
+      return applicationDomain.getDefinition(getQualifiedClassName(object)) as Class;
     }
   }
 }
