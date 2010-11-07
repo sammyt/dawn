@@ -112,5 +112,7 @@ package uk.co.ziazoo.injector
     function get mapper():IMapper;
 
     function get applicationDomain():ApplicationDomain;
+    
+    function tearDown():void;
   }
 }

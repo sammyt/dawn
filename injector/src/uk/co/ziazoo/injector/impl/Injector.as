@@ -4,6 +4,7 @@ package uk.co.ziazoo.injector.impl
   import flash.utils.getQualifiedClassName;
 
   import uk.co.ziazoo.fussy.Fussy;
+  import uk.co.ziazoo.fussy.Reflector;
   import uk.co.ziazoo.fussy.model.Constructor;
   import uk.co.ziazoo.fussy.model.Method;
   import uk.co.ziazoo.injector.IConfiguration;
@@ -228,6 +229,10 @@ package uk.co.ziazoo.injector.impl
     public function createChildInjector(applicationDomain:ApplicationDomain = null):IInjector
     {
       var eagerQueue:IEagerQueue = new EagerQueue();
+      var detailsFactory:ITypeInjectionDetailsFactory =
+              new FussyTypeDetailsFactory(new Fussy(new Reflector(applicationDomain))
+                      .query());
+
       var childMapper:IMapper = new Mapper(new MappingBuilderFactory(
               eagerQueue, detailsFactory, applicationDomain), applicationDomain);
 
@@ -346,9 +351,20 @@ package uk.co.ziazoo.injector.impl
       return _mapper;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function get applicationDomain():ApplicationDomain
     {
       return _applicationDomain || ApplicationDomain.currentDomain;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function tearDown():void
+    {
+
     }
   }
 }
