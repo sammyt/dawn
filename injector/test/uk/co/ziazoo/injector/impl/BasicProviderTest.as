@@ -19,7 +19,7 @@ package uk.co.ziazoo.injector.impl
     {
       var provider:BasicProvider = new BasicProvider(Apple);
 
-      var apple:Apple = provider.getObject() as Apple;
+      var apple:Apple = provider.getInjectableObject() as Apple;
 
       Assert.assertNotNull(apple);
     }
@@ -30,7 +30,7 @@ package uk.co.ziazoo.injector.impl
       var provider:BasicProvider = new BasicProvider(MoterBike);
       var dep:IDependency = new MockDependency(new SlowBikeEngine());
       provider.setDependencies([dep]);
-      var bike:MoterBike = provider.getObject() as MoterBike;
+      var bike:MoterBike = provider.getInjectableObject() as MoterBike;
       Assert.assertNotNull(bike);
     }
   }

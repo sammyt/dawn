@@ -19,7 +19,7 @@ package uk.co.ziazoo.injector.impl
       var tree:Tree = new Tree(new Ground());
       var provider:InstanceProvider = new InstanceProvider(tree, ApplicationDomain.currentDomain);
 
-      var obj:Tree = provider.getObject() as Tree;
+      var obj:Tree = provider.getInjectableObject() as Tree;
 
       Assert.assertNotNull(obj);
       Assert.assertEquals(obj, tree);

@@ -11,7 +11,8 @@ package uk.co.ziazoo.injector.impl
     private var _type:Class;
     private var applicationDomain:ApplicationDomain;
 
-    public function InstanceProvider(instance:Object, applicationDomain:ApplicationDomain)
+    public function InstanceProvider(instance:Object,
+            applicationDomain:ApplicationDomain)
     {
       this.instance = instance;
       this.applicationDomain = applicationDomain;
@@ -19,13 +20,14 @@ package uk.co.ziazoo.injector.impl
 
     public function get type():Class
     {
-      if (!_type) {
+      if (!_type)
+      {
         _type = Class(applicationDomain.getDefinition(getQualifiedClassName(instance)));
       }
       return _type;
     }
 
-    public function getObject():Object
+    public function getInjectableObject():Object
     {
       return instance;
     }
@@ -42,6 +44,16 @@ package uk.co.ziazoo.injector.impl
 
     public function setDependencies(dependencies:Array):void
     {
+    }
+
+    public function get finalArtifact():Object
+    {
+      return getInjectableObject();
+    }
+
+    public function get proxiedArtifact():Boolean
+    {
+      return false;
     }
   }
 }

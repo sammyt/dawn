@@ -35,5 +35,10 @@ package uk.co.ziazoo.injector.impl
     {
       return false;
     }
+
+    public function get finalArtifact():Object
+    {
+      return getObject();
+    }
   }
 }

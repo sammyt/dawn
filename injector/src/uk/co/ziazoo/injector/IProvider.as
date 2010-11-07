@@ -38,9 +38,19 @@ package uk.co.ziazoo.injector
     function get instanceCreated():Boolean;
 
     /**
-     * Get the object of type provided by this IProvider
-     * @return the provided object
+     * Gets the object which should be used for injection
+     * @return the object to inject into
      */
-    function getObject():Object;
+    function getInjectableObject():Object;
+
+    /**
+     * The final object to return to the user
+     */
+    function get finalArtifact():Object;
+
+    /**
+     * Is the finalArtifact the same object as the injectable object
+     */
+    function get proxiedArtifact():Boolean;
   }
 }

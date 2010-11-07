@@ -96,7 +96,7 @@ package uk.co.ziazoo.injector
      * @param name for mapping
      * @return IMappingBuilder tp construct mapping
      */
-    function justInTimeMap(type:Class, name:String):IMapping
+    function justInTimeMap(type:Class, name:String):IMapping;
 
     /**
      * If this child was created as a child of another injector this

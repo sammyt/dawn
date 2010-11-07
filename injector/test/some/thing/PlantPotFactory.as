@@ -2,6 +2,10 @@ package some.thing
 {
   public class PlantPotFactory
   {
+
+    [Inject]
+    public var engine:Engine;
+
     public function PlantPotFactory()
     {
     }

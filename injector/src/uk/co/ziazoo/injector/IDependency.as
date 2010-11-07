@@ -1,7 +1,5 @@
 package uk.co.ziazoo.injector
 {
-  import uk.co.ziazoo.fussy.TypeDescription;
-
   public interface IDependency
   {
     /**
@@ -15,6 +13,8 @@ package uk.co.ziazoo.injector
      * @return object from dependency
      */
     function getObject():Object;
+
+    function get finalArtifact():Object;
 
     /**
      * Returns the ITypeInjectionDetails instance for this

@@ -9,5 +9,7 @@ package uk.co.ziazoo.injector
     function get instanceCreated():Boolean;
 
     function getObject():Object;
+
+    function get finalArtifact():Object;
   }
 }

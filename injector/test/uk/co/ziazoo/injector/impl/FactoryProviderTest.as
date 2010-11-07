@@ -21,15 +21,15 @@ package uk.co.ziazoo.injector.impl
     {
       var fussy:Fussy = new Fussy();
       var factory:ITypeInjectionDetailsFactory =
-        new FussyTypeDetailsFactory(fussy.query());
+              new FussyTypeDetailsFactory(fussy.query());
 
       var provider:FactoryProvider =
-        new FactoryProvider(AppleFactory, factory.forType(AppleFactory));
+              new FactoryProvider(AppleFactory, factory.forType(AppleFactory));
 
       var dep:IDependency = new MockDependency(new Engine());
       provider.setDependencies([dep]);
 
-      var apple:Apple = provider.getObject() as Apple;
+      var apple:Apple = provider.finalArtifact as Apple;
       Assert.assertNotNull(apple);
 
       var appleFactory:AppleFactory = provider.factory as AppleFactory;

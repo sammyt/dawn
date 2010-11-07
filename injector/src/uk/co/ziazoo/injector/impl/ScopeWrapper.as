@@ -34,9 +34,19 @@ package uk.co.ziazoo.injector.impl
       return scope.instanceCreated;
     }
 
-    public function getObject():Object
+    public function getInjectableObject():Object
     {
       return scope.getObject();
+    }
+
+    public function get finalArtifact():Object
+    {
+      return scope.finalArtifact;
+    }
+
+    public function get proxiedArtifact():Boolean
+    {
+      return false;
     }
   }
 }

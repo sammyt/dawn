@@ -39,9 +39,14 @@ package uk.co.ziazoo.injector.impl
     {
       if (!instance)
       {
-        instance = provider.getObject();
+        instance = provider.getInjectableObject();
       }
       return instance;
+    }
+
+    public function get finalArtifact():Object
+    {
+      return getObject();
     }
   }
 }

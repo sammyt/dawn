@@ -28,7 +28,7 @@ package uk.co.ziazoo.injector.impl
      * @param details the ITypeInjectionDetails for the factoryType class
      */
     public function FactoryProvider(factoryType:Class,
-      details:ITypeInjectionDetails)
+            details:ITypeInjectionDetails)
     {
       this.factoryType = factoryType;
       this.details = details;
@@ -45,13 +45,13 @@ package uk.co.ziazoo.injector.impl
     /**
      * @inheritDoc
      */
-    public function getObject():Object
+    public function getInjectableObject():Object
     {
       if (!factory)
       {
         factory = InstanceCreator.create(factoryType, parameters);
       }
-      return invokeFactoryMethod();
+      return factory;
     }
 
     /**
@@ -78,7 +78,7 @@ package uk.co.ziazoo.injector.impl
       parameters = [];
       for each(var dependency:IDependency in dependencies)
       {
-        parameters.push(dependency.getObject());
+        parameters.push(dependency.finalArtifact);
       }
     }
 
@@ -91,6 +91,20 @@ package uk.co.ziazoo.injector.impl
     private function getMethodName():String
     {
       return details.providerMethod.name;
+    }
+
+    public function get finalArtifact():Object
+    {
+      if (!factory)
+      {
+        factory = getInjectableObject();
+      }
+      return invokeFactoryMethod();
+    }
+
+    public function get proxiedArtifact():Boolean
+    {
+      return true;
     }
   }
 }

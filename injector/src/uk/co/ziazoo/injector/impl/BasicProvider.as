@@ -25,7 +25,7 @@ package uk.co.ziazoo.injector.impl
     /**
      * @inheritDoc
      */
-    public function getObject():Object
+    public function getInjectableObject():Object
     {
       return InstanceCreator.create(_type, parameters);
     }
@@ -38,7 +38,7 @@ package uk.co.ziazoo.injector.impl
       parameters = [];
       for each(var dependency:IDependency in dependencies)
       {
-        parameters.push(dependency.getObject());
+        parameters.push(dependency.finalArtifact);
       }
     }
 
@@ -62,6 +62,16 @@ package uk.co.ziazoo.injector.impl
      * @inheritDoc
      */
     public function get instanceCreated():Boolean
+    {
+      return false;
+    }
+
+    public function get finalArtifact():Object
+    {
+      return getInjectableObject();
+    }
+
+    public function get proxiedArtifact():Boolean
     {
       return false;
     }

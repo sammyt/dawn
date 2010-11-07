@@ -1,8 +1,6 @@
 package uk.co.ziazoo.injector.impl
 {
-  import uk.co.ziazoo.fussy.query.ITypeQuery;
   import uk.co.ziazoo.injector.IDependency;
-  import uk.co.ziazoo.injector.IMapping;
   import uk.co.ziazoo.injector.IProvider;
   import uk.co.ziazoo.injector.ITypeInjectionDetails;
   import uk.co.ziazoo.injector.InjectorError;
@@ -13,8 +11,9 @@ package uk.co.ziazoo.injector.impl
     private var _provider:IProvider;
     private var _injectionDetails:ITypeInjectionDetails;
 
+
     public function Dependency(provider:IProvider,
-      injectionDetails:ITypeInjectionDetails)
+            injectionDetails:ITypeInjectionDetails)
     {
       _provider = provider;
       _injectionDetails = injectionDetails;
@@ -29,12 +28,11 @@ package uk.co.ziazoo.injector.impl
       {
         try
         {
-          instance = provider.getObject();
+          instance = provider.getInjectableObject();
         }
         catch(error:VerifyError)
         {
-          var injectorError:InjectorError = new InjectorError();
-          throw injectorError;
+          throw new InjectorError();
         }
       }
       return instance;
@@ -54,6 +52,15 @@ package uk.co.ziazoo.injector.impl
     public function get injectionDetails():ITypeInjectionDetails
     {
       return _injectionDetails;
+    }
+
+    public function get finalArtifact():Object
+    {
+      if (provider.proxiedArtifact)
+      {
+        return provider.finalArtifact;
+      }
+      return getObject();
     }
   }
 }
