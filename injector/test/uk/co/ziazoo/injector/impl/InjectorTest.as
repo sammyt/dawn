@@ -205,7 +205,7 @@ package uk.co.ziazoo.injector.impl
     }
 
     [Test]
-    public function createBikeWithContreteConstructorArg():void
+    public function createBikeWithConcreteConstructorArg():void
     {
       injector.map(IDial).to(DigitalDial);
       injector.map(IDial).named("analog").to(AnalogDial);
@@ -226,6 +226,34 @@ package uk.co.ziazoo.injector.impl
               injector.inject(SlowBikeEngine));
       Assert.assertTrue("PostConstruct method called", engine.invokeCount == 1);
     }
+
+    [Test]
+    public function doesPostConstructGetCalledOnSubClass():void
+    {
+      var engine:SlowBikeEngineNoPostConstruct = SlowBikeEngineNoPostConstruct(
+              injector.inject(SlowBikeEngineNoPostConstruct));
+      Assert.assertTrue("PostConstruct method called", engine.invokeCount == 1);
+    }
+
+
+    [Test]
+    public function doesPostConstructGetCalledOnSubClassWithExtraMetadata():void
+    {
+      var engine:SlowBikeEngineWithPostConstruct = SlowBikeEngineWithPostConstruct(
+              injector.inject(SlowBikeEngineWithPostConstruct));
+      Assert.assertTrue("PostConstruct method called", engine.invokeCount == 0);
+      Assert.assertTrue("PostConstruct method called", engine.subInvokeCount == 0);
+    }
+
+
+    [Test]
+    public function doesPostConstructGetCalledOnSubClassOverride():void
+    {
+      var engine:SlowBikeEngineOverride = SlowBikeEngineOverride(
+              injector.inject(SlowBikeEngineOverride));
+      Assert.assertTrue("PostConstruct method called", engine.invokeCount == 1);
+    }
+
 
     [Test]
     public function createEagerSingletons():void
