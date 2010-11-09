@@ -358,13 +358,5 @@ package uk.co.ziazoo.injector.impl
     {
       return _applicationDomain || ApplicationDomain.currentDomain;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function tearDown():void
-    {
-
-    }
   }
 }
