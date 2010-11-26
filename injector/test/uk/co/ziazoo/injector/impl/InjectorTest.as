@@ -391,6 +391,29 @@ package uk.co.ziazoo.injector.impl
       Assert.assertFalse(fromChild == fromParent);
       Assert.assertTrue(fromParent.isJustInTime);
       Assert.assertFalse(fromChild.isJustInTime);
+
+      Assert.assertNotNull(child.inject(IDial, "analog"));
+      Assert.assertTrue(child.inject(IDial, "analog") is AnalogDial);
+    }
+
+    [Test]
+    public function childMappingWithSpecifiedAppDomain():void
+    {
+      var child:IInjector = injector.createChildInjector(ApplicationDomain.currentDomain);
+
+      child.map(IDial).named("analog").to(AnalogDial);
+
+      var fromParent:IMapping = injector.getMapping(IDial, "analog");
+      var fromChild:IMapping = child.getMapping(IDial, "analog");
+
+      Assert.assertNotNull(fromChild);
+      Assert.assertNotNull(fromParent);
+      Assert.assertFalse(fromChild == fromParent);
+      Assert.assertTrue(fromParent.isJustInTime);
+      Assert.assertFalse(fromChild.isJustInTime);
+
+      Assert.assertNotNull(child.inject(IDial, "analog"));
+      Assert.assertTrue(child.inject(IDial, "analog") is AnalogDial);
     }
 
     [Test]

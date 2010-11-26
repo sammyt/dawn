@@ -228,15 +228,18 @@ package uk.co.ziazoo.injector.impl
      */
     public function createChildInjector(applicationDomain:ApplicationDomain = null):IInjector
     {
+      var domain:ApplicationDomain = applicationDomain ? applicationDomain :
+              ApplicationDomain.currentDomain;
+
       var eagerQueue:IEagerQueue = new EagerQueue();
       var detailsFactory:ITypeInjectionDetailsFactory =
-              new FussyTypeDetailsFactory(new Fussy(new Reflector(applicationDomain))
+              new FussyTypeDetailsFactory(new Fussy(new Reflector(domain))
                       .query());
 
       var childMapper:IMapper = new Mapper(new MappingBuilderFactory(
-              eagerQueue, detailsFactory, applicationDomain), applicationDomain);
+              eagerQueue, detailsFactory, domain), domain);
 
-      return new Injector(childMapper, eagerQueue, detailsFactory, this, applicationDomain);
+      return new Injector(childMapper, eagerQueue, detailsFactory, this, domain);
     }
 
     /**
