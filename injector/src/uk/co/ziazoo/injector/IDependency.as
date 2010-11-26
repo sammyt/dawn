@@ -22,6 +22,9 @@ package uk.co.ziazoo.injector
      * @return a ITypeInjectionDetails object
      */
     function get injectionDetails():ITypeInjectionDetails;
+
+    function get parameterIndex():int;
+    function set parameterIndex(value:int):void;
   }
 }
 

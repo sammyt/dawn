@@ -5,6 +5,7 @@ package uk.co.ziazoo.injector.impl
   import org.flexunit.Assert;
   import org.flexunit.asserts.assertTrue;
 
+  import some.more.OptionalCArgs;
   import some.otherthing.*;
   import some.thing.Apple;
   import some.thing.BigEngine;
@@ -463,10 +464,28 @@ package uk.co.ziazoo.injector.impl
     }
 
     [Test]
-    [Ignore]
-    public function throwsNoMappingError():void
+    public function optionConsArgs():void
     {
-      injector.inject(Wibble);
+      
+      var first:OptionalCArgs = injector.inject(OptionalCArgs) as OptionalCArgs;
+      Assert.assertNotNull(first);
+
+      // all optional and all not mapped
+      Assert.assertNull("has no car ", first.car);
+      Assert.assertNull("has no engine", first.engine);
+      Assert.assertNull("has no radio", first.radio);
+
+      injector.map(IRadio).to(QuietRadio);
+
+      var second:OptionalCArgs = injector.inject(OptionalCArgs) as OptionalCArgs;
+      Assert.assertNotNull(second);
+
+
+      // should now have a radio
+      Assert.assertNull("has no car ", second.car);
+      Assert.assertNull("has no engine", second.engine);
+      Assert.assertNotNull("has a radio", second.radio);
+
     }
   }
 }

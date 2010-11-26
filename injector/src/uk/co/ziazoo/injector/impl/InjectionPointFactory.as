@@ -5,6 +5,7 @@ package uk.co.ziazoo.injector.impl
   import uk.co.ziazoo.fussy.model.Method;
   import uk.co.ziazoo.fussy.model.Parameter;
   import uk.co.ziazoo.fussy.model.Property;
+  import uk.co.ziazoo.injector.IDependency;
   import uk.co.ziazoo.injector.IDependencyFactory;
   import uk.co.ziazoo.injector.IInjectionPoint;
   import uk.co.ziazoo.injector.IMapper;
@@ -106,8 +107,10 @@ package uk.co.ziazoo.injector.impl
         }
         if (mapping)
         {
-          injectionPoint.addDependency(
-            dependencyFactory.forProvider(mapping.provider));
+          var dependency:IDependency =
+                  dependencyFactory.forProvider(mapping.provider);
+          dependency.parameterIndex = parameter.index;
+          injectionPoint.addDependency(dependency);
         }
 
       }
@@ -136,8 +139,11 @@ package uk.co.ziazoo.injector.impl
         }
         if (mapping)
         {
-          injectionPoint.addDependency(
-            dependencyFactory.forProvider(mapping.provider));
+          var dependency:IDependency =
+            dependencyFactory.forProvider(mapping.provider);
+
+          dependency.parameterIndex = parameter.index;
+          injectionPoint.addDependency(dependency);
         }
       }
       return injectionPoint;

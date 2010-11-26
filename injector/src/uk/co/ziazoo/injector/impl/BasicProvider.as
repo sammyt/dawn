@@ -38,7 +38,7 @@ package uk.co.ziazoo.injector.impl
       parameters = [];
       for each(var dependency:IDependency in dependencies)
       {
-        parameters.push(dependency.finalArtifact);
+        parameters[dependency.parameterIndex - 1] = dependency.finalArtifact;
       }
     }
 

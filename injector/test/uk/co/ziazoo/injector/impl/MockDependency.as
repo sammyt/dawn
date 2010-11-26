@@ -40,5 +40,14 @@ package uk.co.ziazoo.injector.impl
     {
       return getObject();
     }
+
+    public function get parameterIndex():int
+    {
+      return 1;
+    }
+
+    public function set parameterIndex(value:int):void
+    {
+    }
   }
 }

@@ -10,6 +10,7 @@ package uk.co.ziazoo.injector.impl
     private var instance:Object;
     private var _provider:IProvider;
     private var _injectionDetails:ITypeInjectionDetails;
+    private var _parameterIndex:int;
 
 
     public function Dependency(provider:IProvider,
@@ -61,6 +62,16 @@ package uk.co.ziazoo.injector.impl
         return provider.finalArtifact;
       }
       return getObject();
+    }
+
+    public function get parameterIndex():int
+    {
+      return _parameterIndex;
+    }
+
+    public function set parameterIndex(value:int):void
+    {
+      _parameterIndex = value;
     }
   }
 }
