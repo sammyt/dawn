@@ -36,12 +36,13 @@ package uk.co.ziazoo.injector.impl
       injector = null;
     }
 
+    [Ignore]
     [Test(async)]
     public function parentAppDomain():void
     {
       var loader:URLLoader = new URLLoader();
       loader.dataFormat = URLLoaderDataFormat.BINARY;
-      
+
       var asyncHandler:Function = Async.asyncHandler(this,
               onChildDomainLoaded, 500, loader);
 

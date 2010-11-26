@@ -332,7 +332,12 @@ package uk.co.ziazoo.injector.impl
      */
     public function hasMapping(type:Class, name:String = ""):Boolean
     {
-      return mapper.hasMapping(type, name);
+      var thisHasMapping:Boolean = mapper.hasMapping(type, name);
+      if (parent && !thisHasMapping)
+      {
+        return parent.hasMapping(type, name);
+      }
+      return thisHasMapping;
     }
 
     /**

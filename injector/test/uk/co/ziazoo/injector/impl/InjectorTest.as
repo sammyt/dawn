@@ -358,12 +358,15 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function mappingFilterDown():void
     {
+      var child:IInjector = injector.createChildInjector();
+      Assert.assertFalse(child.hasMapping(IDial, "analog"));
+
       injector.map(IDial).to(DigitalDial);
       injector.map(IDial).named("analog").to(AnalogDial);
       injector.map(String).named("bike name").toInstance("my bike");
 
-      var child:IInjector = injector.createChildInjector();
-
+      Assert.assertTrue(injector.hasMapping(IDial, "analog"));
+      Assert.assertTrue(child.hasMapping(IDial, "analog"));
       Assert.assertNotNull(child.getMapping(IDial));
 
       var fromParent:IMapping = injector.getMapping(IDial, "analog");
