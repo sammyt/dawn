@@ -63,7 +63,7 @@
     <dependency>
       <groupId>uk.co.ziazoo</groupId>
       <artifactId>fussy</artifactId>
-      <version>0.2-SNAPSHOT</version>
+      <version>0.2</version>
       <type>swc</type>
     </dependency>
     <dependency>
