@@ -47,7 +47,7 @@
         </dependency>
         <dependency>
             <groupId>uk.co.ziazoo</groupId>
-            <artifactId>bus</artifactId>
+            <artifactId>notifier</artifactId>
             <version>0.8.5-SNAPSHOT</version>
             <type>swc</type>
             <scope>internal</scope>

@@ -14,16 +14,13 @@
     <url>http://wiki.github.com/sammyt/dawn</url>
 
     <modules>
-        <module>bus</module>
+        <module>notifier</module>
         <module>injector</module>
         <module>commands</module>
         <module>dew</module>
         <module>dawn</module>
         <module>examples/cars</module>
-        <!--<module>examples/contacts</module>-->
         <module>examples/thedoctor</module>
-        <!--<module>examples/mail</module>-->
-
     </modules>
 
     <repositories>
