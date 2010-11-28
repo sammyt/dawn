@@ -374,6 +374,14 @@ package uk.co.ziazoo.injector.impl
       var fromChild:IMapping = child.getMapping(IDial, "analog");
 
       Assert.assertTrue(fromChild == fromParent);
+
+      var childInstance:IDial = child.inject(IDial, "analog") as IDial;
+      Assert.assertNotNull(childInstance);
+      Assert.assertTrue(childInstance is AnalogDial);
+
+      var parentInstance:IDial = injector.inject(IDial, "analog") as IDial;
+      Assert.assertNotNull(parentInstance);
+      Assert.assertTrue(parentInstance is AnalogDial);
     }
 
 
@@ -436,6 +444,9 @@ package uk.co.ziazoo.injector.impl
 
       Assert.assertTrue(fromChild == fromParent);
       Assert.assertTrue(fromChild == fromGrandChild);
+
+      Assert.assertNotNull(grandChild.inject(IDial, "analog"));
+      Assert.assertTrue(grandChild.inject(AnalogDial));
     }
 
     [Test]
@@ -466,7 +477,7 @@ package uk.co.ziazoo.injector.impl
     [Test]
     public function optionConsArgs():void
     {
-      
+
       var first:OptionalCArgs = injector.inject(OptionalCArgs) as OptionalCArgs;
       Assert.assertNotNull(first);
 

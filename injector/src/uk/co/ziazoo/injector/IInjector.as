@@ -111,6 +111,10 @@ package uk.co.ziazoo.injector
      */
     function get mapper():IMapper;
 
+    /**
+     * Returns the ApplicationDomain this injector uses for
+     * class definitions
+     */
     function get applicationDomain():ApplicationDomain;
   }
 }

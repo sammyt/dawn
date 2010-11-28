@@ -95,10 +95,15 @@ package uk.co.ziazoo.injector.impl
     {
       injectEagerQueue();
 
-      var mapping:IMapping = findMapping(object, name);
-      if (!mapping)
+      var mapping:IMapping;
+
+      if (object is Class)
       {
-        mapping = mapper.justInTimeMap(getClass(object)).baseMapping;
+        mapping = getMapping(object as Class, name);
+      }
+      else
+      {
+        mapping = temporaryInstanceMapping(object);
       }
 
       var result:Object = injectMapping(mapping);
@@ -277,12 +282,19 @@ package uk.co.ziazoo.injector.impl
      */
     private function findMapping(object:Object, name:String = ""):IMapping
     {
-      if (object is Class)
-      {
-        return mapper.getMapping(getClass(object), name);
-      }
-      return new Mapping(getClass(object), name,
-              new InstanceProvider(object, applicationDomain));
+      return mapper.getMapping(getClass(object), name);
+    }
+
+    /**
+     * When the user provides an instance for injection a instance provider
+     * and mapping is created but not added to the mapper
+     * @param instance
+     * @return a IMapping for the instance
+     */
+    private function temporaryInstanceMapping(instance:Object):IMapping
+    {
+      return new Mapping(getClass(instance), "",
+              new InstanceProvider(instance, applicationDomain));
     }
 
     private function getClass(object:Object):Class
