@@ -77,7 +77,8 @@ package uk.co.ziazoo.command
 
       var parameter:Parameter = method.parameters[0] as Parameter;
 
-      notifier.listen(Class(getDefinitionByName(parameter.type)),
+      var type:Class = Class(applicationDomain.getDefinition(parameter.type));
+      notifier.listen(type,
         function(note:Object):void
         {
           invokeCommand(method, command, note);

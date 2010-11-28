@@ -10,7 +10,7 @@
     <parent>
         <groupId>uk.co.ziazoo</groupId>
         <artifactId>dawn</artifactId>
-        <version>0.8.5-SNAPSHOT</version>
+        <version>0.8.5-rc1</version>
     </parent>
 
     <properties>
@@ -42,19 +42,19 @@
         <dependency>
             <groupId>uk.co.ziazoo</groupId>
             <artifactId>injector</artifactId>
-            <version>0.8.5-SNAPSHOT</version>
+            <version>0.8.5-rc1</version>
             <type>swc</type>
         </dependency>
         <dependency>
             <groupId>uk.co.ziazoo</groupId>
             <artifactId>notifier</artifactId>
-            <version>0.8.5-SNAPSHOT</version>
+            <version>0.8.5-rc1</version>
             <type>swc</type>
         </dependency>
         <dependency>
             <groupId>uk.co.ziazoo</groupId>
             <artifactId>commands</artifactId>
-            <version>0.8.5-SNAPSHOT</version>
+            <version>0.8.5-rc1</version>
             <type>swc</type>
         </dependency>
         <dependency>

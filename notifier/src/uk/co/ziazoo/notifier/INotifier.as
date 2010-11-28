@@ -7,7 +7,7 @@ package uk.co.ziazoo.notifier
   public interface INotifier
   {
     /**
-     * Sends a notification.  Anys listeners registered to the type of this
+     * Sends a notification.  Any listeners registered to the type of this
      * payload will be triggered
      * @param payload the object that will be received by listeners
      */

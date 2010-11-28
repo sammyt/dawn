@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>uk.co.ziazoo</groupId>
 		<artifactId>dawn</artifactId>
-		<version>0.8.5-SNAPSHOT</version>
+		<version>0.8.5-rc1</version>
 	</parent>
 	<properties>
 		<flexversion>3.5.0.12683</flexversion>

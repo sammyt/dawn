@@ -85,7 +85,7 @@ package uk.co.ziazoo.command
     [Test]
     public function createByInjector():void
     {
-      var injector = Injector.createInjector();
+      var injector:IInjector = Injector.createInjector();
 
       injector.map(IInjector).toInstance(injector);
       injector.map(IQueryBuilder).toInstance(new Fussy().query());
