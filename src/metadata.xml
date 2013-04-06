@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotations version="1.0">
+
+	<metadata name="Execute" description="Use within a command class. Marks the method that will be executed when the command is called. Command parameters will be casted to match parameters of this method.">
+		<context name="method"/>
+	</metadata>
+	
+	<metadata name="Provider" description="Use within an injection factory. Marks the method that should be used for generating instances to be injected.">
+		<context name="method"/>
+	</metadata>
+	
+	<metadata name="PostConstruct" description="Marks the method that should be called when all dependencies have been injected.">
+		<context name="method"/>
+	</metadata>
+	
+	<metadata name="Inject" description="Marks a dependency for injection. Note that constructors parameters of managed instances are automatically injected, you do not need to annotate the constructor with this tag.">
+		<context name="variable">
+		<attribute name="name" type="String" description="Name of a particular instance of value to be injected. Works only on properties ; for methods, use the [Named] metadata tag."/>
+		</context>
+		<context name="setter"/>
+		<context name="method"/>
+		
+	</metadata>
+	
+	<metadata name="Named" description="Names this dependency for injection resolving">
+		<context name="variable"/>
+		<context name="setter"/>
+		<context name="method"/>
+		
+		<attribute name="name" type="String" required="true" description="The name identifiying a particular instance set to be injected."/>
+		<attribute name="index" type="Number" required="true" description="If the named dependency is mapped to a class, allows to specify the instance index to be injected (TO BE CONFIRMED!!!)"/>
+	</metadata>
+	
+</annotations>
+
