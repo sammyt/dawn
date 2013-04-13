@@ -18,10 +18,13 @@ package uk.co.ziazoo.injector.impl
       this.reflector = reflector;
     }
     
-    public function map( clazz:Class ):IMappingBuilder
+    public function map( clazz:Class, transient:Boolean = false ):IMappingBuilder
     {
       var builder:IMappingBuilder = new MappingBuilder( clazz, reflector, this );
-      builders.push( builder );
+	  if (!transient)
+	  {
+		  builders.push( builder );
+	  }
       
       builder.to( clazz );
       
