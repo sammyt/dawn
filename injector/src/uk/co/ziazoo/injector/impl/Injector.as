@@ -184,7 +184,17 @@ package uk.co.ziazoo.injector.impl
     
     private function getMapping( object:Object, name:String = "" ):IMapping
     {
-      return mapper.getMapping( getClass( object ), name );
+		var mapping:IMapping;
+		if (object is Class)
+		{
+			mapping = mapper.getMapping( getClass( object ), name );
+		}
+		else
+		{
+			mapping = mapper.map(getClass(object), true).toInstance(object).mapping;
+		}
+		
+      return mapping;
     }
     
     private function getClass( object:Object ):Class
