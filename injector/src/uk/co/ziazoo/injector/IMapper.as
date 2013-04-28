@@ -2,7 +2,7 @@ package uk.co.ziazoo.injector
 {	
   public interface IMapper
   {
-    function map( clazz:Class ):IMappingBuilder;
+    function map( clazz:Class, transient:Boolean=false ):IMappingBuilder;
     
     function getMapping( type:Class, name:String = "" ):IMapping;
     

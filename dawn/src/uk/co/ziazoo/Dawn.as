@@ -11,15 +11,32 @@ package uk.co.ziazoo
   
   public class Dawn implements IInjector
   {
-    private var injector:IInjector;
-    private var bus:INotificationBus;
-    private var commands:ICommandMap;
+    private var _injector:IInjector;
+	public function get injector():IInjector
+	{
+		return _injector;
+	}
+	
+	
+    private var _bus:INotificationBus;
+	public function get bus():INotificationBus
+	{
+		return _bus;
+	}
+	
+	
+    private var _commands:ICommandMap;
+	public function get commands():ICommandMap
+	{
+		return _commands;
+	}
+	
     
     public function Dawn()
     {
-      injector = Injector.createInjector();
-      bus = new NotificationBus();
-      commands = new CommandMap( injector, bus );
+      _injector = Injector.createInjector();
+      _bus = new NotificationBus();
+      _commands = new CommandMap( injector, bus );
       
       map( IInjector ).toInstance( injector );
       map( INotificationBus ).toInstance( bus );
